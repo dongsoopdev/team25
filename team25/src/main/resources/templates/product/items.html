@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>상품 추가</title>
+    <title>아이템 상세보기</title>
 
 
     <!--부트스트랩-->
@@ -29,51 +29,39 @@
 
 
 
-    <div class="container">
-        <h2 th:text="#{page.addItem}"></h2>
-        <div class="form-container">
-            <form th:action="@{/item/add}" th:object="${item}" method="post">
+    <div class="contents" style="clear:both;width:100%;padding-top:100px;">
+        <div class="splash-container" style="clear:both;padding:40px;padding-top:150px;">
+
+            <h2 style="border-bottom:2px solid #333;" class="title">아이템 목록</h2>
+
+            <div class="">
+                <button type="buttion" class="button" th:onclick="|location.href='@{/item/add}'|">아이템 추가</button>
+            </div>
+
+            <div class ="item-area">
                 <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>상품명</th>
+                        <th>가격</th>
+                        <th>수량</th>
+
+                    </tr>
+                    </thead>
                     <tbody>
-                    <tr>
-                        <th><label for="itemName" th:text="#{lable.item.itemName}"></label></th>
+                    <tr th:each="item : ${itemList}">
+                        <td th:text="${item.id}"></td>
+                        <td><a th:href="@{/templates/product/get/${item.id}}">[[${item.itemName}]]</a></td>
+                        <td th:text="${item.price}"></td>
+                        <td th:text="${item.quantity}"></td>
                     </tr>
-                    <td>
-                        <input type="text" id="itemName" name="itemName" th:field="*{itemName}" th:placeholder="#{page.pleaseInputName}">
-                    </td>
-
-                    <tr>
-                        <th><label for="price" th:text="#{lable.item.price}"></label></th>
-                    </tr>
-                    <td>
-                        <input type="text" id="price" name="price" th:field="*{price}" th:placeholder="#{page.pleaseInputPrice}">>
-                    </td>
-
-                    <tr>
-                        <th><label for="quantity" th:text="#{lable.item.quantity}"></label></th>
-                    </tr>
-                    <td>
-                        <input type="text" id="quantity" name="quantity" th:field="*{quantity}" th:placeholder="#{page.pleaseInputQuantity}">>
-                    </td>
-
-                    <tr>
-                        <td colspan="2">
-                            <button type="submit" class="button" th:text="#{button.add}" > 상품 등록 </button>
-                            <button type="reset" class="button"  th:text="#{button.cancle}"> 취소 </button>
-                          <button type="button" class="button" th:onclick="|location.href='@{/item/update/items'|"> 아이템 목록 </button>
-                        </td>
-                    </tr>
-
                     </tbody>
-
                 </table>
 
-            </form>
+            </div>
         </div>
     </div>
-
-
-
 
 
 

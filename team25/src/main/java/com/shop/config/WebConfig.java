@@ -1,7 +1,7 @@
 package com.shop.config;
 
-import com.shop.service.ItemService;
-import com.shop.service.ItemServiceImpl;
+import com.shop.service.ProductService;
+import com.shop.service.ProductServiceImpl;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ public class WebConfig {
 
 
     @Bean
-    public ItemService itemService(){ return new ItemServiceImpl(); }
+    public ProductService productService(){ return new ProductServiceImpl(); }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -36,7 +36,7 @@ public class WebConfig {
         // 자원의 경로는 mvcMatchers 로
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/","/**").permitAll()
                 .antMatchers("/login", "/join", "/idCheck", "/emailCheck", "/joinPro").permitAll()
                 .mvcMatchers("/","/templates/**","/ex/**","/resource/**","/css/**", "/js/**", "/images/**").permitAll()
                 .anyRequest().authenticated();
