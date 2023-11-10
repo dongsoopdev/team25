@@ -1,7 +1,10 @@
-/*
+
 package com.shop.config;
 
 
+import com.shop.domain.User;
+import com.shop.domain.UserRole;
+import com.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //인증 관리자
+//이 클래스 안하면 기본로그인임
 @Component
 public class AuthProvider implements AuthenticationProvider {
 
@@ -25,25 +29,26 @@ public class AuthProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String name = (String) authentication.getPrincipal(); // 로그인 창에 입력한 name
+        String username = (String) authentication.getPrincipal(); // 로그인 창에 입력한 id
         String password = (String) authentication.getCredentials(); // 로그인 창에 입력한 password
 
         PasswordEncoder passwordEncoder = userService.passwordEncoder();
         UsernamePasswordAuthenticationToken token;
-        Euser userVo = userService.getByName(name);
+        User userVo = userService.getByName(username);
+        UserRole userRole = userService.getUserRole(userVo.getId());
 
-        if (userVo != null && passwordEncoder.matches(password, userVo.getPassword())) { // 일치하는 user 정보가 있는지 확인
+        if (userVo != null && passwordEncoder.matches(password, userVo.getPwd())) { // 일치하는 user 정보가 있는지 확인
             List<GrantedAuthority> roles = new ArrayList<>();
-            if (userVo.getLev().equals("ADMIN")) {
+          if (userRole.getRoleId()==1) {
                 roles.add(new SimpleGrantedAuthority("ADMIN")); // 권한 부여
-            } else if (userVo.getLev().equals("ADMIN")) {
-                roles.add(new SimpleGrantedAuthority("EMP")); // 권한 부여
+            } else if (userRole.getRoleId()==2) {
+                roles.add(new SimpleGrantedAuthority("TEACHER")); // 권한 부여
             } else {
                 roles.add(new SimpleGrantedAuthority("USER")); // 권한 부여
             }
 
             // name를 principal로 사용할때
-            token = new UsernamePasswordAuthenticationToken(userVo.getName(), null, roles);
+            token = new UsernamePasswordAuthenticationToken(userVo.getUserId(), null, roles);
 
             // id를 principal로 사용할때
             //token = new UsernamePasswordAuthenticationToken(userVo.getId(), null, roles);
@@ -60,4 +65,4 @@ public class AuthProvider implements AuthenticationProvider {
     public boolean supports(Class<?> authentication) {
         return true;
     }
-}*/
+}

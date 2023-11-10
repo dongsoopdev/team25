@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+
 <!-- HEADER -->
 <header>
+
     <!-- TOP HEADER -->
     <div id="top-header">
         <div class="container">
@@ -12,8 +16,9 @@
             <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
         </ul>-->
             <ul class="header-links pull-right">
-                <li><a href="#">로그인 </a></li>
+                <li><a th:href="@{/user/login}">로그인 </a></li>
                 <li><a href="#">회원가입</a></li>
+
             </ul>
         </div>
     </div>
@@ -171,8 +176,10 @@
     </nav>
     <!-- /NAVIGATION -->
 
-
 </header>
 <!-- /HEADER -->
+
+
+
 
 
