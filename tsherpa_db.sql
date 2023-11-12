@@ -1,3 +1,5 @@
+CREATE DATABASE tsherpa;
+
 USE tsherpa;
 
 -- DROP TABLE role;
@@ -15,7 +17,7 @@ INSERT INTO role VALUES(DEFAULT, 'STAFF');
 INSERT INTO role VALUES(DEFAULT, 'USER');
 
 
-DROP TABLE USER;
+-- DROP TABLE USER;
 CREATE TABLE user(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,   -- 고유번호
 	userId VARCHAR(255) NOT NULL, 	        -- 로그인아이디
@@ -133,10 +135,10 @@ SELECT * FROM review;
 
 
 -- 카테고리
--- drop table category;
+drop table category;
 CREATE TABLE category(
-	cateno BIGINT PRIMARY KEY AUTO_INCREMENT,  --카테고리고유번호
-	catename VARCHAR(100) NOT NULL,         --카테고리명
+	cateno BIGINT PRIMARY KEY AUTO_INCREMENT,  # 카테고리고유번호
+	catename VARCHAR(100) NOT NULL             #  카테고리명
 );
 DESC category;
 SELECT * FROM category;
@@ -147,15 +149,15 @@ SELECT * FROM category;
 -- drop table product;
 CREATE TABLE product(
 	pno BIGINT PRIMARY KEY AUTO_INCREMENT,  #상품고유번호
-	cateno BIGINT PRIMARY KEY AUTO_INCREMENT,  #카테고리번호
+	cateno BIGINT,                         #카테고리번호
 	pname VARCHAR(100) NOT NULL,         #상품명
-	pcomment VARCHAR(2000) 				    #상품설명
+	pcomment VARCHAR(2000),              #상품설명
 	price INT DEFAULT 1000,              #상품가격	
-	quality VARCHAR(20),					 	 #최상 / 상 / 중 / 중하 /최하
+	quality VARCHAR(20),		     #최상 / 상 / 중 / 중하 /최하
 	imgsrc1 VARCHAR(300),                #상품이미지 (썸네일)
 	imgsrc2 VARCHAR(300),                #상품이미지 (상품상세이미지)
 	imgsrc3 VARCHAR(300),                #상품이미지 (임시이미지)
-	resdate timestamp DEFAULT CURRENT_TIMESTAMP()       #상품등록일
+	resdate timestamp DEFAULT CURRENT_TIMESTAMP(),       #상품등록일
 	FOREIGN KEY(cateno) REFERENCES category(cateno) ON DELETE CASCADE -- cateno를 category테이블의 cateno를 이용해 외래키로 사용
 );
 DESC product;
