@@ -3,27 +3,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.UserMapper">
     <insert id="save">
-        insert into user values (DEFAULT, #{userId}, #{name}, #{pwd}, #{email}, ${address}, #{tel}, default, default)
+        insert into user values (DEFAULT, #{userId}, #{userName}, #{pwd}, #{email}, #{address}, #{tel}, DEFAULT, DEFAULT)
     </insert>
-
     <select id="findAll" resultType="com.shop.domain.User">
         select * from user
     </select>
-
     <select id="findById" resultType="com.shop.domain.User">
         select * from user where id = #{id}
     </select>
-
     <select id="findByUserId" resultType="com.shop.domain.User">
         select * from user where userId = #{userId}
     </select>
-
+    <select id="findByEmail" resultType="com.shop.domain.User">
+        select * from user where email = #{email}
+    </select>
     <select id="getLatestUser" resultType="com.shop.domain.User">
         select * from user order by id desc limit 0,1
     </select>
-
     <update id="update">
-        update user set name=#{name}, pwd=#{pwd}, address=#{address}, tel=#{tel} where id = #{id}
+        update user set userName=#{userName}, pwd=#{pwd}, email=#{email}, tel=#{tel} where id=#{id}
     </update>
-
+    <insert id="setUserRole">
+        insert into userRole values (#{userId}, #{roleId})
+    </insert>
+    <select id="getUserRole">
+        select * from userRole where userId = #{userId}
+    </select>
+    <select id="getRole">
+        select * from role where id=#{id}
+    </select>
 </mapper>
