@@ -8,14 +8,33 @@ import java.util.List;
 
 public interface UserService {
 
-    public void save(User user, Integer roleId);
-    public List<User> findAll();
-    public User findById(Long id);
-    public User findByUserId(String username);
-    public User findByEmail(String email);
-    public User getLatestUser();
-    public void update(User user);
+    //회원 가입
+    void save(User user, Integer roleId);
+
+    //회원 전체 조회
+    List<User> findAll();
+
+    //회원 고유 번호 찾기
+    User findById(Long id);
+
+    //회원 아이디 찾기
+    User findByUserId(String userId);
+
+    //회원 이메일 찾기
+    User findByEmail(String email);
+
+    //최근 가입 회원 찾기
+    User getLatestUser();
+
+    //회원 정보 수정
+    void update(User user);
+
+    //로그인 처리
     public User loginPro(User user);
-    public UserRole getUserRole(Long userId);
+
+    //회원 권한 가져오기
+    UserRole getUserRole(Long id);
+
+    //비밀번호 암호화
     public PasswordEncoder passwordEncoder();
 }

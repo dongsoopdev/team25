@@ -27,14 +27,14 @@ public class WebConfig {
         return new BCryptPasswordEncoder();
     }
 
-    //@Bean
-    //public UserService userService() { return new UserServiceImpl(); }
+    @Bean
+    public UserService userService() { return new UserServiceImpl(); }
 
     //@Bean
     //public ProductService productService(){ return new ProductServiceImpl(); }
 
 
-    @Bean
+    /*@Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
@@ -50,6 +50,6 @@ public class WebConfig {
     @Bean
     public static ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
         return new ServletListenerRegistrationBean<>(new HttpSessionEventPublisher());
-    }
+    }*/
 
 }

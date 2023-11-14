@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRole {
-    private Long userId;
-    private Long roleId;
+    private Long id; // 전 userId
+    private int roleId; // 전 id
 }
