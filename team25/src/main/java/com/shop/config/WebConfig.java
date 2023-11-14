@@ -2,6 +2,8 @@ package com.shop.config;
 
 import com.shop.service.ProductService;
 import com.shop.service.ProductServiceImpl;
+import com.shop.service.UserService;
+import com.shop.service.UserServiceImpl;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,12 +22,19 @@ import java.util.Arrays;
 @Configuration
 public class WebConfig {
 
+    @Bean
+    public BCryptPasswordEncoder PasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
-    public ProductService productService(){ return new ProductServiceImpl(); }
+    public UserService userService() { return new UserServiceImpl(); }
+
+    //@Bean
+    //public ProductService productService(){ return new ProductServiceImpl(); }
 
 
-    @Bean
+    /*@Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
@@ -41,6 +50,6 @@ public class WebConfig {
     @Bean
     public static ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
         return new ServletListenerRegistrationBean<>(new HttpSessionEventPublisher());
-    }
+    }*/
 
 }

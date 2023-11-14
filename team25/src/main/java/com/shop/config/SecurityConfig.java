@@ -1,46 +1,36 @@
 package com.shop.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.shop.service.ProductService;
+import com.shop.service.ProductServiceImpl;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.sql.DataSource;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-    @Autowired
-    private DataSource dataSource;
-
-    //스프링 datasource 가져와서 알아서 내부에서 인증처리
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder()) //알아서 비번 암호화
-                .usersByUsernameQuery ("select userId,pwd,enabled "  //인증처리
-                        + "from user "
-                        + "where userId = ?")
-                .authoritiesByUsernameQuery("select u.userId, r.roleName " //권한처리
-                        + "from userRole ur inner join user u on ur.userId =u.id "
-                        +  "inner join role r on ur.roleId = r.id "
-                        + "where u.userName = ?");
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public static PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public ProductService productService() {
+        return new ProductServiceImpl();
     }
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -49,29 +39,29 @@ public class SecurityConfig {
         // 자원의 경로는 mvcMatchers 로
         http
                 .authorizeRequests()
-                .antMatchers("/","/**").permitAll()
-                .antMatchers("/user/login", "/user/join", "/user/joinpro","/user/idCheck", "/user/emailCheck").permitAll()
+                .antMatchers("/", "/**", "/ex").permitAll()
+                .antMatchers("/member/login", "/member/join", "/member/joinPro", "/member/idCheck", "/member/emailCheck").permitAll()
+                //.mvcMatchers("/","/templates/**","/ex/**","/resource/**","/css/**", "/js/**", "/images/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/teacher/**").hasAnyRole("ADMIN","TEACHER")
-                .antMatchers("/user/update", "/user/out","/user/updatePro").hasAnyRole("USER","ADMIN","TEACHER")
-                .mvcMatchers("/","/templates/**","/ex/**","/resource/**","/css/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/member/update", "/member/out", "/member/updatePro").hasAnyRole("USER", "TEACHER", "ADMIN")
                 .anyRequest().authenticated();
 
         // login 설정
         http
                 .formLogin()
-                .loginPage("/user/login")    // GET 요청 (login form을 보여줌)
-                .loginProcessingUrl("/user/auth")    // POST 요청 (login 창에 입력한 데이터를 처리)
+                .loginPage("/member/login")    // GET 요청 (login form을 보여줌)
+                .loginProcessingUrl("/member/auth")    // POST 요청 (login 창에 입력한 데이터를 처리)
                 .usernameParameter("userId")	// login에 필요한 id 값을 email로 설정 (default는 username)
-                .passwordParameter("pwd")	// login에 필요한 password 값을 password(default)로 설정
+                .passwordParameter("password")	// login에 필요한 password 값을 password(default)로 설정
                 .defaultSuccessUrl("/");	// login에 성공하면 /로 redirect
 
         // logout 설정
         http
                 .logout()
-                .logoutUrl("/user/logout")
+                .logoutUrl("/member/logout")
                 .invalidateHttpSession(true)
-                .logoutSuccessUrl("/");	// logout에 성공하면 /로 redirect
+                .logoutSuccessUrl("/");	// logout에 성공하면 /로 redirec
 
         //cors 방지 해제
         http.csrf().disable().cors().disable();
@@ -86,6 +76,24 @@ public class SecurityConfig {
 
         return http.build();
 
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+
+    @Bean
+    public static ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean<>(new HttpSessionEventPublisher());
     }
 
     @Bean

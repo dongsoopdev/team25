@@ -2,60 +2,60 @@ CREATE DATABASE tsherpa;
 
 USE tsherpa;
 
--- DROP TABLE role;
+-- 로그인 로그아웃 테이블
 CREATE TABLE role(
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	roleName VARCHAR(20) DEFAULT NULL -- 'USER' / 'TEACHER' / 'ADMIN'
+	roleId INT PRIMARY KEY AUTO_INCREMENT,
+	roleName VARCHAR(255) DEFAULT NULL -- '1:USER' / '2:TEACHER' / '3:ADMIN'
 );
+
+DROP TABLE role;
+
+-- role 더미
+INSERT INTO role VALUES (DEFAULT, 'ADMIN'); -- 1
+INSERT INTO role VALUES (DEFAULT, 'TEACHER'); -- 2
+INSERT INTO role VALUES (DEFAULT, 'STAFF'); -- 3
+INSERT INTO role VALUES (DEFAULT, 'MANAGER'); -- 4
+INSERT INTO role VALUES (DEFAULT, 'USER'); -- 5
+
 DESC role;
 SELECT * FROM role;
 
-INSERT INTO role VALUES(DEFAULT, 'ADMIN');
-INSERT INTO role VALUES(DEFAULT, 'TEACHER');
-INSERT INTO role VALUES(DEFAULT, 'MANAGER');
-INSERT INTO role VALUES(DEFAULT, 'STAFF');
-INSERT INTO role VALUES(DEFAULT, 'USER');
-
-
--- DROP TABLE USER;
+-- 유저
 CREATE TABLE user(
-	id BIGINT PRIMARY KEY AUTO_INCREMENT,   -- 고유번호
+	id INT PRIMARY KEY AUTO_INCREMENT,  -- 고유번호
 	userId VARCHAR(255) NOT NULL, 	        -- 로그인아이디
-	pwd VARCHAR(300) NOT NULL,             -- 비밀번호
-	userName VARCHAR(255) NOT NULL,               -- 이름
+	userName VARCHAR(255) NOT NULL,          -- 이름
+	password VARCHAR(300) NOT NULL,          -- 비밀번호
+	active VARCHAR(20)DEFAULT 'JOIN', -- JOIN(활동 중) / DORMANT(휴면 중) / WITHDRAW(탈퇴)
 	email VARCHAR(100) NOT NULL,
 	address VARCHAR(300),
 	tel VARCHAR(20),
+	POINT INT,
 	regdate DATETIME DEFAULT CURRENT_TIME,
-	active VARCHAR(20)DEFAULT 'JOIN',    -- JOIN(활동 중) / DORMANT(휴면 중) / WITHDRAW(탈퇴)
-	UNIQUE KEY uk_name(userId,email)
+	CONSTRAINT key_name UNIQUE(userId)
 );
 DESC user;
 SELECT * FROM user;
 
--- DROP TABLE userRole;
+-- 유저 권한 등록 테이블
 CREATE TABLE userRole(
-	userId BIGINT,
-	roleId INT
+	id INT NOT NULL, -- user의 id
+	roleId INT NOT NULL, -- role의 roleId
+	PRIMARY KEY(id,roleId)	
 );
-DESC userRole;
-SELECT * FROM userRole;
+
+-- userRole 더미
+INSERT INTO userrole VALUES(1, 1);
+INSERT INTO userrole VALUES(2, 5);
+DESC user_role;
+SELECT * FROM user_role;
 
 
-INSERT INTO user VALUES (DEFAULT, 'admin', 1234, '관리자','admin@edu.co.kr','서울특별시 구로구','010-0000-0000', DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'kim', 1234, '김기태','kim@edu.co.kr','서울특별시 구로구', '010-1111-1111', DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'ku', 1234, '구예진','ku@edu.co.kr','서울특별시 구로구','010-2222-2222',DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'lee', 1234, '이슬비','lee@edu.co.kr','서울특별시 구로구','010-3333-3333',DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'shin', 1234, '신승원','shin@edu.co.kr','서울특별시 구로구','010-4444-4444',DEFAULT, DEFAULT);
-INSERT INTO user VALUES (DEFAULT, 'so', 1234, '이소윤','so@edu.co.kr','서울특별시 구로구','010-5555-5555', DEFAULT, DEFAULT);		
-
-
-UPDATE user SET pwd='$2a$10$AmGZdqMKiNhpxtCd/z.tyuYL2r5rUmBCeFzzn4xZrwDYWHePyYiEa'; 
+UPDATE user SET password='$2a$10$AmGZdqMKiNhpxtCd/z.tyuYL2r5rUmBCeFzzn4xZrwDYWHePyYiEa'; 
 
 
 
-SELECT a.id, a.userName, b.roleId FROM user a INNER JOIN userRole b ON a.id=b.userId WHERE a.id=1;
-UPDATE userRole SET roleId=1 WHERE userId=1;
+
 
 
 
@@ -135,10 +135,10 @@ SELECT * FROM review;
 
 
 -- 카테고리
-drop table category;
+-- drop table category;
 CREATE TABLE category(
-	cateno BIGINT PRIMARY KEY AUTO_INCREMENT,  # 카테고리고유번호
-	catename VARCHAR(100) NOT NULL             #  카테고리명
+	cateno INT PRIMARY KEY AUTO_INCREMENT,  --카테고리고유번호
+	catename VARCHAR(100) NOT NULL,         --카테고리명
 );
 DESC category;
 SELECT * FROM category;
@@ -148,16 +148,15 @@ SELECT * FROM category;
 -- 상품
 -- drop table product;
 CREATE TABLE product(
-	pno BIGINT PRIMARY KEY AUTO_INCREMENT,  #상품고유번호
-	cateno BIGINT,                         #카테고리번호
-	pname VARCHAR(100) NOT NULL,         #상품명
-	pcomment VARCHAR(2000),              #상품설명
-	price INT DEFAULT 1000,              #상품가격	
-	quality VARCHAR(20),		     #최상 / 상 / 중 / 중하 /최하
-	imgsrc1 VARCHAR(300),                #상품이미지 (썸네일)
-	imgsrc2 VARCHAR(300),                #상품이미지 (상품상세이미지)
-	imgsrc3 VARCHAR(300),                #상품이미지 (임시이미지)
-	resdate timestamp DEFAULT CURRENT_TIMESTAMP(),       #상품등록일
+	pno INT PRIMARY KEY AUTO_INCREMENT,  --상품고유번호
+	cateno INT PRIMARY KEY AUTO_INCREMENT,  --카테고리번호
+	pname VARCHAR(100) NOT NULL,         --상품명
+	pcomment VARCHAR(2000) NOT NULL,     --상품설명
+	price INT DEFAULT 1000,              --상품가격
+	imgsrc1 VARCHAR(300),                --상품이미지 (썸네일)
+	imgsrc2 VARCHAR(300),                --상품이미지 (상품상세이미지)
+	imgsrc3 VARCHAR(300),                --상품이미지 (임시이미지)
+	resdate timestamp DEFAULT CURRENT_TIMESTAMP()       --상품등록일
 	FOREIGN KEY(cateno) REFERENCES category(cateno) ON DELETE CASCADE -- cateno를 category테이블의 cateno를 이용해 외래키로 사용
 );
 DESC product;
@@ -166,8 +165,17 @@ SELECT * FROM product;
 
 
 
+-- 장바구니
+-- DROP TABLE cart;
+CREATE TABLE cart(
+	
+);
+DESC cart;
+SELECT * FROM cart;
 
--- 찜하기
+
+
+-- 좋아요
 -- DROP TABLE like;
 CREATE TABLE like(
 	
@@ -205,17 +213,3 @@ DESC delivery;
 SELECT * FROM delivery;
 
 
-
-
-
-
-
-
--- 외래 키 체크를 비활성화
--- SET FOREIGN_KEY_CHECKS = 0;
-
--- 테이블 삭제
--- DROP TABLE lecture;
-
--- 외래 키 체크를 다시 활성화
- -- SET FOREIGN_KEY_CHECKS = 1;

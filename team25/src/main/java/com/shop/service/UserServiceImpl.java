@@ -5,122 +5,84 @@ import com.shop.domain.User;
 import com.shop.domain.UserRole;
 import com.shop.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService{
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
 
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    //트랜잭션 설정
+
 
     @Override
-    public User save(User user) {
-        // 1.비밀번호 인코딩
-        String encodedPassword = passwordEncoder.encode(user.getPwd());
-        user.setPwd(encodedPassword);
-
-        // 2.회원 활성화 여부 - 기본적으로 enabled로 설정
-        //user.setEnabled(true);
-
-        // 3. role정보 추가
-        Role role = new Role();
-        role.setId(1L);
-        user.getRoles().add(role);
-        return userMapper.save(user);
+    @Transactional
+    public void save(User user, Integer roleId) {
+        user.setPassword(passwordEncoder.encode(user.getPassword())); // 비밀번호 암호화
+        userMapper.save(user); // 회원 가입
+        Role searchRole = userMapper.getRole(roleId); //현재 가입한 회원의 등급id
+        User searchUser = userMapper.getLatestUser(); //현재 가입한 회원의 id
+        UserRole userRole = new UserRole(searchUser.getId(), searchRole.getRoleId()); //현재 가입한 회원의 id와 등급id 가져오기
+        userMapper.setUserRole(userRole); //UserRole 테이블에 정보 저장
     }
 
     @Override
     public List<User> findAll() {
-        return null;
-    }
-
-    @Override
-    public User getUserById(Long id) {
-        return null;
-    }
-
-    @Override
-    public User getByEmail(String email) {
-        return null;
-    }
-
-    @Override
-    public User getByName(String name) {
-        return null;
+        return userMapper.findAll();
     }
 
     @Override
     public User findById(Long id) {
-        return null;
+        return userMapper.findById(id);
     }
 
     @Override
-    public User findByUserId(Long userId) {
-        return null;
+    public User findByUserId(String userId) {
+        return userMapper.findByUserId(userId);
     }
 
     @Override
-    public User findByPw(String email, String tel, String name) {
-        return null;
+    public User findByEmail(String email) {
+        return userMapper.findByEmail(email);
     }
 
     @Override
     public User getLatestUser() {
-        return null;
+        return userMapper.getLatestUser();
     }
 
     @Override
-    public int userJoin(User user) {
-        return 0;
+    public void update(User user) {
+        userMapper.update(user);
     }
 
     @Override
-    public int updateUser(User user) {
-        return 0;
+    public User loginPro(User user) {
+        User userData = userMapper.findByUserId(user.getUserId());
+        if(passwordEncoder.matches(user.getPassword(), userData.getPassword())){
+            return userData;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public int updateLevel(String name, String lev) {
-        return 0;
+    public UserRole getUserRole(Long id) {
+        UserRole userRole = userMapper.getUserRole(id);
+        return userRole;
     }
 
-    @Override
-    public int removeUser(String name) {
-        return 0;
-    }
-
-    @Override
-    public int updatePasswordNoChange(User user) {
-        return 0;
-    }
-
-    @Override
-    public int getWithdraw(Long id) {
-        return 0;
-    }
-
-    @Override
-    public int getActivate(String name) {
-        return 0;
-    }
-
-    @Override
-    public int getDormant(String name) {
-        return 0;
-    }
 
     @Override
     public PasswordEncoder passwordEncoder() {
-        return null;
+        return this.passwordEncoder;
     }
-
-    @Override
-    public UserRole getUserRole(Long id) { return userMapper.getUserRole(id); }
 }

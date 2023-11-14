@@ -8,26 +8,33 @@ import java.util.List;
 
 public interface UserService {
 
-    public User save(User user);
-    public List<User> findAll();
+    //회원 가입
+    void save(User user, Integer roleId);
 
-    public User getUserById(Long id);
-    public User getByEmail(String email);
-    public User getByName(String name);
-    public User findById(Long id);
-    public User findByUserId(Long userId);
-    public User findByPw(String email, String tel, String name);
-    public User getLatestUser();
+    //회원 전체 조회
+    List<User> findAll();
 
-    public int userJoin(User user);
-    public int updateUser(User user);
-    public int updateLevel(String name, String lev);
-    public int removeUser(String name);
+    //회원 고유 번호 찾기
+    User findById(Long id);
 
-    public int updatePasswordNoChange(User user);
-    public int getWithdraw(Long id);
-    public int getActivate(String name);
-    public int getDormant(String name);
-    public PasswordEncoder passwordEncoder();
+    //회원 아이디 찾기
+    User findByUserId(String userId);
+
+    //회원 이메일 찾기
+    User findByEmail(String email);
+
+    //최근 가입 회원 찾기
+    User getLatestUser();
+
+    //회원 정보 수정
+    void update(User user);
+
+    //로그인 처리
+    public User loginPro(User user);
+
+    //회원 권한 가져오기
     UserRole getUserRole(Long id);
+
+    //비밀번호 암호화
+    public PasswordEncoder passwordEncoder();
 }
