@@ -30,8 +30,8 @@ public class WebConfig {
     @Bean
     public UserService userService() { return new UserServiceImpl(); }
 
-    //@Bean
-    //public ProductService productService(){ return new ProductServiceImpl(); }
+    @Bean
+    public ProductService productService(){ return new ProductServiceImpl(); }
 
 
     /*@Bean
