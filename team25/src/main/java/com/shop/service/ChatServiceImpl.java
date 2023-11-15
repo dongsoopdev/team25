@@ -54,7 +54,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public ChatMsg chatMsgAdd(ChatMsg chatMsg) {
-        Long roomId = chatMsg.getRoomId();
+        Long roomId = (long) chatMsg.getRoomId();              //이부분 형변환(int->long) 맞는지 확인필요
         ChatRoom room = chatRoomMapper.chatRoomGet(roomId);
         if(room.getStatus().equals("BLOCK")){
             return null; // 차단된 경우에는 메시지 전송하지 않음.

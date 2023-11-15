@@ -62,11 +62,11 @@ public class ChatMsgController {
         }
     }
 
-    private void sendRoomMessage(String msg, int roomId, ChatMsg chat){
+    private void sendRoomMessage(String msg, Long roomId, ChatMsg chat){
         try {
             for(Session s : ChatMsgController.sessionList){
                 Map<String, List<String>> requetParameter = s.getRequestParameterMap();
-                int sroomId = Integer.parseInt(requetParameter.get("roomId").get(0));
+                Long sroomId = Long.parseLong(requetParameter.get("roomId").get(0));
                 if(sroomId == roomId){
                     s.getBasicRemote().sendText(msg);
                 }

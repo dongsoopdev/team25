@@ -25,7 +25,7 @@ public class ChatRoomController {
 
     @GetMapping("chat")
     public String loadHome(Model model, HttpServletRequest request){
-        Long pno = Long.parseLong((request.getParameter("pno"));
+        Long pno = Long.parseLong(request.getParameter("pno"));
         List<ChatRoom> chatRooms = service.chatRoomListProduct(pno);
 
         model.addAttribute("chatRooms", chatRooms);
@@ -34,7 +34,7 @@ public class ChatRoomController {
 
     @GetMapping("chat2")
     public String loadHome2(Model model, HttpServletRequest request){
-        Long pno = Long.parseLong((request.getParameter("pno"));
+        Long pno = Long.parseLong(request.getParameter("pno"));
         List<ChatRoom> chatRooms = service.chatRoomListProduct(pno);
 
         model.addAttribute("chatRooms", chatRooms);
