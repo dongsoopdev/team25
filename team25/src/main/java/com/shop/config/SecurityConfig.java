@@ -1,5 +1,6 @@
 package com.shop.config;
 
+import com.shop.domain.UserFailLogin;
 import com.shop.service.ProductService;
 import com.shop.service.ProductServiceImpl;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -20,15 +22,21 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig{
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public UserFailLogin loginFailHandler(){
+        return new UserFailLogin();
+    }
 
+    //접근 보안 설정 관리자
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+
         // 권한에 따라 허용하는 url 설정
         // .antMatchers는 /login, /join 페이지는 모두 허용, 다른 페이지는 인증된 사용자만 허용
         // 자원의 경로는 mvcMatchers 로
@@ -46,7 +54,8 @@ public class SecurityConfig {
         http
                 .formLogin()
                 .loginPage("/member/login")    // GET 요청 (login form을 보여줌)
-                .loginProcessingUrl("/member/auth")    // POST 요청 (login 창에 입력한 데이터를 처리)
+                .loginProcessingUrl("/login")    // POST 요청 (login 창에 입력한 데이터를 처리)
+                .failureHandler(loginFailHandler())
                 .usernameParameter("userId")	// login에 필요한 id 값을 email로 설정 (default는 username)
                 .passwordParameter("password")	// login에 필요한 password 값을 password(default)로 설정
                 .defaultSuccessUrl("/");	// login에 성공하면 /로 redirect
@@ -73,26 +82,7 @@ public class SecurityConfig {
 
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
-
-    @Bean
-    public static ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
-        return new ServletListenerRegistrationBean<>(new HttpSessionEventPublisher());
-    }
-
-    @Bean
-    public SessionRegistry sessionRegistry() {
+    private SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();
     }
 }

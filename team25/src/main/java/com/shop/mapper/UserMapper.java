@@ -10,11 +10,11 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    //회원 가입
-    void save(User user);
 
-    //회원 전체 조회
-    List<User> findAll();
+    List<User> getUserList(); // User 테이블 가져오기
+
+    //회원 가입
+    void userInsert(User user);
 
     //회원 고유 번호 찾기
     User findById(Long id);
@@ -29,7 +29,10 @@ public interface UserMapper {
     User getLatestUser();
 
     //회원 정보 수정
-    void update(User user);
+    void userEdit(User user);
+
+    //회원 탈퇴
+    void userDelete(User user);
 
     //회원 권한 설정
     void setUserRole(UserRole userRole);
