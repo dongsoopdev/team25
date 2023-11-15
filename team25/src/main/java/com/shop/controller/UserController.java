@@ -1,6 +1,8 @@
 package com.shop.controller;
 
+import com.shop.domain.Product;
 import com.shop.domain.User;
+import com.shop.service.ProductService;
 import com.shop.service.UserService;
 import com.shop.util.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -21,6 +24,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProductService productService;
 
     //회원 가입
     @GetMapping("/join")
@@ -82,17 +87,22 @@ public class UserController {
     }
 
 
+
+    //내가 등록한 상품
     @GetMapping("/myProductList")
-    public String myProductList(Model model, Principal principal){
-        //로그인 후 사용자 정보 가져와서 모델에 추가
-        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //String loginId  = authentication.getName();
+    public String myProductList(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId  = authentication.getName();
 
-        String loginId = principal.getName();
-        User user = userService.findByUserId(loginId);
 
-        return "member/myProductList";
+        List<Product> myproList = productService.findByUserId(userId);
+        System.out.println(myproList);
+        model.addAttribute("myproList", myproList);
+        return "member/myProductList2";
     }
+
+
+
 
 
 

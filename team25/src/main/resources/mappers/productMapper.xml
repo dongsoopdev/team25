@@ -15,8 +15,14 @@
         select * from product where id = #{id}
     </select>
 
+
+    <select id="findByUserId" resultType="com.shop.domain.Product">
+        select * from product where seller = #{seller} order by resdate desc
+    </select>
+
+
     <insert id="save">
-        insert into product values (default, #{cateno}, #{pname},#{pcomment}, #{price}, #{seller} , #{quantity}, #{quality}, #{imgsrc1},#{imgsrc2}, #{imgsrc3},#{imgsrc4}, #{imgPath}, default  )
+        insert into product values (default, #{cateno}, #{pname},#{pcomment}, #{price}, #{seller} , #{quantity}, #{quality}, default, #{imgsrc1},#{imgsrc2}, #{imgsrc3},#{imgsrc4},  default  )
     </insert>
 
 

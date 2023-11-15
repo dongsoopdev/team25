@@ -31,6 +31,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findByUserId(String seller) {
+        return productMapper.findByUserId(seller);
+    }
+
+
+    @Override
     public void save(Product product) {
         productMapper.save(product);
     }

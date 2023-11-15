@@ -11,6 +11,7 @@ public interface ProductService {
     public void save(Product product);
     public List<Product> findAll();      //상품 전체
     public Product getProduct(Long pno);    //상품 상세
+    public List<Product> findByUserId(String seller);
     public Product getLatestproduct();      //최신 상품
 
 

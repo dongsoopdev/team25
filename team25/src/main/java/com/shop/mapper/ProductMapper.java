@@ -11,6 +11,7 @@ public interface ProductMapper {
     void save(Product item);
     List<Product> findAll();      //상품 전체
     Product getProduct(Long pno);    //상품 상세
+    List<Product> findByUserId(String seller);
     Product getLatestproduct();      //최신 상품
 
     void addProduct(Product product);

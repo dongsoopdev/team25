@@ -87,14 +87,6 @@ public class ProductController {
 
 
 
-    //상세보기
-    @GetMapping("/productDetail")
-    public String productDetail(Model model){
-
-        return "product/productDetail";
-    }
-
-
 
     @GetMapping("/addProduct")
     public String addForm(Model model){
@@ -105,6 +97,10 @@ public class ProductController {
 
     @PostMapping("/addProduct")
     public String addproduct(Product product,  MultipartFile[] imgFile) throws Exception {
+        //로그인 후 사용자 정보 가져와서 모델에 추가
+        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //String loginId  = authentication.getName();
+
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
