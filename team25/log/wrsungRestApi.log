@@ -2589,3 +2589,25 @@ java.sql.SQLSyntaxErrorException: (conn=94) You have an error in your SQL syntax
 2023-11-15 11:32:20.955 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
 2023-11-15 11:32:20.978 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8085 (http) with context path ''
 2023-11-15 11:32:20.985 INFO  [restartedMain] [com.shop.ShopApplication] - Started ShopApplication in 1.431 seconds (JVM running for 1.855)
+2023-11-15 11:32:23.249 INFO  [background-preinit] [o.h.validator.internal.util.Version] - HV000001: Hibernate Validator 6.2.5.Final
+2023-11-15 11:32:23.252 INFO  [restartedMain] [com.shop.ShopApplication] - Starting ShopApplication using Java 17.0.7 on FULL8-006 with PID 7896 (D:\kuyejin\team_pro5\team25\build\classes\java\main started by db400tea in D:\kuyejin\team_pro5\team25)
+2023-11-15 11:32:23.253 INFO  [restartedMain] [com.shop.ShopApplication] - No active profile set, falling back to 1 default profile: "default"
+2023-11-15 11:32:23.393 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-15 11:32:23.393 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-15 11:32:23.999 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8085 (http)
+2023-11-15 11:32:24.004 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8085"]
+2023-11-15 11:32:24.004 INFO  [restartedMain] [org.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2023-11-15 11:32:24.005 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/9.0.82]
+2023-11-15 11:32:24.045 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2023-11-15 11:32:24.045 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 652 ms
+2023-11-15 11:32:24.311 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@9ee56dc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@45771a1b, org.springframework.security.web.context.SecurityContextPersistenceFilter@4546066f, org.springframework.security.web.header.HeaderWriterFilter@ca022fb, org.springframework.security.web.authentication.logout.LogoutFilter@5800ec91, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7c161872, org.springframework.security.web.session.ConcurrentSessionFilter@21992506, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e87fd28, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7e2a00b8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5d0c5f77, org.springframework.security.web.session.SessionManagementFilter@7d45c95d, org.springframework.security.web.access.ExceptionTranslationFilter@18c8ccb2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5c1ec8]
+2023-11-15 11:32:24.396 INFO  [restartedMain] [o.s.b.a.w.s.WelcomePageHandlerMapping] - Adding welcome page template: index
+2023-11-15 11:32:24.495 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2023-11-15 11:32:24.505 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8085"]
+2023-11-15 11:32:24.515 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8085 (http) with context path ''
+2023-11-15 11:32:24.521 INFO  [restartedMain] [com.shop.ShopApplication] - Started ShopApplication in 1.442 seconds (JVM running for 1.821)
+2023-11-15 11:32:33.177 INFO  [http-nio-8085-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-15 11:32:33.177 INFO  [http-nio-8085-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2023-11-15 11:32:33.178 INFO  [http-nio-8085-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 1 ms
+2023-11-15 11:32:35.574 INFO  [http-nio-8085-exec-1] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Starting...
+2023-11-15 11:32:35.631 INFO  [http-nio-8085-exec-1] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Start completed.
