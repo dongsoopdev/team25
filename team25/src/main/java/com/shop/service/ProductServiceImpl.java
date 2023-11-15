@@ -37,8 +37,9 @@ public class ProductServiceImpl implements ProductService {
 
 
     public void saveProduct(Product product, MultipartFile[] imgFiles) throws IOException {
-
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
+        // static은 정적폴더라서 늦게 업로드됨
+        //String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
+        String projectPath = "D:/team25_upload/";
 
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];

@@ -4,7 +4,7 @@
 <mapper namespace="com.shop.mapper.ProductMapper">
 
     <select id="findAll" resultType="com.shop.domain.Product">
-        select * from product
+        select * from product order by resdate desc
     </select>
 
     <select id="getProduct" resultType="com.shop.domain.Product">

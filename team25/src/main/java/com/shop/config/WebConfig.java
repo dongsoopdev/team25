@@ -4,6 +4,8 @@ import com.shop.service.ProductService;
 import com.shop.service.ProductServiceImpl;
 import com.shop.service.UserService;
 import com.shop.service.UserServiceImpl;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +18,13 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
 @Configuration
-public class WebConfig {
+public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     public BCryptPasswordEncoder PasswordEncoder(){
@@ -33,6 +37,16 @@ public class WebConfig {
     @Bean
     public ProductService productService(){ return new ProductServiceImpl(); }
 
+    @Value("${resource.path}")
+    private String resourcePath;
+
+    @Value("${upload.path}")
+    private String uploadPath;
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(uploadPath).addResourceLocations(resourcePath);
+    }
 
     /*@Bean
     CorsConfigurationSource corsConfigurationSource() {

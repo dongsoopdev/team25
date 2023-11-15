@@ -99,11 +99,18 @@
                             <li class="sale" th:text="${product.getQuality()}">상품 상태</li>
                         </ul>
 
-
+                        <!-- 구매자 일때 -->
                         <div class="add-to-cart">
                              <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 찜 </button>
                              <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 셀파톡 </button>
                              <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 바로 구매 </button>
+                        </div>
+
+
+                        <!-- 판매자 본인 일때 -->
+                        <div class="add-to-cart">
+                            <button class="add-to-cart-btn"  th:onclick="|location.href='@{/user/myProductList/(id=${id})}'| "> 내 상점 관리 </button>
+
                         </div>
 
                       <!--  <ul class="product-btns">
