@@ -2,39 +2,53 @@ CREATE DATABASE tsherpa;
 
 USE tsherpa;
 
+-- 로그인 로그아웃 테이블
 CREATE TABLE role(
-	role_id INT PRIMARY KEY AUTO_INCREMENT,
-	role VARCHAR(255) DEFAULT NULL -- 'USER' / 'TEACHER' / 'ADMIN'
+	roleId INT PRIMARY KEY AUTO_INCREMENT,
+	roleName VARCHAR(255) DEFAULT NULL
 );
+
+DROP TABLE role;
+
+-- role 더미
+INSERT INTO role VALUES (DEFAULT, 'ADMIN'); -- 1
+INSERT INTO role VALUES (DEFAULT, 'TEACHER'); -- 2
+INSERT INTO role VALUES (DEFAULT, 'STAFF'); -- 3
+INSERT INTO role VALUES (DEFAULT, 'MANAGER'); -- 4
+INSERT INTO role VALUES (DEFAULT, 'USER'); -- 5
+
 DESC role;
 SELECT * FROM role;
 
--- DROP TABLE USER;
+-- 유저
 CREATE TABLE user(
-	user_id INT PRIMARY KEY AUTO_INCREMENT,  -- 고유번호
-	login_id VARCHAR(255) NOT NULL, 	        -- 로그인아이디
-	username VARCHAR(255) NOT NULL,          -- 이름
+	id bigINT PRIMARY KEY AUTO_INCREMENT,  -- 고유번호
+	userId VARCHAR(255) NOT NULL, 	        -- 로그인아이디
+	userName VARCHAR(255) NOT NULL,          -- 이름
 	password VARCHAR(300) NOT NULL,          -- 비밀번호
 	active VARCHAR(20)DEFAULT 'JOIN', -- JOIN(활동 중) / DORMANT(휴면 중) / WITHDRAW(탈퇴)
 	email VARCHAR(100) NOT NULL,
 	address VARCHAR(300),
 	tel VARCHAR(20),
-	regdate DATETIME DEFAULT CURRENT_TIME
-	CONSTRAINT key_name UNIQUE(login_id)
+	POINT INT DEFAULT 0,
+	regdate DATETIME DEFAULT CURRENT_TIME,
+	CONSTRAINT key_name UNIQUE(userId)
 );
 DESC user;
 SELECT * FROM user;
 
-CREATE TABLE user_role(
-	user_id INT NOT null,
-	role_id INT NOT null,
-	PRIMARY KEY(user_id,role_id)	
+-- 유저 권한 등록 테이블
+CREATE TABLE userRole(
+	id BIGINT NOT NULL, -- user의 id
+	roleId INT NOT NULL, -- role의 roleId
+	PRIMARY KEY(id,roleId)	
 );
+
+-- userRole 더미
+INSERT INTO userrole VALUES(1, 1);
+INSERT INTO userrole VALUES(2, 5);
 DESC user_role;
 SELECT * FROM user_role;
-
-
-
 
 
 UPDATE user SET password='$2a$10$AmGZdqMKiNhpxtCd/z.tyuYL2r5rUmBCeFzzn4xZrwDYWHePyYiEa'; 
@@ -199,3 +213,25 @@ DESC delivery;
 SELECT * FROM delivery;
 
 
+-- 채팅
+USE tsherpa;
+
+CREATE TABLE chatRoom (
+	roomId BIGINT PRIMARY KEY AUTO_INCREMENT,
+	userId VARCHAR(20) NOT NULL,		-- 구매자
+	pno INT NOT NULL,						-- 상품번호
+	status VARCHAR(50) DEFAULT 'ON', -- ON(진행), OFF(차단)
+	UNIQUE (userId, pno)					-- userId와 pno 묶기
+);
+
+INSERT INTO chatRoom VALUES (DEFAULT, 'so', 1, DEFAULT, '');
+
+CREATE TABLE chatMessage (
+	chatId BIGINT PRIMARY KEY AUTO_INCREMENT,
+	type VARCHAR(20) NOT NULL, 							-- 채팅 타입: ENTER, TALK, LEAVE, NOTICE
+	roomId BIGINT NOT NULL, 									-- 채팅방 번호
+	sender VARCHAR(20) NOT NULL,							-- 송신자
+	message VARCHAR(2000) NOT NULL,						-- 채팅메세지
+	status VARCHAR(50) DEFAULT 'UNREAD', 				-- 읽음 여부
+	chatDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP		-- 발송시간
+);
