@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en">
+
+<!-- head include-->
+<head th:replace="~{layout/head.html :: head}">
+    <title>제목</title>
+</head>
+
+
+<body>
+    <!-- header include-->
+    <header class="header" id="hd">
+        <div th:insert="~{layout/header :: header}"></div>
+    </header>
+
+    <!--contens 필수-->
+    <div class="contents">
+
+
+        <section class="page" id="page1">
+            <div class="page_wrap">
+                <h2 class="page_tit">${catename } 도서 목록</h2>
+                <table class="table" >
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>제목</th>
+                        <th>가격</th>
+                        <th>정보</th>
+                        <th>비고</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="pro" items="${proList }">
+                        <tr>
+                            <td class="item1">
+                                <div class="img_tit"><a href="${path}/Product.do?no=${pro.no}"><img src="${path }/storage/${pro.imgSrc1 }"/></a></div>
+                            </td>
+                            <td class="item2">
+                                <p>${pro.pname}</p>
+                            </td>
+                            <td class="item3">
+                                <p>${pro.price}</p>
+                            </td>
+                            <td class="item4">
+                                <p>${pro.cname }</p>
+                                <p>출간일 ${pro.resdate}</p>
+                            </td>
+                            <td class="item5">
+                                <c:if test="${not empty sid}">
+                                    <c:set var="isLiked" value="${likedProductIds.contains(pro.no)}" />
+                                    <a href="${path }/AddPayment.do?pno=${pro.no }" class="btn1">구매하기</a>
+                                    <a href="${path }/AddCart.do?pno=${pro.no }&cate=${pro.cate}" class="btn1">장바구니</a>
+                                    <c:choose>
+                                        <c:when test="${isLiked }">
+                                            <%-- 눌러도 새로고침 안되게 처리 ///                         현재 로그인한 사용자 ID                 pro.no을 저장하기 위한 역할 --%>
+                                            <a href="javascript:void(0);" onclick="toggleLike(${pro.no}, '${sessionScope.sid}');" class="likebtn" data-product-id="${pro.no}" style="color: #ff5050">♥</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="javascript:void(0);" onclick="toggleLike(${pro.no}, '${sessionScope.sid}');" class="likebtn" data-product-id="${pro.no}"  style="color: #b4b4b4">♥</a>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                </c:if>
+                                <script>
+                                    function toggleLike(productNo, ${sid }) {
+                                        $.ajax({
+                                            url: "ProductLike.do",
+                                            method: "POST",
+                                            data: {
+                                                pno: productNo,
+                                                sid: ${sid }
+                                            },
+                                            success: function(response) {
+                                                var likeButton = $("[data-product-id='" + productNo + "']");
+
+                                                if (response.trim() === "liked") {
+                                                    alert("상품을 좋아요 했습니다!");
+                                                    likeButton.css("color","#ff5050");
+                                                } else if (response.trim() === "unliked") {
+                                                    alert("상품의 좋아요를 취소했습니다.");
+                                                    likeButton.css("color","#b4b4b4");                                                } else {
+                                                    alert("오류가 발생했습니다. 다시 시도해주세요.");
+                                                }
+                                            }
+                                        });
+                                    }
+                                    $(document).ready(function() {
+                                        // 좋아요 상태를 기반으로 버튼 색 변경
+                                        $(".inbtn").each(function() {
+                                            var isLiked = $(this).hasClass("liked");
+                                            if (isLiked) {
+                                                $(this).addClass("liked");
+                                            }
+                                        });
+                                    });
+                                </script>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+                <script>
+                    $(document).ready( function () {
+                        $('#myTable').DataTable({
+                            pageLength : 5,
+                            order: [[3, 'desc']], // 0번째 컬럼을 기준으로 내림차순 정렬
+                            info: false,
+                            dom: 't<f>p',
+                            language: {
+                                emptyTable: '등록된 상품이 없습니다.'
+                            }
+
+                        });
+                    } );
+                    $(document).ready(function() {
+                        $('.dataTables_paginate').css({
+                            'textAlign':'left',
+                            'float': 'none',
+                            'margin-top':'10px',
+                        });
+                        $('.dataTables_filter').css({
+                            'float': 'left',
+                            'margin-top':'14px',
+                            'margin-right':'280px'
+                        });
+                        $('#myTable_paginate').css({
+                            'margin-right':'120px'
+                        });
+
+
+                    });
+
+                </script>
+                <div class="btn_group">
+                    <c:if test="${sid eq 'admin' }">
+                        <a href="${path}/AddProduct.do" class="inbtn">상품 등록</a>
+                        <a href="${path}/AddReceive.do" class="inbtn">상품 입고</a>
+                        <a href="${path}/UpdateReceive.do" class="inbtn">추가 입고</a>
+                    </c:if>
+                </div>
+            </div>
+        </section>
+
+
+
+
+    </div>
+
+    <!--footer include--->
+    <footer class="footer" id="ft">
+        <div th:insert="~{layout/footer :: footer}"></div>
+    </footer>
+
+    <!-- script 사용시-->
+    <th:block layout:fragment="script">
+
+    </th:block>
+</body>
+
+</html>

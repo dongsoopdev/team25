@@ -299,7 +299,8 @@ header{
 
 
 .contents{
-  padding-top: 250px;
+  padding-top: 350px;
+  padding-bottom: 500px;
 }
 
 
@@ -1569,7 +1570,7 @@ header{
 }
 
 .product-details .add-to-cart {
-  margin-bottom: 30px;
+  margin: 30px 0px;
 }
 
 .product-details .add-to-cart .add-to-cart-btn {

@@ -4,6 +4,8 @@ import com.shop.domain.User;
 import com.shop.service.UserService;
 import com.shop.util.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -78,5 +80,23 @@ public class UserController {
         modelMap.addAttribute("user", user);
         return "member/myinfo";
     }
+
+
+    @GetMapping("/myProductList")
+    public String myProductList(Model model, Principal principal){
+        //로그인 후 사용자 정보 가져와서 모델에 추가
+        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //String loginId  = authentication.getName();
+
+        String loginId = principal.getName();
+        User user = userService.findByUserId(loginId);
+
+        return "member/myProductList";
+    }
+
+
+
+
+
 
 }
