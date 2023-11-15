@@ -2727,7 +2727,7 @@ th {
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     padding: 8px;
     line-height: 1.42857143;
-    vertical-align: top;
+    /*vertical-align: top;*/
     border-top: 1px solid #ddd
 }
 
@@ -2836,6 +2836,7 @@ table td[class*=col-], table th[class*=col-] {
         overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: 1px solid #ddd
+
     }
 
     .table-responsive > .table {
@@ -3691,6 +3692,11 @@ a.btn.disabled, fieldset[disabled] a.btn {
     color: #d9534f;
     background-color: #fff
 }
+
+.btn-secondary {
+    background: gainsboro;
+}
+
 
 .btn-link {
     font-weight: 400;

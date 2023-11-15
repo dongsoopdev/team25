@@ -8,9 +8,9 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
 
-    int save(Product item);
-    List<Product> productList();      //상품 전체
-    Product getproduct(Long pno);    //상품 상세
+    void save(Product item);
+    List<Product> findAll();      //상품 전체
+    Product getProduct(Long pno);    //상품 상세
     Product getLatestproduct();      //최신 상품
 
     void addProduct(Product product);

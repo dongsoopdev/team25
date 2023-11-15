@@ -23,46 +23,46 @@
         <!-- container -->
         <div class="container">
             <!-- row -->
-            <div class="row">
+            <div class="row" th:each="product: ${product}">
                 <!-- Product main img -->
                 <div class="col-md-5 col-md-push-2">
                     <div id="product-main-img">
                         <div class="product-preview">
-                            <img src="./img/product01.png" alt="">
+                            <img th:src="@{'/upload/' + ${product.getImgsrc1()}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="./img/product03.png" alt="">
+                            <img th:src="@{'/upload/' + ${product.getImgsrc2()}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="./img/product06.png" alt="">
+                            <img th:src="@{'/upload/' + ${product.getImgsrc3()}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="./img/product08.png" alt="">
+                            <img th:src="@{'/upload/' + ${product.getImgsrc4()}}" alt="">
                         </div>
                     </div>
                 </div>
                 <!-- /Product main img -->
 
                 <!-- Product thumb imgs -->
-                <div class="col-md-2  col-md-pull-5">
+                <div class="col-md-2  col-md-pull-5" >
                     <div id="product-imgs">
                         <div class="product-preview">
-                            <img src="./img/product01.png" alt="">
+                            <img th:src="@{'/upload/' + ${product.getImgsrc1()}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="./img/product03.png" alt="">
+                            <img th:src="@{'/upload/' + ${product.getImgsrc2()}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="./img/product06.png" alt="">
+                            <img th:src="@{'/upload/' + ${product.getImgsrc3()}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="./img/product08.png" alt="">
+                            <img th:src="@{'/upload/' + ${product.getImgsrc4()}}" alt="">
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                 <!-- Product details -->
                 <div class="col-md-5">
                     <div class="product-details">
-                        <h2 class="product-name">product name goes here</h2>
+                        <h3 class="product-name" th:text="${product.getPname()}"><a href="#">상품이름</a></h3>
                         <div>
                             <div class="product-rating">
                                 <i class="fa fa-star"></i>
@@ -80,51 +80,44 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star-o"></i>
                             </div>
-                            <a class="review-link" href="#">10 Review(s) | Add your review</a>
+<!--                            <a class="review-link" href="#">10 Review(s) | Add your review</a>-->
                         </div>
                         <div>
-                            <h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
-                            <span class="product-available">In Stock</span>
+                            <h4 class="product-price" th:text="${product.getPrice()}">가격 <!--<del class="product-old-price">$990.00</del>--></h4>
+                            <span class="product-available">원</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p th:text="${product.getPcomment()}"></p>
 
-                        <div class="product-options">
-                            <label>
-                                Size
-                                <select class="input-select">
-                                    <option value="0">X</option>
-                                </select>
-                            </label>
-                            <label>
-                                Color
-                                <select class="input-select">
-                                    <option value="0">Red</option>
-                                </select>
-                            </label>
-                        </div>
+                        <ul class="product-links">
+                        <li> 상품 수량 </li>
+                        <li class="sale" th:text="${product.getQuantity()}">상품 수량 </li>
+                        </ul>
 
+
+                        <ul class="product-links">
+                            <li> 상품 상태 </li>
+                            <li class="sale" th:text="${product.getQuality()}">상품 상태</li>
+                        </ul>
+
+                        <!-- 구매자 일때 -->
                         <div class="add-to-cart">
-                            <div class="qty-label">
-                                Qty
-                                <div class="input-number">
-                                    <input type="number">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
-                            </div>
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 바로 구매 </button>
+                             <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 찜 </button>
+                             <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 셀파톡 </button>
+                             <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 바로 구매 </button>
                         </div>
 
-                        <ul class="product-btns">
+
+                        <!-- 판매자 본인 일때 -->
+                        <div class="add-to-cart">
+                            <button class="add-to-cart-btn"  th:onclick="|location.href='@{/user/myProductList/(id=${id})}'| "> 내 상점 관리 </button>
+
+                        </div>
+
+                      <!--  <ul class="product-btns">
                             <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
                             <li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
                         </ul>
 
-                        <ul class="product-links">
-                            <li>Category:</li>
-                            <li><a href="#">Headphones</a></li>
-                            <li><a href="#">Accessories</a></li>
-                        </ul>
 
                         <ul class="product-links">
                             <li>Share:</li>
@@ -132,7 +125,7 @@
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-                        </ul>
+                        </ul>-->
 
                     </div>
                 </div>
@@ -383,8 +376,8 @@
                         </div>
                         <div class="product-body">
                             <p class="product-category">Category</p>
-                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                            <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                            <h3 class="product-name" th:text="${product.getPname()}">상품이름</a></h3>
+                            <h4 class="product-price" th:text="${product.getPrice()}">가격 </h4>
                             <div class="product-rating">
                             </div>
                             <div class="product-btns">
@@ -540,6 +533,8 @@
 <footer class="footer" id="ft">
     <div th:insert="~{layout/footer :: footer}"></div>
 </footer>
+
+<script th:src="@{/js/main.js}"></script>
 
 <!-- script 사용시-->
 <th:block layout:fragment="script">

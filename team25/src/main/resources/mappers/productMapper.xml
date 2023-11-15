@@ -4,7 +4,11 @@
 <mapper namespace="com.shop.mapper.ProductMapper">
 
     <select id="findAll" resultType="com.shop.domain.Product">
-        select * from product
+        select * from product order by resdate desc
+    </select>
+
+    <select id="getProduct" resultType="com.shop.domain.Product">
+        select * from product where pno = #{pno}
     </select>
 
     <select id="findById" resultType="com.shop.domain.Product">
@@ -12,7 +16,7 @@
     </select>
 
     <insert id="save">
-        insert into product values (default, #{productName}, #{price}, #{quantity})
+        insert into product values (default, #{cateno}, #{pname},#{pcomment}, #{price}, #{seller} , #{quantity}, #{quality}, #{imgsrc1},#{imgsrc2}, #{imgsrc3},#{imgsrc4}, #{imgPath}, default  )
     </insert>
 
 
@@ -20,3 +24,4 @@
         select * from product order by id desc limit 0,1
     </select>
 </mapper>
+
