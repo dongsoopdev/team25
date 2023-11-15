@@ -1,40 +1,79 @@
 package com.shop.service;
 
+
+import com.shop.domain.Role;
 import com.shop.domain.User;
 import com.shop.domain.UserRole;
+import com.shop.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface UserService {
 
-    //회원 가입
-    void save(User user, Integer roleId);
+@Service
+public class UserService {
+    @Autowired
+    private UserMapper userMapper;
 
-    //회원 전체 조회
-    List<User> findAll();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    //회원 고유 번호 찾기
-    User findById(Long id);
+    public List<User> getUserList(){
+        return userMapper.getUserList();
+    }
 
-    //회원 아이디 찾기
-    User findByUserId(String userId);
+    @Transactional
+    public void userInsert(User user, Integer userId){
+        if(!user.getUserId().equals("") && !user.getEmail().equals("")){
+            user.setPassword(passwordEncoder.encode(user.getPassword())); // password 암호화 해서 저장
+            userMapper.userInsert(user); // 회원가입 실시
+            Role searchRole = userMapper.getRole(userId);
+            User searchUser = userMapper.getLatestUser(); // 현재 가입한 회원의 ID
+            UserRole userRole = new UserRole(searchUser.getId(), searchRole.getRoleId());
+            userMapper.setUserRole(userRole); // UserRole 테이블로 저장 ~
+        }
+    }
 
-    //회원 이메일 찾기
-    User findByEmail(String email);
+    public User findById(Long id){
+        return userMapper.findById(id);
+    }
 
-    //최근 가입 회원 찾기
-    User getLatestUser();
+    public User findByEmail(String email){
+        return userMapper.findByEmail(email);
+    }
 
-    //회원 정보 수정
-    void update(User user);
+    public User findByUserId(String userId){
+        return userMapper.findByUserId(userId);
+    }
 
-    //로그인 처리
-    public User loginPro(User user);
+    public User getLatestUser(){
+        return userMapper.getLatestUser();
+    }
 
-    //회원 권한 가져오기
-    UserRole getUserRole(Long id);
+    public void edit(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userMapper.userEdit(user);
+    }
 
-    //비밀번호 암호화
-    public PasswordEncoder passwordEncoder();
+    //회원 탈퇴
+    public void withdraw(User user){
+        userMapper.userDelete(user);
+    }
+
+    public void setUserRole(UserRole userRole){
+        userMapper.setUserRole(userRole);
+    }
+
+    public UserRole getUserRole(Long id){
+        return userMapper.getUserRole(id);
+    }
+
+    public PasswordEncoder passwordEncoder(){
+        return this.passwordEncoder;
+    }
+
 }
