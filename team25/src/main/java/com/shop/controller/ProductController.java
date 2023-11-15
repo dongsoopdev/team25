@@ -3,6 +3,8 @@ package com.shop.controller;
 import com.shop.domain.Product;
 import com.shop.domain.ProductFile;
 import com.shop.service.ProductService;
+
+import groovy.util.logging.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
+@Log4j2
 @RequestMapping("/product")
 public class ProductController {
 
@@ -34,12 +37,14 @@ public class ProductController {
         return "product/productList";
     }
 
-    @GetMapping("/getProduct/{productID}")
-    public String getProduct(@PathVariable long pno,Model model){
+    @GetMapping("/getProduct/{pno}")
+    public String getProduct(@PathVariable("pno") long pno, Model model) {
         Product product = productService.getProduct(pno);
-        model.addAttribute("product",product);
+        System.out.println(product);
+        model.addAttribute("product", product);
         return "product/productDetail";
     }
+
 
 
 

@@ -7,6 +7,10 @@
         select * from product
     </select>
 
+    <select id="getProduct" resultType="com.shop.domain.Product">
+        select * from product where pno = #{pno}
+    </select>
+
     <select id="findById" resultType="com.shop.domain.Product">
         select * from product where id = #{id}
     </select>
