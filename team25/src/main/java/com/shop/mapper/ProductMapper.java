@@ -4,6 +4,7 @@ import com.shop.domain.Product;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProductMapper {
@@ -18,4 +19,8 @@ public interface ProductMapper {
     void addProduct(Product product);
     void updateProduct(Product product);
     void deleteProduct(Long pno);
+
+    //소윤 추가 {상품의 판매상황}
+    void updateStatus(Map<String, Object> paramMap);
+
 }

@@ -32,7 +32,7 @@
 
 
     <update id ="updateProduct">
-      UPDATE product SET cateno=#{cateno}, pname=#{pname}, pcomment=#{pcomment}, price=#{price}, quantity=#{quantity}, quality=#{quality}, imgsrc1=#{imgsrc1}, imgsrc2=#{imgsrc2}, imgsrc3=#{imgsrc3}, imgsrc4=#{imgsrc4} WHERE pno=#{pno}
+        UPDATE product SET cateno=#{cateno}, pname=#{pname}, pcomment=#{pcomment}, price=#{price}, quantity=#{quantity}, quality=#{quality}, imgsrc1=#{imgsrc1}, imgsrc2=#{imgsrc2}, imgsrc3=#{imgsrc3}, imgsrc4=#{imgsrc4} WHERE pno=#{pno}
     </update>
 
     <delete id="deleteProduct">
@@ -40,7 +40,19 @@
     </delete>
 
 
-
-
+    <update id="updateStatus" parameterType="map">
+        update product
+        <set>
+            <choose>
+                <when test="num == 1">
+                    status = '판매완료'
+                </when>
+                <when test="num == 2">
+                    status = '예약중'
+                </when>
+            </choose>
+        </set>
+        where pno = #{pno}
+    </update>
 </mapper>
 
