@@ -99,6 +99,7 @@ CREATE TABLE chatMsg (
 	chatDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP		-- 발송시간
 );
 
+
 -- 소윤 시작
 -- 결제 테이블 생성 pay
 CREATE TABLE pay (

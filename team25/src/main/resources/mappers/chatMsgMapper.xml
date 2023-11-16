@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.ChatMsgMapper">
+
+    <select id="chatMsgList" resultType="com.shop.domain.ChatMsg">
+        select * from chatMsg where roomId=#{roomId} and status!='REMOVE'
+    </select>
+
+    <select id="chatMsgUnread" resultType="com.shop.domain.ChatMsg">
+        select count(*) from chatMsg where roomId=#{roomId} and status!='UNREAD'
+    </select>
+
+    <select id="chatMsgGet" resultType="com.shop.domain.ChatMsg">
+        select * from chatMsg order by chatId desc limit 1
+    </select>
+
+    <insert id="chatMsgAdd">
+        insert into chatMsg(type, roomId, sender, msg) values (#{type}, #{roomId}, #{sender}, #{msg})
+    </insert>
+
+    <update id="chatMsgUpdate">
+        update chatMsg set status='READ' where chatId=#{chatId} and sender!=#{sender}
+    </update>
+
+    <update id="chatMsgUpdates">
+        update chatMsg set status='READ' where roomId=#{roomId} and sender!=#{sender}
+    </update>
+
+    <delete id="chatMsgDelete">
+        delete from chatMsg where chatId=#{chatId}
+    </delete>
+
+</mapper>

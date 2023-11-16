@@ -117,6 +117,21 @@ public class UserController {
 
 
     //내가 등록한 상품
+    @RequestMapping("/myProList")
+    public String myProductList( Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId  = authentication.getName();
+
+
+        List<Product> myproList = productService.findByUserId(userId);
+        System.out.println(myproList);
+        model.addAttribute("myproList", myproList);
+        return "member/myProductList";
+    }
+
+
+
+    //내가 등록한 상품
     @GetMapping("/myProductList")
     public String myProductList(@RequestParam("seller") String seller, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -126,7 +141,7 @@ public class UserController {
         List<Product> myproList = productService.findByUserId(seller);
         System.out.println(myproList);
         model.addAttribute("myproList", myproList);
-        return "member/myProductList2";
+        return "member/myProductList";
     }
 
 

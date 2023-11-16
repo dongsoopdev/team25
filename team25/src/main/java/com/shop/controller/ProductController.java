@@ -1,29 +1,18 @@
 package com.shop.controller;
 
 import com.shop.domain.Product;
-import com.shop.domain.ProductFile;
-import com.shop.domain.User;
 import com.shop.service.ProductService;
 
 import groovy.util.logging.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @Log4j2
@@ -167,7 +156,7 @@ public class ProductController {
                     List<Product> myproList = productService.findByUserId(getId);
                     productService.updateProduct(product, pno, imgFile);
                     model.addAttribute("myproList", myproList);
-                    return "member/myProductList2";
+                    return "myProductList";
                 } else {
                     return "redirect:/";
                 }
@@ -199,7 +188,7 @@ public class ProductController {
                     List<Product> myproList = productService.findByUserId(getId);
                     model.addAttribute("myproList", myproList);
 
-                    return "member/myProductList2";
+                    return "myProductList";
                 } else {
                     return "redirect:/";
                 }
