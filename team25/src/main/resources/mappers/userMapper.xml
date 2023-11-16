@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.UserMapper">
-    <insert id="save">
+    <insert id="userInsert">
         insert into user values (DEFAULT, #{userId}, #{userName}, #{password}, default, #{email}, #{address}, #{tel}, default, DEFAULT)
     </insert>
-    <select id="findAll" resultType="com.shop.domain.User">
+    <select id="getUserList" resultType="com.shop.domain.User">
         select * from user
     </select>
     <select id="findById" resultType="com.shop.domain.User">
@@ -20,8 +20,8 @@
     <select id="getLatestUser" resultType="com.shop.domain.User">
         select * from user order by id desc limit 0,1
     </select>
-    <update id="update">
-        update user set userName=#{userName}, password=#{password}, address=#{address}, tel=#{tel} where id=#{id}
+    <update id="userEdit">
+        update user set userName=#{userName}, password=#{password}, email=#{email}, address=#{address}, tel=#{tel} where id=#{id}
     </update>
     <insert id="setUserRole">
         insert into userRole values (#{id}, #{roleId})
@@ -35,4 +35,7 @@
     <select id="getByuserId" resultType="com.shop.domain.User">
         select * from user where userId=#{userId}
     </select>
+    <update id="userDelete">
+        update user set active=#{active} where id=#{id}
+    </update>
 </mapper>

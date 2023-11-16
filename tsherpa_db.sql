@@ -5,7 +5,7 @@ USE tsherpa;
 -- 로그인 로그아웃 테이블
 CREATE TABLE role(
 	roleId INT PRIMARY KEY AUTO_INCREMENT,
-	roleName VARCHAR(255) DEFAULT NULL -- '1:USER' / '2:TEACHER' / '3:ADMIN'
+	roleName VARCHAR(255) DEFAULT NULL
 );
 
 DROP TABLE role;
@@ -22,7 +22,7 @@ SELECT * FROM role;
 
 -- 유저
 CREATE TABLE user(
-	id INT PRIMARY KEY AUTO_INCREMENT,  -- 고유번호
+	id bigINT PRIMARY KEY AUTO_INCREMENT,  -- 고유번호
 	userId VARCHAR(255) NOT NULL, 	        -- 로그인아이디
 	userName VARCHAR(255) NOT NULL,          -- 이름
 	password VARCHAR(300) NOT NULL,          -- 비밀번호
@@ -30,7 +30,7 @@ CREATE TABLE user(
 	email VARCHAR(100) NOT NULL,
 	address VARCHAR(300),
 	tel VARCHAR(20),
-	POINT INT,
+	POINT INT DEFAULT 0,
 	regdate DATETIME DEFAULT CURRENT_TIME,
 	CONSTRAINT key_name UNIQUE(userId)
 );
@@ -39,7 +39,7 @@ SELECT * FROM user;
 
 -- 유저 권한 등록 테이블
 CREATE TABLE userRole(
-	id INT NOT NULL, -- user의 id
+	id BIGINT NOT NULL, -- user의 id
 	roleId INT NOT NULL, -- role의 roleId
 	PRIMARY KEY(id,roleId)	
 );
