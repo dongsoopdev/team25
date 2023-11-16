@@ -213,3 +213,25 @@ DESC delivery;
 SELECT * FROM delivery;
 
 
+-- 채팅
+USE tsherpa;
+
+CREATE TABLE chatRoom (
+	roomId BIGINT PRIMARY KEY AUTO_INCREMENT,
+	userId VARCHAR(20) NOT NULL,		-- 구매자
+	pno INT NOT NULL,						-- 상품번호
+	status VARCHAR(50) DEFAULT 'ON', -- ON(진행), OFF(차단)
+	UNIQUE (userId, pno)					-- userId와 pno 묶기
+);
+
+INSERT INTO chatRoom VALUES (DEFAULT, 'so', 1, DEFAULT, '');
+
+CREATE TABLE chatMessage (
+	chatId BIGINT PRIMARY KEY AUTO_INCREMENT,
+	type VARCHAR(20) NOT NULL, 							-- 채팅 타입: ENTER, TALK, LEAVE, NOTICE
+	roomId BIGINT NOT NULL, 									-- 채팅방 번호
+	sender VARCHAR(20) NOT NULL,							-- 송신자
+	message VARCHAR(2000) NOT NULL,						-- 채팅메세지
+	status VARCHAR(50) DEFAULT 'UNREAD', 				-- 읽음 여부
+	chatDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP		-- 발송시간
+);
