@@ -4,16 +4,23 @@ import com.shop.domain.Product;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProductMapper {
 
-    int save(Product item);
-    List<Product> productList();      //상품 전체
-    Product getproduct(Long pno);    //상품 상세
-    Product getLatestproduct();      //최신 상품
+    void save(Product item);
+    List<Product> findAll();      //상품 전체
+    Product getProduct(Long pno);    //상품 상세
+    Product findByPno(Long pno);
+    List<Product> findByUserId(String seller);
 
+    Product getLatestproduct();      //최신 상품
     void addProduct(Product product);
     void updateProduct(Product product);
-    void delProduct(Long pno);
+    void deleteProduct(Long pno);
+
+    //소윤 추가 {상품의 판매상황}
+    void updateStatus(Map<String, Object> paramMap);
+
 }

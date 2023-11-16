@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en">
+
+<!-- head include-->
+<head th:replace="~{layout/head.html :: head}">
+    <title> 상품 관리 </title>
+</head>
+
+<link type="text/css" rel="stylesheet" th:href="@{/css/member/myProductList.css}">
+
+<body>
+<!-- header include-->
+<header class="header" id="hd">
+    <div th:insert="~{layout/header :: header}"></div>
+</header>
+
+<!--contens 필수-->
+<div class="contents">
+    <div class="container ">
+
+
+
+
+        <div id="ud_tab" style="">
+            <input type="radio" name="ud_tabs" id="tab1" checked>
+            <label for="tab1"><strong>상품 등록</strong></label>
+
+            <input type="radio" name="ud_tabs" id="tab2">
+            <label for="tab2"><strong>상품 관리</strong></label>
+
+            <input type="radio" name="ud_tabs" id="tab3">
+            <label for="tab3"><strong>구매 내역</strong></label>
+
+
+            <!-- 모든강좌정보  -->
+<!--
+            <div class="all_lecture_info">
+                &lt;!&ndash; 강의 등록 &ndash;&gt;
+            </div>
+-->
+
+
+            <!--상품 등록-->
+            <div id="ud_tab-content1" class="ud_content">
+
+            </div>
+
+
+
+            <!--상품 관리-->
+            <div id="ud_tab-content2" class="ud_content">
+
+                <div class="page_wrap">
+                    <h2 class="page_tit"></h2>
+                    <table class="table text-center">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="vertical-align: middle">사진</th>
+                            <th class="text-center" style="vertical-align: middle">판매상태</th>
+                            <th class="text-center" style="vertical-align: middle">상품명</th>
+                            <th class="text-center" style="vertical-align: middle">가격</th>
+                            <th class="text-center" style="vertical-align: middle">등록일</th>
+                            <th class="text-center" style="vertical-align: middle">비고</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="pro: ${myproList}">
+                            <td>
+                                <div class="img_tit">
+                                    <a th:href="@{'/product/getProduct/' + ${pro.pno}}">
+                                        <img th:src="@{'/upload/' + ${pro.getImgsrc1()}}" alt="" style="    width: 150px;">
+                                    </a>
+                                </div>
+                            </td>
+
+                            <td>
+                                <p th:text="${pro.getStatus()}"></p>
+                            </td>
+
+                            <td>
+                                <p th:text="${pro.getPname()}"></p>
+                            </td>
+
+
+
+                            <td>
+                                <p th:text="${pro.getPrice()}"></p>
+                            </td>
+
+                            <td>
+                                <p th:text="${pro.getResdate()}"></p>
+                            </td>
+
+                            <td>
+
+                                <div class="btn_group">
+                                    <a th:href="@{'/product/updateProduct/' + ${pro.pno}}" class="btn btn-primary">수정</a>
+                                    <a th:href="@{'/product/deleteProduct/' + ${pro.pno}}" class="btn btn-danger">삭제</a>
+                                </div>
+                            </td>
+
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+
+
+            <!--구매/판매 내역-->
+            <div id="ud_tab-content3" class="ud_content">
+
+
+            </div>
+
+
+           <!--스페어-->
+            <div id="ud_tab-content4" class="ud_content">
+
+
+            </div>
+
+
+            <!--스페어-->
+            <div id="ud_tab-content5" class="ud_content">
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+<!--footer include--->
+<footer class="footer" id="ft">
+    <div th:insert="~{layout/footer :: footer}"></div>
+</footer>
+
+<!-- script 사용시-->
+<th:block layout:fragment="script">
+
+</th:block>
+</body>
+
+</html>

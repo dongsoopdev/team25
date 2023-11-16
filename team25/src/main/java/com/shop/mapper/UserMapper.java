@@ -10,14 +10,36 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    void save(User user);
-    List<User> findAll();
+
+    List<User> getUserList(); // User 테이블 가져오기
+
+    //회원 가입
+    void userInsert(User user);
+
+    //회원 고유 번호 찾기
     User findById(Long id);
+
+    //회원 아이디 찾기
     User findByUserId(String userId);
+
+    //회원 이메일 찾기
     User findByEmail(String email);
+
+    //최근 가입 회원 찾기
     User getLatestUser();
-    void update(User user);
+
+    //회원 정보 수정
+    void userEdit(User user);
+
+    //회원 탈퇴
+    void userDelete(User user);
+
+    //회원 권한 설정
     void setUserRole(UserRole userRole);
-    UserRole getUserRole(Long userId);
-    Role getRole(Integer id);
+
+    //회원 권한 가져오기
+    UserRole getUserRole(Long id);
+
+    // 권한 내용 가져오기
+    Role getRole(Integer roleId);
 }

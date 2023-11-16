@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en">
+
+<!-- head include-->
+<head th:replace="~{layout/head.html :: head}">
+    <title>제목</title>
+</head>
+
+
+<body>
+<!-- header include-->
+<header class="header" id="hd">
+    <div th:insert="~{layout/header :: header}"></div>
+</header>
+
+<!--contens 필수-->
+<div class="contents">
+
+    <div class="container" style="width: 300px">
+        <form class="form-signin" method="post" th:action="@{/user/login}" >
+            <h2 class="form-signin-heading text-center">로그인</h2>
+            <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                Invalid username and password.
+            </div>
+            <div th:if="${param.logout}" class="alert alert-primary" role="alert">
+                You have been logged out.
+            </div>
+
+            <p>
+                <label for="userName" class="sr-only">ID</label>
+                <input type="text" id="userName" name="userName" class="form-control" placeholder="ID" required autofocus>
+            </p>
+            <p>
+                <label for="pwd" class="sr-only">Password</label>
+                <input type="pwd" id="pwd" name="pwd" class="form-control" placeholder="Password" required>
+            </p>
+            <!--<input name="_csrf" type="hidden" value="UUMGNQSFRs0i3-z_w4gNb2g_LUwk0lSDMjPuFN6iXe2_pgXpYScwBjfgf_0P7NXP9qU5CQxbAHRC5WSuU1HaLLiXbY6NlWGK" />-->
+            <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+        </form>
+    </div>
+
+</div>
+
+<!--footer include--->
+<footer class="footer" id="ft">
+    <div th:insert="~{layout/footer :: footer}"></div>
+</footer>
+
+<!-- script 사용시-->
+<th:block layout:fragment="script">
+
+</th:block>
+</body>
+
+</html>
