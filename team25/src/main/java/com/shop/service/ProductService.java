@@ -17,8 +17,8 @@ public interface ProductService {
 
 
     public void addProduct(Product product);
-    public void updateProduct(Product product);
-    public void delProduct(Long pno);
+    public void updateProduct(Product product, Long pno, MultipartFile[] imgFile) throws IOException;
+    public void deleteProduct(Long pno);
 
 
     public void setproductFile(ProductFile productFile);

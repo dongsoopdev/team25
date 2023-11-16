@@ -13,6 +13,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
@@ -116,16 +118,18 @@ public class UserController {
 
     //내가 등록한 상품
     @GetMapping("/myProductList")
-    public String myProductList(Model model) {
+    public String myProductList(@RequestParam("seller") String seller, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId  = authentication.getName();
 
 
-        List<Product> myproList = productService.findByUserId(userId);
+        List<Product> myproList = productService.findByUserId(seller);
         System.out.println(myproList);
         model.addAttribute("myproList", myproList);
         return "member/myProductList2";
     }
+
+
 
 
 

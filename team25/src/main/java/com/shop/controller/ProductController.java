@@ -2,13 +2,16 @@ package com.shop.controller;
 
 import com.shop.domain.Product;
 import com.shop.domain.ProductFile;
+import com.shop.domain.User;
 import com.shop.service.ProductService;
 
 import groovy.util.logging.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,9 +34,9 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/productList")
-    public String getProductAll(Model model){
+    public String getProductAll(Model model) {
         List<Product> productList = productService.findAll();
-        model.addAttribute("product",productList );
+        model.addAttribute("product", productList);
         return "product/productList";
     }
 
@@ -44,9 +47,6 @@ public class ProductController {
         model.addAttribute("product", product);
         return "product/productDetail";
     }
-
-
-
 
 
     // 상품 상세 페이지 - 판매자, 구매자 가능
@@ -84,19 +84,17 @@ public class ProductController {
 //    }
 
 
-
-
-
-
+    // add form
     @GetMapping("/addProduct")
-    public String addForm(Model model){
+    public String addForm(Model model) {
         model.addAttribute("product", new Product());
         return "product/addProduct";
     }
 
 
+    // 상품 등록 처리
     @PostMapping("/addProduct")
-    public String addproduct(Product product,  MultipartFile[] imgFile) throws Exception {
+    public String addproduct(Product product, MultipartFile[] imgFile) throws Exception {
         //로그인 후 사용자 정보 가져와서 모델에 추가
         //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //String loginId  = authentication.getName();
@@ -118,11 +116,105 @@ public class ProductController {
             return "redirect:/";
         }*/
 
-        return  "redirect:productList";
+        return "redirect:/product/productList";
+    }
+
+
+    @GetMapping("/updateProduct/{pno}")
+    public String updateProductForm(@PathVariable("pno") Long pno, Model model) {
+        // 사용자의 권한 확인
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null) {
+            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
+                //아이디 확인
+                String userId = authentication.getName(); // 로그인한 사용자의 아이디를 얻는 방법으로 변경
+                String getId = productService.getProduct(pno).getSeller();
+
+                // 상품을 올린 판매자 id와 현재 로그인 중인 판매자의 id가 같아야 수정 가능
+                if (getId.equals(userId)) {
+                    model.addAttribute("product", productService.getProduct(pno));
+                    return "product/updateProduct";
+                } else {
+                    return "redirect:/";
+                }
+            } else {
+                // 일반 회원이면 거절 -> main
+                return "redirect:/";
+            }
+        } else {
+            // 로그인한 사용자가 없는 경우
+            return "redirect:/";
+        }
     }
 
 
 
+
+    // 상품 수정 (POST) - 판매자만 가능
+    @PostMapping("/updateProduct/{pno}")
+    public String updateProduct(Product product, @PathVariable("pno") Long pno, Model model, MultipartFile[] imgFile) throws Exception {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
+                //아이디 확인
+                String userId = authentication.getName(); // 로그인한 사용자의 아이디를 얻는 방법으로 변경
+                String getId = productService.getProduct(pno).getSeller();
+
+                // 상품을 올린 판매자 id와 현재 로그인 중인 판매자의 id가 같아야 수정 가능
+                if (getId.equals(userId)) {
+                    List<Product> myproList = productService.findByUserId(getId);
+                    productService.updateProduct(product, pno, imgFile);
+                    model.addAttribute("myproList", myproList);
+                    return "member/myProductList2";
+                } else {
+                    return "redirect:/";
+                }
+            } else {
+                // 일반 회원이면 거절 -> main
+                return "redirect:/";
+            }
+        } else {
+            // 로그인한 사용자가 없는 경우
+            return "redirect:/";
+        }
+    }
+
+    // 상품 삭제 - 판매자만 가능
+    @GetMapping("/deleteProduct/{pno}")
+    public String productDelete(@PathVariable("pno") Long pno, Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
+                //아이디 확인
+                String userId = authentication.getName(); // 로그인한 사용자의 아이디를 얻는 방법으로 변경
+                String getId = productService.getProduct(pno).getSeller();
+
+                // 상품을 올린 판매자 id와 현재 로그인 중인 판매자의 id가 같아야 수정 가능
+                if (getId.equals(userId)) {
+
+                    productService.deleteProduct(pno);
+                    List<Product> myproList = productService.findByUserId(getId);
+                    model.addAttribute("myproList", myproList);
+
+                    return "member/myProductList2";
+                } else {
+                    return "redirect:/";
+                }
+            } else {
+                // 일반 회원이면 거절 -> main
+                return "redirect:/";
+            }
+        } else {
+            // 로그인한 사용자가 없는 경우
+            return "redirect:/";
+        }
+
+
+
+    }
 
 
 }

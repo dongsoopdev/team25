@@ -21,16 +21,14 @@
 <div class="contents">
 
 
-
-    <div class="container" style="width: 60%;">
-        <form th:action="@{/product/addProduct}" method="post" enctype="multipart/form-data">
+    <div class="container" style="width: 60%;" th:with="product=${product}">
+        <form th:action="@{'/product/updateProduct/' + ${product.pno}}" method="post" enctype="multipart/form-data">
 
            <h2>상품 수정</h2>
 
-            <table class="table">
+            <table class="table" >
+
                 <tbody>
-
-
                 <tr>
                     <th>상품 이미지</th>
                     <td colspan="2"><input type="file" name="imgFile" id="imgsrc1" class="input" placeholder="이미지1" accept=".jpg, .png" required></td>
@@ -50,7 +48,7 @@
 
                 <tr>
                     <th>상품명</th>
-                    <td colspan="2"><input type="text" name="pname" id="pname" class="input" placeholder="상품 이름 입력" required></td>
+                    <td colspan="2"><input type="text" name="pname" id="pname" class="input" th:value="${product.getPname()}" required></td>
                 </tr>
 
 
@@ -58,11 +56,13 @@
                 <tr>
                     <th>카테고리</th>
                     <td colspan="2">
-                        <select  name="cateno" id="cateno" class="select is-fullwidth" autofocus required>
-                            <option value="1" selected>초등서적</option>
-                            <option value="2">중등서적</option>
-                            <option value="3">고등서적</option>
+
+                        <select name="cateno" id="cateno" class="select is-fullwidth" autofocus required>
+                            <option value="1" >초등서적</option>
+                            <option value="2" >중등서적</option>
+                            <option value="3" >고등서적</option>
                         </select>
+
                     </td>
                 </tr>
 
@@ -79,7 +79,7 @@
                     </td>-->
                     <td>
                     <div>
-                        <input type="radio" id="bestupper" name="quality " value="최상" checked />
+                        <input type="radio" id="bestupper" name="quality " value="최상" />
                         <label for="bestupper">
                             <strong style="font-size: 15px;">새 상품 (미사용)</strong>
                             &nbsp;&nbsp;사용하지 않은 새 상품
@@ -121,19 +121,19 @@
 
                 <tr >
                     <th>가격</th>
-                    <td colspan="2" ><input type="number" name="price" id="price" class="input" placeholder="가격 입력" style="width: 50%" required></td>
+                    <td colspan="2" ><input type="number" name="price" id="price" class="input" th:value="${product.getPrice()}"  style="width: 50%" required></td>
                 </tr>
 
 
                 <tr>
                     <th>설명</th>
-                   <td colspan="2"> <textarea name="pcomment" id="pcomment" cols="50" class="textarea" rows="8" style="width: 100%" placeholder="상품 설명 입력" required></textarea></td>
+                   <td colspan="2"> <textarea name="pcomment" id="pcomment" cols="50" class="textarea" th:value="${product.getPcomment()}" rows="8" style="width: 100%"  required></textarea></td>
                 </tr>
 
 
                 <tr>
                     <th>수량</th>
-                    <td colspan="2"><input type="number" name="quantity" id="quantity" class="input" placeholder="수량 입력" required></td>
+                    <td colspan="2"><input type="number" name="quantity" id="quantity" class="input" th:value="${product.getQuantity()}" required></td>
                 </tr>
 
 
@@ -195,7 +195,7 @@
                 <tr>
                     <td colspan="2">
                         <input type="reset" value="취소" class="btn btn-danger" onclick="window.history.back();">
-                        <input type="submit" value="상품등록" class="btn btn-primary">
+                        <input type="submit" value="상품수정" class="btn btn-primary">
                         <a th:href="@{product/productList}"  type="button" class="btn btn-secondary" style="float: right;">상품목록</a>
                     </td>
                 </tr>

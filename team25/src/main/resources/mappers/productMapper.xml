@@ -11,8 +11,8 @@
         select * from product where pno = #{pno}
     </select>
 
-    <select id="findById" resultType="com.shop.domain.Product">
-        select * from product where id = #{id}
+    <select id="findByPno" resultType="com.shop.domain.Product">
+        select * from product where pno = #{pno}
     </select>
 
 
@@ -29,5 +29,18 @@
     <select id="getLatestproduct" resultType="com.shop.domain.Product">
         select * from product order by id desc limit 0,1
     </select>
+
+
+    <update id ="updateProduct">
+      UPDATE product SET cateno=#{cateno}, pname=#{pname}, pcomment=#{pcomment}, price=#{price}, quantity=#{quantity}, quality=#{quality}, imgsrc1=#{imgsrc1}, imgsrc2=#{imgsrc2}, imgsrc3=#{imgsrc3}, imgsrc4=#{imgsrc4} WHERE pno=#{pno}
+    </update>
+
+    <delete id="deleteProduct">
+        delete from product where pno = #{pno}
+    </delete>
+
+
+
+
 </mapper>
 
