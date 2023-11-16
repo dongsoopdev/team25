@@ -15,13 +15,34 @@
         select * from product where id = #{id}
     </select>
 
+
+    <select id="findByUserId" resultType="com.shop.domain.Product">
+        select * from product where seller = #{seller} order by resdate desc
+    </select>
+
+
     <insert id="save">
-        insert into product values (default, #{cateno}, #{pname},#{pcomment}, #{price}, #{seller} , #{quantity}, #{quality}, #{imgsrc1},#{imgsrc2}, #{imgsrc3},#{imgsrc4}, #{imgPath}, default  )
+        insert into product values (default, #{cateno}, #{pname},#{pcomment}, #{price}, #{seller} , #{quantity}, #{quality}, default, #{imgsrc1},#{imgsrc2}, #{imgsrc3},#{imgsrc4},  default  )
     </insert>
 
 
     <select id="getLatestproduct" resultType="com.shop.domain.Product">
         select * from product order by id desc limit 0,1
     </select>
+
+    <update id="updateStatus" parameterType="map">
+        update product
+        <set>
+            <choose>
+                <when test="num == 1">
+                    status = '판매완료'
+                </when>
+                <when test="num == 2">
+                    status = '예약중'
+                </when>
+            </choose>
+        </set>
+        where pno = #{pno}
+    </update>
 </mapper>
 
