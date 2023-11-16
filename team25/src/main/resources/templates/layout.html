@@ -4,10 +4,12 @@
 <html lang="en">
 
 <!-- head include-->
-<head th:replace="~{layout/head.html :: head}">
-    <title>제목</title>
+<head>
+    <th:block th:insert="~{layout/head.html :: head}"></th:block>
+    <!--css 사용시-->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/css파일이름}">
+    <title> 제목 </title>
 </head>
-
 
 <body>
     <!-- header include-->

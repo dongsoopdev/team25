@@ -31,8 +31,13 @@ public class ProductController {
 
     @GetMapping("/getProduct/{pno}")
     public String getProduct(@PathVariable("pno") long pno, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId  = authentication.getName();
+
+
         Product product = productService.getProduct(pno);
         System.out.println(product);
+        model.addAttribute("userId", userId);
         model.addAttribute("product", product);
         return "product/productDetail";
     }
@@ -115,7 +120,8 @@ public class ProductController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null) {
-            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
+            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")) &&
+                    authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("TEACHER")) ) {
                 //아이디 확인
                 String userId = authentication.getName(); // 로그인한 사용자의 아이디를 얻는 방법으로 변경
                 String getId = productService.getProduct(pno).getSeller();
@@ -146,7 +152,8 @@ public class ProductController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
-            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
+            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")) &&
+                    authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("TEACHER")) ) {
                 //아이디 확인
                 String userId = authentication.getName(); // 로그인한 사용자의 아이디를 얻는 방법으로 변경
                 String getId = productService.getProduct(pno).getSeller();
@@ -176,7 +183,8 @@ public class ProductController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
-            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
+            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")) &&
+                    authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("TEACHER")) ){
                 //아이디 확인
                 String userId = authentication.getName(); // 로그인한 사용자의 아이디를 얻는 방법으로 변경
                 String getId = productService.getProduct(pno).getSeller();
@@ -201,9 +209,9 @@ public class ProductController {
             return "redirect:/";
         }
 
-
-
     }
+
+
 
 
 }
