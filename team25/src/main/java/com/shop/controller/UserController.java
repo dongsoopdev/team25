@@ -1,15 +1,22 @@
 package com.shop.controller;
 
+import com.shop.domain.Product;
 import com.shop.domain.User;
+import com.shop.service.ProductService;
 import com.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -17,6 +24,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/")
     public String home(Model model){ // 인증된 사용자 정보 보여줌
@@ -41,6 +51,7 @@ public class UserController {
     public String loginForm(){
         return"member/login";
     }
+
 
     @GetMapping("/join")
     public String joinForm(Model model, User user){
@@ -83,5 +94,49 @@ public class UserController {
         //토큰은 삭제 하지 않고 기록만 남길 수 있게??
         return "redirect:/";
     }
+
+
+   /* @GetMapping("/mypage")
+    public String getMyInfo(Model model){
+        //로그인 후 사용자 정보 가져와서 모델에 추가
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        String password = (String) authentication.getCredentials();
+        model.addAttribute("username",username);
+        return "test";
+    }*/
+
+    @GetMapping("/loginInfo")
+    public String memberInfo(Principal principal, ModelMap modelMap){
+        String loginId = principal.getName();
+        User user = userService.findByUserId(loginId);
+        modelMap.addAttribute("user", user);
+        return "member/myinfo";
+    }
+
+
+
+    //내가 등록한 상품
+    @GetMapping("/myProductList")
+    public String myProductList(@RequestParam("seller") String seller, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId  = authentication.getName();
+
+
+        List<Product> myproList = productService.findByUserId(seller);
+        System.out.println(myproList);
+        model.addAttribute("myproList", myproList);
+        return "member/myProductList2";
+    }
+
+
+
+
+
+
+
+
+
+
 
 }

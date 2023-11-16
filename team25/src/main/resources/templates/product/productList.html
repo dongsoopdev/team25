@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <html lang="en">
 
 <!-- head include-->
@@ -256,6 +257,7 @@
                                 <a th:href="@{'/product/getProduct/' + ${product.pno}}" >
 
 
+
                                 <div class="product">
                                     <div class="product-img">
                                         <!--<img th:src="@{/upload/${product.getImgFile()}}" alt="">-->
@@ -306,8 +308,10 @@
 
 
                     <!-- store bottom filter -->
-                    <div class="button-group">
-                        <a class="button is-link is-outlined" th:href="@{/product/addProduct}">글쓰기</a>
+
+
+                    <div sec:authorize="hasAuthority('ADMIN') or hasAuthority('TEACHER')"  class="button-group">
+                        <a class="btn btn-primary" th:href="@{/product/addProduct}">글쓰기</a>
                     </div>
 
 
