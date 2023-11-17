@@ -1,8 +1,10 @@
 package com.shop.controller;
 
 import com.shop.domain.Product;
+import com.shop.domain.Review;
 import com.shop.domain.User;
 import com.shop.service.ProductService;
+import com.shop.service.ReviewService;
 import com.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -27,6 +29,9 @@ public class UserController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("/")
     public String home(Model model){ // 인증된 사용자 정보 보여줌
@@ -126,6 +131,13 @@ public class UserController {
         List<Product> myproList = productService.findByUserId(userId);
         System.out.println(myproList);
         model.addAttribute("myproList", myproList);
+
+
+        List<Review> reviewList = reviewService.proReview(userId);
+        System.out.println(reviewList);
+        model.addAttribute("reviewList", reviewList);
+
+
         return "member/myProductList";
     }
 

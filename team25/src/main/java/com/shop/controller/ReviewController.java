@@ -1,7 +1,11 @@
 package com.shop.controller;
 
 
+import com.shop.domain.Pay;
+import com.shop.domain.Product;
 import com.shop.domain.Review;
+import com.shop.service.PayService;
+import com.shop.service.ProductService;
 import com.shop.service.ReviewService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -28,23 +33,79 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    @Autowired
+    private ProductService productService;
 
+    @Autowired
+    private PayService payService;
+
+
+    //리뷰 폼 로딩
     @GetMapping("/addReviewForm/{pno}")
     public String addReviewForm(@PathVariable("pno") Long pno, Model model) {
+
+        Product product = productService.getProduct(pno);
+        model.addAttribute("product",product);
+
         return "product/addReview";
     }
 
 
-    @GetMapping("/addReview")
-    public String addReview(Model model, Review review, HttpServletRequest req, HttpServletResponse res) throws IOException {
+    @PostMapping("/addReview/{pno}")
+    public String addReview(@PathVariable("pno") Long pno, Model model, Review review, HttpServletRequest req, HttpServletResponse res) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
+;
         review.setId(userId);
+        review.setPno(pno);
         reviewService.insertReview(review);
 
-        //return "redirect:/lecture/getLecture?no=" + review.getPar();
-        return "product/addReview";
+        List<Pay> myPayList = payService.myPayListByUserId(userId);
+        model.addAttribute("myPayList",myPayList);
+        return "pay/myPayList";
     }
+
+    //거래한 상품 리뷰 보기 (select one)
+    @GetMapping("/getProReview/{pno}")
+    public String getProReview(@PathVariable("pno") Long pno, Model model, HttpServletRequest req, HttpServletResponse res) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+
+
+        Review review = new Review();
+        review.setId(userId);
+        review.setPno(pno);
+
+
+        List<Pay> myPayList = payService.myPayListByUserId(userId);
+        Product product = productService.getProduct(pno);
+        Review rev =reviewService.getProReview(review);
+        System.out.println(rev);
+
+        model.addAttribute("product",product);
+        model.addAttribute("review", rev);
+        model.addAttribute("myPayList",myPayList);
+
+        //return "redirect:/lecture/getLecture?no=" + review.getPar();
+        return "product/getProReview";
+    }
+
+
+    //내가 쓴 후기 보기
+//    @GetMapping("proReview/{pno}")
+//    public String proReview(@PathVariable("pno") Long pno, Model model, HttpServletRequest req, HttpServletResponse res) throws IOException {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String userId = authentication.getName();
+//
+//        System.out.println(userId);
+//
+//        List<Review> reviewList = reviewService.proReview(userId);
+//        System.out.println(reviewList);
+//        model.addAttribute("reviewList", reviewList);
+//
+//        return "member/myProductList";
+//    }
+
 
 
 }

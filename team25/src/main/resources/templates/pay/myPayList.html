@@ -233,12 +233,12 @@
 
                                 <!-- 후기 작성 -> 거래 종료면 나타남-->
                                 <div class="btn_group">
-                                    <a class="add-to-cart-btn" th:href="@{'/product/addReviewForm/' + ${pay.pno}}">후기 남기기</a>
+                                    <a class="add-to-cart-btn" th:href="@{'/review/addReviewForm/' + ${pay.pno}}">후기 남기기</a>
                                 </div>
 
                                 <!-- 후기 확인하기 -->
                                 <div class="btn_group">
-                                    <a class="add-to-cart-btn" th:href="@{'/product/addReviewForm/' + ${pay.pno}}">작성한 후기 확인</a>
+                                    <a class="add-to-cart-btn" th:href="@{'/review/getProReview/' + ${pay.pno}}">작성한 후기 확인</a>
                                 </div>
                             </td>
 

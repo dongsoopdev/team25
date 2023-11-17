@@ -12,4 +12,8 @@ public interface ReviewMapper {
 
 
     void insertReview(Review review);
+
+    Review getProReview(Review review);
+
+    List<Review> proReview(String userId);
 }

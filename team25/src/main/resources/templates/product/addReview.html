@@ -70,25 +70,50 @@
 <!--contens 필수-->
 <div class="contents">
 
-    <div class="container">
-        <form class="mb-3" th:action="@{/product/addReview}"  name="myform" id="myform" method="post">
+    <div class="container" style="width: 50%;">
+
+
+        <div class="product" th:each="product: ${product}" style="width: 100px; float: left">
+            <div class="product-img">
+                <a th:href="@{'/product/getProduct/' + ${product.pno}}">
+                    <img th:src="@{'/upload/' + ${product.getImgsrc1()}}" style="width: 100px" alt="">
+                </a>
+            </div>
+        </div>
+
+
+        <div class="product-body">
+            <h3 class="product-name" th:text="${product.getPname()}" style=" margin-top: 70px; margin-left: 120px;"><a
+                    href="#">상품이름</a></h3>
+        </div>
+
+
+        <form class="mb-3" th:action="@{'/review/addReview/' + ${product.pno}}" name="myform" id="myform" method="post"
+              style="clear: both;">
             <fieldset>
                 <span class="text-bold">별점을 선택해주세요</span>
-                <input type="radio" name="reviewStar" value="5" id="rate1"><label
+                <input type="radio" name="score" value="5" id="rate1"><label
                     for="rate1">★</label>
-                <input type="radio" name="reviewStar" value="4" id="rate2"><label
+                <input type="radio" name="score" value="4" id="rate2"><label
                     for="rate2">★</label>
-                <input type="radio" name="reviewStar" value="3" id="rate3"><label
+                <input type="radio" name="score" value="3" id="rate3"><label
                     for="rate3">★</label>
-                <input type="radio" name="reviewStar" value="2" id="rate4"><label
+                <input type="radio" name="score" value="2" id="rate4"><label
                     for="rate4">★</label>
-                <input type="radio" name="reviewStar" value="1" id="rate5"><label
+                <input type="radio" name="score" value="1" id="rate5"><label
                     for="rate5">★</label>
             </fieldset>
             <div>
-		<textarea class="col-auto form-control" type="text" id="reviewContents"
-                  placeholder="좋은 수강평을 남겨주시면 Cocolo에 큰 힘이 됩니다! 포인트 5000p도 지급!!"></textarea>
+		            <textarea class="col-auto form-control" type="text" name="content" id="reviewContents" rows="8"
+                              cols="50" maxlength="500"
+                              placeholder="후기를 작성해주세요"></textarea>
             </div>
+
+            <div style="margin: 10px; text-align: right;">
+                <input type="reset" value="취소" class="btn btn-danger">
+                <input type="submit" value="등록" class="btn btn-primary">
+            </div>
+
         </form>
     </div>
 </div>
