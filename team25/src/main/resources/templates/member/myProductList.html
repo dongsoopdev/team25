@@ -219,9 +219,9 @@
 
                                 <div class="btn_group">
                                     <a class="btn btn-primary" th:if="${pay.ship != 4}" th:href="@{'/pay/payComplete/' + ${pay.pno}+'/'+${pay.payNo}}">구매확정</a>
-                                    <a class="btn btn-success" th:href="@{'/product/addReviewForm/' + ${pay.pno}}"  th:if="${pay.ship == 4}">후기 남기기</a>
+                                    <a class="btn btn-success" th:href="@{'/review/addReviewForm/' + ${pay.pno}}"  th:if="${pay.ship == 4}">후기 남기기</a>
                                     <!-- 후기를 작성했을 때만 보여야한당 -->
-                                    <a class="add-to-cart-btn" th:href="@{'/product/addReviewForm/' + ${pay.pno}}">작성한 후기 확인</a>
+                                    <a class="add-to-cart-btn" th:href="@{'/review/getProReview/' + ${pay.pno}}">작성한 후기 확인</a>
                                 </div>
                             </td>
 
@@ -254,7 +254,7 @@
                             </thead>
                             <tbody>
 
-                            <tr th:each="review : ${reviewList}">
+                            <tr th:each="review : ${proReview}">
                                 <td>
                                     <div class="img_tit">
                                         <a th:href="@{'/product/getProduct/' + ${review.pno}}">
@@ -291,30 +291,7 @@
 
                             </tbody>
                         </table>
-                        <script>
-                            $(document).ready(function () {
-                                const filledStarPath = '${path14}/resources/img/star.png';
-                                const emptyStarPath = '${path14}/resources/img/empty_star.png';
 
-                                function renderStars($starContainer, score) {
-                                    $starContainer.empty(); // 기존 내용을 지웁니다.
-                                    for (let i = 1; i <= 5; i++) {
-                                        const starPath = i <= score ? filledStarPath : emptyStarPath;
-                                        const $star = $('<img>').attr('src', starPath)
-                                            .attr('alt', 'star')
-                                            .width(20)
-                                            .height(20);
-                                        $starContainer.append($star);
-                                    }
-                                }
-
-                                $('.starRating').each(function () {
-                                    const $this = $(this);
-                                    const score = $this.data('score');
-                                    renderStars($this, score);
-                                });
-                            });
-                        </script>
                     </div>
 
                 </div>
@@ -326,66 +303,61 @@
             <!--내가 받은 후기-->
             <div id="ud_tab-content5" class="ud_content">
 
-
-                <div id="container">
+                <div class="page_wrap">
                     <div class="mypage-base">
-                        <article class="my-page">
-                            <main class="container__inner">
-                                <table class="table is-fullwidth" id="table">
-                                    <thead>
-                                    <tr>
-                                        <th class="rev" style="width: 15%">강의</th>
-                                        <th class="rev" style="width: 20%">점수</th>
-                                        <th class="rev-con" style="width: 50%">후기</th>
-                                        <th class="rev2" style="width: 15%">작성일</th>
-                                        <th class="rev2">비고</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <th:forEach var="lev" items="${reviewList }" varStatus="status">
-                                        <tr>
-                                            <td><a href="${path14}/lecture/getLecture?no=${lev.lno}">${lev.title}</a>
-                                            </td>
-                                            <td class="starRating" data-score="${lev.score}"></td>
-                                            <td>${lev.content}</td>
-                                            <td>
-                                                <!--      <fmt:parseDate value="${lev.resdate}" var="resdate" pattern="yyyy-MM-dd HH:mm:ss" />
-                                                      <fmt:formatDate value="${resdate}" pattern="yyyy-MM-dd" />-->
-                                            </td>
+                        <table class="table text-center">
+                            <thead>
+                            <tr>
+                                <th class="rev" style="width: 15%; text-align: center;vertical-align: middle;">상품</th>
+                                <th class="rev" style="width: 15%; text-align: center;vertical-align: middle;">상품명</th>
+                                <th class="rev" style="width: 10%; text-align: center;vertical-align: middle;">구매자</th>
+                                <th class="rev" style="width: 20%; text-align: center;vertical-align: middle;">점수</th>
+                                <th class="rev" style="width: 25%; text-align: center;vertical-align: middle;">후기</th>
+                                <th class="rev" style="width: 15%; text-align: center;vertical-align: middle;">작성일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                                        </tr>
-                                    </th:forEach>
-                                    </tbody>
-                                </table>
-                                <script>
-                                    $(document).ready(function () {
-                                        const filledStarPath = '${path14}/resources/img/star.png';
-                                        const emptyStarPath = '${path14}/resources/img/empty_star.png';
+                            <tr th:each="review2 : ${proSellerReview}">
+                                <td>
+                                    <div class="img_tit">
+                                        <a th:href="@{'/product/getProduct/' + ${review2.pno}}">
+                                            <img th:src="@{'/upload/' + ${review2.getImgsrc1()}}" alt=""
+                                                 style="    width: 100px;">
+                                        </a>
+                                    </div>
+                                </td>
 
-                                        function renderStars($starContainer, score) {
-                                            $starContainer.empty(); // 기존 내용을 지웁니다.
-                                            for (let i = 1; i <= 5; i++) {
-                                                const starPath = i <= score ? filledStarPath : emptyStarPath;
-                                                const $star = $('<img>').attr('src', starPath)
-                                                    .attr('alt', 'star')
-                                                    .width(20)
-                                                    .height(20);
-                                                $starContainer.append($star);
-                                            }
-                                        }
+                                <td>
+                                    <p th:text="${review2.getPname()}"></p>
+                                </td>
 
-                                        $('.starRating').each(function () {
-                                            const $this = $(this);
-                                            const score = $this.data('score');
-                                            renderStars($this, score);
-                                        });
-                                    });
-                                </script>
+                                <td>
+                                    <p th:text="${review2.getId()}"></p>
+                                </td>
 
+                                <td class="text-bold" id="myform">
+                                    <span th:if="${review2.getScore() == 5}">★★★★★</span>
+                                    <span th:if="${review2.getScore() == 4}">★★★★</span>
+                                    <span th:if="${review2.getScore() == 3}">★★★</span>
+                                    <span th:if="${review2.getScore() == 2}">★★</span>
+                                    <span th:if="${review2.getScore() == 1}">★</span>
+                                </td>
 
-                            </main>
-                        </article>
+                                <td>
+                                    <p th:text="${review2.getContent()}"></p>
+                                </td>
+
+                                <td>
+                                    <p th:text="${review2.getResdate()}"></p>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
                     </div>
+
                 </div>
             </div>
 

@@ -138,9 +138,15 @@ public class UserController {
         List<Pay> myPayList = payService.myPayListByUserId(userId);
         model.addAttribute("myPayList",myPayList);
 
-        List<Review> reviewList = reviewService.proReview(userId);
-        System.out.println(reviewList);
-        model.addAttribute("reviewList", reviewList);
+        // 내가 쓴 후기
+        List<Review> proReview= reviewService.proReview(userId);
+        System.out.println(proReview);
+        model.addAttribute("proReview", proReview);
+
+        //내가 받은 후기
+        List<Review> proSellerReview= reviewService.proSellerReview(userId);
+        System.out.println(proSellerReview);
+        model.addAttribute("proSellerReview", proSellerReview);
 
         return "member/myProductList";
     }
