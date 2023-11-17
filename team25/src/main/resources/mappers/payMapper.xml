@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.PayMapper">
     <insert id="payInsert">
-        insert into pay values (default, #{userId }, #{pno },#{price }, #{userName },#{email}, #{address}, #{tel}, null, null, null, default )
+        insert into pay values (default, #{userId }, #{pno },#{price }, #{userName },#{email}, #{address}, #{tel}, default, null, null, default )
     </insert>
     <select id="getPay" resultType="com.shop.domain.Pay">
         select * from pay where pno = #{pno };
