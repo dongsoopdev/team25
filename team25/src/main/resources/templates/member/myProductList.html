@@ -11,6 +11,7 @@
     <title> 상품 관리 </title>
 </head>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <body>
 <!-- header include-->
@@ -127,8 +128,66 @@
 
             <!--구매/판매 내역-->
             <div id="ud_tab-content3" class="ud_content">
+                <div class="page_wrap">
+                    <h2 class="page_tit"></h2>
+                    <table class="table text-center">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="vertical-align: middle">사진</th>
+                            <th class="text-center" style="vertical-align: middle">배송현황</th>
+                            <th class="text-center" style="vertical-align: middle">상품명</th>
+                            <th class="text-center" style="vertical-align: middle">가격</th>
+                            <th class="text-center" style="vertical-align: middle">구매일</th>
+                            <th class="text-center" style="vertical-align: middle">비고</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="pay: ${myPayList}">
+                            <td>
+                                <div class="img_tit">
+                                    <a th:href="@{'/product/getProduct/' + ${pay.pno}}">
+                                        <img th:src="@{'/upload/' + ${pay.imgsrc1}}" alt="" style="    width: 150px;">
+                                    </a>
+                                </div>
+                            </td>
+
+                            <td>
+                                <p th:text="${pay.ship == 1 ? '배송전' : (pay.ship == 2 ? '배송중' : (pay.ship == 3 ? '배송완료' : '거래종료'))}"></p>
+                            </td>
+
+                            <td>
+                                <p th:text="${pay.pname }"></p>
+                            </td>
 
 
+
+                            <td>
+                                <p th:text="${pay.price}"></p>
+                            </td>
+
+                            <td>
+                                <p th:text="${pay.resdate}"></p>
+                            </td>
+
+                            <td>
+
+                                <div class="btn_group">
+                                    <a class="btn btn-primary" th:if="${pay.ship != 4}" th:href="@{'/pay/payComplete/' + ${pay.pno}+'/'+${pay.payNo}}">구매확정</a>
+                                    <a class="btn btn-success" th:href="@{'/product/addReviewForm/' + ${pay.pno}}"  th:if="${pay.ship == 4}">후기 남기기</a>
+                                    <!-- 후기를 작성했을 때만 보여야한당 -->
+                                    <a class="add-to-cart-btn" th:href="@{'/product/addReviewForm/' + ${pay.pno}}">작성한 후기 확인</a>
+                                </div>
+                            </td>
+
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
             </div>
 
 
