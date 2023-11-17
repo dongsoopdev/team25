@@ -1,8 +1,10 @@
 package com.shop.controller;
 
+import com.shop.domain.Pay;
 import com.shop.domain.Product;
 import com.shop.domain.Review;
 import com.shop.domain.User;
+import com.shop.service.PayService;
 import com.shop.service.ProductService;
 import com.shop.service.ReviewService;
 import com.shop.service.UserService;
@@ -12,10 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -29,6 +28,9 @@ public class UserController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private PayService payService;
 
     @Autowired
     private ReviewService reviewService;
@@ -122,7 +124,8 @@ public class UserController {
 
 
     //내가 등록한 상품
-    @RequestMapping("/myProList")
+    //@RequestMapping("/myProList")
+    @RequestMapping(value = "/myProList", method = RequestMethod.GET)
     public String myProductList( Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId  = authentication.getName();
@@ -131,12 +134,13 @@ public class UserController {
         List<Product> myproList = productService.findByUserId(userId);
         System.out.println(myproList);
         model.addAttribute("myproList", myproList);
-
+        //소윤의 구매내역
+        List<Pay> myPayList = payService.myPayListByUserId(userId);
+        model.addAttribute("myPayList",myPayList);
 
         List<Review> reviewList = reviewService.proReview(userId);
         System.out.println(reviewList);
         model.addAttribute("reviewList", reviewList);
-
 
         return "member/myProductList";
     }
@@ -148,7 +152,6 @@ public class UserController {
     public String myProductList(@RequestParam("seller") String seller, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId  = authentication.getName();
-
 
         List<Product> myproList = productService.findByUserId(seller);
         System.out.println(myproList);
