@@ -2,9 +2,11 @@ package com.shop.controller;
 
 import com.shop.domain.Pay;
 import com.shop.domain.Product;
+import com.shop.domain.Review;
 import com.shop.domain.User;
 import com.shop.service.PayService;
 import com.shop.service.ProductService;
+import com.shop.service.ReviewService;
 import com.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -29,6 +31,9 @@ public class UserController {
 
     @Autowired
     private PayService payService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("/")
     public String home(Model model){ // 인증된 사용자 정보 보여줌
@@ -132,6 +137,10 @@ public class UserController {
         //소윤의 구매내역
         List<Pay> myPayList = payService.myPayListByUserId(userId);
         model.addAttribute("myPayList",myPayList);
+
+        List<Review> reviewList = reviewService.proReview(userId);
+        System.out.println(reviewList);
+        model.addAttribute("reviewList", reviewList);
 
         return "member/myProductList";
     }

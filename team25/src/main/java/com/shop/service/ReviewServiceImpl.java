@@ -26,4 +26,14 @@ public class ReviewServiceImpl implements ReviewService {
     public void insertReview(Review review) {
         reviewMapper.insertReview(review);
     }
+
+    @Override
+    public Review getProReview(Review review) {
+        return reviewMapper.getProReview(review);
+    }
+
+    @Override
+    public List<Review> proReview(String userId) {
+        return reviewMapper.proReview(userId);
+    }
 }

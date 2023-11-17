@@ -13,4 +13,10 @@ public interface ReviewService {
 
 
     public void insertReview(Review review);
+
+    public Review getProReview(Review review);
+
+    public List<Review> proReview(String userId);
+
 }
+
