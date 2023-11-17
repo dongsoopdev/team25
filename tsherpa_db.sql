@@ -13,7 +13,7 @@ CREATE TABLE role(
 INSERT INTO role VALUES (DEFAULT, 'ADMIN'); -- 1
 INSERT INTO role VALUES (DEFAULT, 'TEACHER'); -- 2
 INSERT INTO role VALUES (DEFAULT, 'STAFF'); -- 3
-INSERT INTO role VALUES (DEFAULT, 'MANAGER'); -- 4
+INSERT INTO role VALUES (DEFAULT, 'MANAGER'); -- 4s
 INSERT INTO role VALUES (DEFAULT, 'USER'); -- 5
 
 -- 회원 테이블
@@ -24,12 +24,17 @@ CREATE TABLE user(
 	password VARCHAR(300) NOT NULL,          -- 비밀번호
 	active VARCHAR(20)DEFAULT 'JOIN', -- JOIN(활동 중) / DORMANT(휴면 중) / WITHDRAW(탈퇴)
 	email VARCHAR(100) NOT NULL,
-	address VARCHAR(300),
+	postcode VARCHAR(300),-- field 변경
+	addr1 VARCHAR(300),
+	addr2 VARCHAR(330), --
 	tel VARCHAR(20),
 	POINT INT DEFAULT 0,
 	regdate DATETIME DEFAULT CURRENT_TIME,
 	CONSTRAINT key_name UNIQUE(userId)
 );
+
+DROP TABLE user
+
 -- 권한 부여된 회원 정보 저장 테이블
 CREATE TABLE userRole(
 	id bigINT NOT null,
@@ -39,12 +44,12 @@ CREATE TABLE userRole(
 
 
 -- user 더미
-INSERT INTO user VALUES (DEFAULT, 'admin', '관리자','1234', DEFAULT,'admin@edu.co.kr','서울특별시 구로구','010-0000-0000', DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'kim', '김기태','1234', DEFAULT,'kim@edu.co.kr','서울특별시 구로구', '010-1111-1111', DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'ku', '구예진','1234', DEFAULT, 'ku@edu.co.kr','서울특별시 구로구','010-2222-2222',DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'lee','이슬비','1234', DEFAULT, 'lee@edu.co.kr','서울특별시 구로구','010-3333-3333',DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'shin', '신승원','1234', DEFAULT, 'shin@edu.co.kr','서울특별시 구로구','010-4444-4444',DEFAULT, DEFAULT);
-INSERT INTO user VALUES (DEFAULT, 'so', '이소윤','1234', DEFAULT, 'so@edu.co.kr','서울특별시 구로구','010-5555-5555', DEFAULT, DEFAULT);
+INSERT INTO user VALUES (DEFAULT, 'admin', '관리자','1234', DEFAULT,'admin@edu.co.kr','123123', '서울특별시 구로구','118-7','010-0000-0000', DEFAULT, DEFAULT);	
+INSERT INTO user VALUES (DEFAULT, 'kim', '김기태','1234', DEFAULT,'kim@edu.co.kr','213213','서울특별시 구로구','119-7', '010-1111-1111', DEFAULT, DEFAULT);	
+INSERT INTO user VALUES (DEFAULT, 'ku', '구예진','1234', DEFAULT, 'ku@edu.co.kr','321321','서울특별시 구로구','200-4','010-2222-2222',DEFAULT, DEFAULT);	
+INSERT INTO user VALUES (DEFAULT, 'lee','이슬비','1234', DEFAULT, 'lee@edu.co.kr','212212','서울특별시 구로구','210-4','010-3333-3333',DEFAULT, DEFAULT);	
+INSERT INTO user VALUES (DEFAULT, 'shin', '신승원','1234', DEFAULT, 'shin@edu.co.kr','331331','서울특별시 구로구','320-2','010-4444-4444',DEFAULT, DEFAULT);
+INSERT INTO user VALUES (DEFAULT, 'so', '이소윤','1234', DEFAULT, 'so@edu.co.kr','222222','서울특별시 구로구','335-2','010-5555-5555', DEFAULT, DEFAULT);
 
 UPDATE user SET password='$2a$10$AmGZdqMKiNhpxtCd/z.tyuYL2r5rUmBCeFzzn4xZrwDYWHePyYiEa';
 
