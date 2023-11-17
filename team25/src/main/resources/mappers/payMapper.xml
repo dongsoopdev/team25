@@ -11,7 +11,7 @@
         SELECT payNo, userId, product.pno, pay.price,pname, userName, ship, scode, sname, pay.resdate, status, imgsrc1
         FROM pay
                  INNER JOIN product ON pay.pno = product.pno
-        WHERE pay.userId = 'admin'
+        WHERE pay.userId = #{userId}
         ORDER BY pay.resdate DESC;
     </select>
     <update id="updateShip">

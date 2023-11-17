@@ -15,6 +15,12 @@ public class Review {
     private String content;
     private String resdate;
     private int score;
-    private int pno;
+    private Long pno;
+
+
+    private String pname;
+    private String imgsrc1;
+    private String seller;
+
 
 }
