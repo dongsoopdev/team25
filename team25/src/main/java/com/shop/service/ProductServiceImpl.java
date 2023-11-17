@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
         // static은 정적폴더라서 늦게 업로드됨
         //String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
         String projectPath = "D:/team25_upload/";  //학원
-        //String projectPath = "C:/team25_upload/";    //예진집
+//        String projectPath = "C:/team25_upload/";    //예진집
 
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];
@@ -104,7 +104,7 @@ public class ProductServiceImpl implements ProductService {
 
         //파일 처리
         String projectPath = "D:/team25_upload/";  //학원
-        //String projectPath = "C:/team25_upload/";    //예진집
+//        String projectPath = "C:/team25_upload/";    //예진집
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];
             String oriImgName = imgFile.getOriginalFilename();
