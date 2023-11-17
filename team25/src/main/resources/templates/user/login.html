@@ -19,7 +19,7 @@
 <div class="contents">
 
     <div class="container" style="width: 300px">
-        <form class="form-signin" method="post" th:action="@{/user/login}" >
+        <form class="form-signin" method="post" th:action="@{/login}">
             <h2 class="form-signin-heading text-center">로그인</h2>
             <div th:if="${param.error}" class="alert alert-danger" role="alert">
                 Invalid username and password.

@@ -17,28 +17,32 @@
     <form th:action="@{/member/join}" th:object="${user}" method="post">
         <div>
             <label th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">아이디</label>
-            <input type="text" id="userId" th:field="*{userId}" placeholder="아이디를 입력하세요" required>
+            <input type="text" id="userId" th:field="*{userId}" placeholder="아이디를 입력하세요" >
         </div>
         <div>
             <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}">비밀번호</label>
-            <input type="password" id="password" th:field="*{password}" placeholder="비밀번호를 입력하세요" required>
+            <input type="password" id="password" th:field="*{password}" placeholder="비밀번호를 입력하세요" >
         </div>
         <div>
             <label th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">이름</label>
-            <input type="text" th:field="*{userName}" placeholder="이름을 입력하세요" required>
+            <input type="text" th:field="*{userName}" placeholder="이름을 입력하세요" >
         </div>
         <div>
-            <label for="tel">전화번호</label>
+            <label th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}">전화번호</label>
             <input type="text" id="tel" th:field="*{tel}" placeholder="전화번호를 입력하세요">
         </div>
         <div>
-            <label for="email">이메일</label>
+            <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}">이메일</label>
             <input type="text" id="email" th:field="*{email}" placeholder="이메일을 입력하세요">
 
         </div>
         <div>
-            <label for="address">주소</label>
-            <input type="text" id="address" th:field="*{address}" placeholder="주소를 입력하세요">
+            <label for="postcode" th:if="${#fields.hasErrors('postcode')}" th:errors="*{tel}">우편 번호</label>
+            <input type="text" id="postcode" th:field="*{postcode}" placeholder="우편번호를 입력하세요">
+            <label for="addr1" th:if="${#fields.hasErrors('addr1')}" th:errors="*{addr1}">기본 주소</label>
+            <input type="text" id="addr1" th:field="*{addr1}">
+            <label for="addr2">상세 주소</label>
+            <input type="text" id="addr2" th:field="*{addr2}">
         </div>
         <hr>
         <div class="row">
