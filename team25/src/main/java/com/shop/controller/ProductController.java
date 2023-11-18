@@ -1,6 +1,8 @@
 package com.shop.controller;
 
+import com.shop.domain.ChatRoom;
 import com.shop.domain.Product;
+import com.shop.service.ChatService;
 import com.shop.service.ProductService;
 
 import groovy.util.logging.Log4j2;
@@ -22,6 +24,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ChatService chatService;
+
     @GetMapping("/productList")
     public String getProductAll(Model model) {
         List<Product> productList = productService.findAll();
@@ -34,6 +39,11 @@ public class ProductController {
         Product product = productService.getProduct(pno);
         System.out.println(product);
         model.addAttribute("product", product);
+
+        //채팅방 연결
+        List<ChatRoom> roomList = chatService.chatRoomProductList(pno);
+        model.addAttribute("roomList", roomList);
+
         return "product/productDetail";
     }
 
