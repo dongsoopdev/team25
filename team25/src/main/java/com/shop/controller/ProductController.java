@@ -5,6 +5,7 @@ import com.shop.domain.Product;
 import com.shop.service.ChatService;
 import com.shop.service.ProductService;
 
+import com.shop.service.UserService;
 import groovy.util.logging.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -35,14 +38,19 @@ public class ProductController {
     }
 
     @GetMapping("/getProduct/{pno}")
-    public String getProduct(@PathVariable("pno") long pno, Model model) {
+    public String getProduct(@PathVariable("pno") long pno, Model model, Principal principal) {
         Product product = productService.getProduct(pno);
         System.out.println(product);
         model.addAttribute("product", product);
 
+
+
         //채팅방 연결
-        List<ChatRoom> roomList = chatService.chatRoomProductList(pno);
-        model.addAttribute("roomList", roomList);
+        String loginId = principal.getName();
+        if(loginId.equals(product.getSeller())){
+            List<ChatRoom> roomList = chatService.chatRoomProductList(pno);
+            model.addAttribute("roomList", roomList);
+        }
 
         return "product/productDetail";
     }
