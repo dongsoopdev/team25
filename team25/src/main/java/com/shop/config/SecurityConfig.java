@@ -43,7 +43,7 @@ public class SecurityConfig{
         http
                 .authorizeRequests()
                 .antMatchers("/", "/**", "/ex").permitAll()
-                .antMatchers("/member/login", "/member/join", "/member/joinPro", "/member/idCheck", "/member/emailCheck").permitAll()
+                .antMatchers("/member/login", "/member/join", "/member/joinPro", "/member/idCheck", "/member/emailCheck", "/chat/**").permitAll()
                 //.mvcMatchers("/","/templates/**","/ex/**","/resource/**","/css/**", "/js/**", "/images/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/teacher/**").hasAnyRole("ADMIN","TEACHER")

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <div th:replace="/include/head.html :: head"></div>
+    <head th:replace="~{layout/head.html :: head}">
 
     <title>채팅</title>
     <title>타이틀</title>
@@ -37,7 +38,7 @@
     </style>
 </head>
 <body>
-<div th:replace="/include/header.html :: header"></div>
+<div th:insert="~{layout/header :: header}"></div>
 <div class="container contenter">
     <h1>채팅하기</h1>
     <div class="container">
@@ -55,7 +56,7 @@
                                     <div class="card-body">
                                         <div id="msgArea" style="height: 500px; overflow-y: auto;">
                                             <th:block th:each="c : ${chats}">
-                                                <div class="d-flex flex-row justify-content-end mb-4" th:if="${c.sender eq session.sid}">
+                                                <div class="d-flex flex-row justify-content-end mb-4" th:if="${#authentication.principal.userId eq c.sender}">
                                                     <div class="chat-box text-end">
                                                         <div class="chat-author m-0 p-1" th:text="${c.sender}"><p class="chat-time" th:text="${c.time}" /></div>
                                                         <div class="p-3 chat-message-me">

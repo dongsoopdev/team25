@@ -27,6 +27,7 @@ public interface ChatRoomMapper {
     public int chatRoomGetUnique(String buyer, Long pno);
     // buyer와 pno 컬럼이 같은 데이터를 가져와서 그 숫자를 셈
 
+    //@Insert("INSERT INTO chatRoom(buyer, pno) SELECT userId, #{pno} FROM user WHERE userId = #{buyer}")
     @Insert("INSERT INTO chatRoom(buyer, pno) VALUES(#{buyer}, #{pno})")
     public void chatRoomInsert(String buyer, Long pno);
     // 새로 채팅방 만들기(기존 채팅방이 없으면)
@@ -37,7 +38,7 @@ public interface ChatRoomMapper {
     @Delete("DELETE FROM chatroom WHERE roomNo=#{roomNo}")
     public int chatRoomDelete(Long roomNo);
 
-    @Select("SELECT chatroom.*, product.seller FROM chatRoom JOIN product ON (chatroom.pno = product.pno) WHERE seller = #{id} OR buyer=#{id}")
+    @Select("SELECT chatroom.id, chatroom.buyer, chatroom.pno, product.seller FROM chatRoom JOIN product ON (chatroom.pno = product.pno) JOIN user ON (user.userId = chatroom.seller OR user.userId = chatroom.buyer) WHERE user.userId = #{userId}")
     public List<ChatRoom> chatRoomMy(String id);
     // 내가 대화를 나눈 적 있는 모든 채팅방 가져오기
 }

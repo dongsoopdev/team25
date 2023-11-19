@@ -8,15 +8,20 @@ import com.shop.domain.ChatRoom;
 import com.shop.domain.Product;
 import com.shop.service.ChatService;
 import com.shop.service.ProductService;
+import com.shop.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @Slf4j
@@ -32,15 +37,22 @@ public class ChatRoomCtrl {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private UserService userService;
+
+
     // 채팅방 입장
     @GetMapping("roomEnter")
-    public String roomEnter(HttpServletRequest request, Model model){
-        String sid = (String) session.getAttribute("sid"); // 로그인한 사람
-        String buyer = request.getParameter("buyer"); // 구매 희망자
+    public String roomEnter(HttpServletRequest request, Model model, Principal principal){
+
+        //사용자의 아이디 가져오기
+        String userId = principal.getName();  //로그인 한 사용자
+        //또는 SecurityContextHolder.getContext().getAuthentication().getName();
+        String buyer = request.getParameter("buyer");//구매희망자
         Long pno = Long.valueOf(request.getParameter("pno")); // 상품 고유번호
 
         // 채팅방이 없으면 새로 추가, 있으면 가져오기
-        ChatRoom room = chatService.chatRoomInsert(buyer, pno);
+        ChatRoom room = chatService.chatRoomInsert(userId, pno);
         model.addAttribute("room", room);
 
         // 기존의 채팅 내역 가져오기
@@ -49,13 +61,13 @@ public class ChatRoomCtrl {
         model.addAttribute("chats", chats);
 
         // 채팅방에 들어가면 기존에 안 읽은 메시지 읽음 처리
-        chatService.chatMessageReadUpdates(roomNo, sid);
+        chatService.chatMessageReadUpdates(roomNo, userId);
 
         // 채팅방 상대 이름 띄우기
         // 채팅방은 구매자 기준으로 저장되므로, 구매자인 경우 product 에서 seller 가져오기
-        Product product =  productService.getProduct(pno);
+        Product product = productService.getProduct(pno);
 
-        if(sid.equals(buyer)){
+        if (userId.equals(room.getBuyer())) {
             // 로그인한 사람이 구매자인 경우 판매자의 이름
             model.addAttribute("roomName", product.getSeller());
         } else {
@@ -65,6 +77,7 @@ public class ChatRoomCtrl {
 
         return "chat/chat";
     }
+
 
 /*
     @GetMapping("roomList")
@@ -126,10 +139,10 @@ public class ChatRoomCtrl {
     }
     // 채팅 읽음 처리
 
-    @GetMapping("unreadAll")
-    @ResponseBody
-    public int unreadAll(@RequestParam String receiver){
-        return chatService.chatMessageUnreadAll(receiver);
-    }
+    //@GetMapping("unreadAll")
+    //@ResponseBody
+    //public int unreadAll(@RequestParam String receiver){
+    //    return chatService.chatMessageUnreadAll(receiver);
+    //}
     // 안 읽은 모든 채팅 개수 가져오기
 }

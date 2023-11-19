@@ -46,7 +46,8 @@ public class ProductServiceImpl implements ProductService {
     public void saveProduct(Product product, MultipartFile[] imgFiles) throws IOException {
         // static은 정적폴더라서 늦게 업로드됨
         //String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
-        String projectPath = "D:/team25_upload/";
+        //String projectPath = "D:/team25_upload/";
+        String projectPath = "C:/team25_upload/"; //슬비집임시
 
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];
@@ -101,8 +102,8 @@ public class ProductServiceImpl implements ProductService {
         update.setQuantity(product.getQuantity());
         update.setQuality(product.getQuality());
 
-        //파일 처리
-        String projectPath = "D:/team25_upload/";
+        //파일 처리 //슬비집
+        String projectPath = "C:/team25_upload/";
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];
             String oriImgName = imgFile.getOriginalFilename();
