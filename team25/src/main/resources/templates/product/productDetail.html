@@ -104,8 +104,8 @@
 
                         <!-- 구매자 일때 -->
                         <div class="add-to-cart">
-                             <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 찜 </button>
-                            <a th:href="@{/chat/chat(pno=${pno}, statement!='BLOCK')}"><button class="add-to-cart-btn" ><i class="fa fa-shopping-cart"></i> 셀파톡 </button></a>
+                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 찜 </button>
+                            <a th:href="@{/chat/roomEnter(pno=${product.pno})}"><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 셀파톡 </button></a>
                             <button class="add-to-cart-btn"  th:onclick="|location.href='@{'/pay/payInsert/'+${product.pno}}'| "> 바로 구매 </button>
                         </div>
 

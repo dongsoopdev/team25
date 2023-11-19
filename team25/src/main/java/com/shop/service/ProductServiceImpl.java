@@ -101,7 +101,6 @@ public class ProductServiceImpl implements ProductService {
         update.setQuantity(product.getQuantity());
         update.setQuality(product.getQuality());
 
-        //파일 처리
         String projectPath = "D:/team25_upload/";
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];

@@ -1,7 +1,9 @@
 package com.shop.controller;
 
+import com.shop.domain.ChatRoom;
 import com.shop.domain.Product;
 import com.shop.domain.User;
+import com.shop.service.ChatService;
 import com.shop.service.ProductService;
 import com.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
@@ -27,6 +30,10 @@ public class UserController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ChatService chatService;
+
 
     @GetMapping("/")
     public String home(Model model){ // 인증된 사용자 정보 보여줌
@@ -115,7 +122,6 @@ public class UserController {
     }
 
 
-
     //내가 등록한 상품
     @RequestMapping("/myProList")
     public String myProductList( Model model) {
@@ -145,8 +151,18 @@ public class UserController {
     }
 
 
+    //나의 채팅
+    @GetMapping("myChat")
+    public String myChat(HttpServletRequest request, ModelMap modelMap, Principal principal){
+        String loginId = principal.getName();
+        User user = userService.findByUserId(loginId);
+        modelMap.addAttribute("user", user);
 
+        List<ChatRoom> rooms = chatService.chatRoomMy(loginId);
+        modelMap.addAttribute("rooms", rooms);
 
+        return "member/myChat";
+    }
 
 
 
