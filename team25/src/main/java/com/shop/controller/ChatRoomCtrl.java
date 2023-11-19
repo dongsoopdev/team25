@@ -128,6 +128,7 @@ public class ChatRoomCtrl {
     }
     // 채팅 넣기
 
+
     @PostMapping("readChat")
     @ResponseBody
     public String readChat(@RequestParam String message, @RequestParam String user) throws JsonProcessingException {
@@ -137,12 +138,13 @@ public class ChatRoomCtrl {
 
         return "readChat Completed";
     }
-    // 채팅 읽음 처리
 
-    //@GetMapping("unreadAll")
-    //@ResponseBody
-    //public int unreadAll(@RequestParam String receiver){
-    //    return chatService.chatMessageUnreadAll(receiver);
-    //}
+
+
+    @GetMapping("unreadAll")
+    @ResponseBody
+    public int unreadAll(@RequestParam String receiver){
+        return chatService.chatMessageUnreadAll(receiver);
+    }
     // 안 읽은 모든 채팅 개수 가져오기
 }
