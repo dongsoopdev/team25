@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,7 +56,7 @@
                                     <div class="card-body">
                                         <div id="msgArea" style="height: 500px; overflow-y: auto;">
                                             <th:block th:each="c : ${chats}">
-                                                <div class="d-flex flex-row justify-content-end mb-4" th:if="${#authentication.principal.userId eq c.sender}">
+                                                <div class="d-flex flex-row justify-content-end mb-4" th:if="${c.sender eq principal.getAuthorities()}">
                                                     <div class="chat-box text-end">
                                                         <div class="chat-author m-0 p-1" th:text="${c.sender}"><p class="chat-time" th:text="${c.time}" /></div>
                                                         <div class="p-3 chat-message-me">
@@ -64,7 +64,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="d-flex flex-row justify-content-start mb-4" th:if="${c.sender != session.sid}">
+                                                <div class="d-flex flex-row justify-content-start mb-4" th:if="${c.sender != principal.getAuthorities()}">
                                                     <div class="chat-box">
                                                         <div class="chat-author m-0 p-1" th:text="${c.sender}"><p class="chat-time" th:text="${c.time}" /></div>
                                                         <div class="p-3 chat-message-other">
@@ -212,7 +212,7 @@
                 data: {message: jsonstr},
                 success: function (response) {
                     // 데이터베이스에 채팅이 제대로 저장된 경우에만 send
-                    // 삭제를 하고 싶어서. chatNo가 필요해.
+                    // 삭제를 하고 싶어서. chatNo가 필요.
                     send(makeChat(response.chatNo, "TALK", roomNo, username, msg));
                 },
                 error: function(error){

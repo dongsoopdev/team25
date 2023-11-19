@@ -46,7 +46,7 @@ public class ChatRoomCtrl {
     public String roomEnter(HttpServletRequest request, Model model, Principal principal){
 
         //사용자의 아이디 가져오기
-        String userId = principal.getName();  //로그인 한 사용자
+        String userId = principal.getName();
         //또는 SecurityContextHolder.getContext().getAuthentication().getName();
         String buyer = request.getParameter("buyer");//구매희망자
         Long pno = Long.valueOf(request.getParameter("pno")); // 상품 고유번호
@@ -67,7 +67,7 @@ public class ChatRoomCtrl {
         // 채팅방은 구매자 기준으로 저장되므로, 구매자인 경우 product 에서 seller 가져오기
         Product product = productService.getProduct(pno);
 
-        if (userId.equals(room.getBuyer())) {
+        if (userId.equals(buyer)) {
             // 로그인한 사람이 구매자인 경우 판매자의 이름
             model.addAttribute("roomName", product.getSeller());
         } else {
@@ -123,7 +123,7 @@ public class ChatRoomCtrl {
     @ResponseBody
     public ChatMessage insertChat(@RequestParam String message) throws JsonProcessingException {
         ChatMessage chat = mapper.readValue(message, ChatMessage.class);
-        
+
         return chatService.chatMessageInsert(chat);
     }
     // 채팅 넣기
