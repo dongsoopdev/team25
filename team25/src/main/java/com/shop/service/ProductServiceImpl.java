@@ -1,5 +1,6 @@
 package com.shop.service;
 
+import com.shop.domain.Likes;
 import com.shop.domain.Product;
 import com.shop.domain.ProductFile;
 import com.shop.mapper.ProductMapper;
@@ -163,4 +164,32 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateStatus(Map<String, Object> paramMap) { productMapper.updateStatus(paramMap);
     }
+
+    @Override
+    public int checkLiked(Likes proLikes) {
+        return productMapper.checkLiked(proLikes);
+    }
+
+
+    @Override
+    public void removeLike(Likes proLikes) {
+        productMapper.removeLike(proLikes);
+    }
+
+    @Override
+    public void addLike(Likes proLikes) {
+        productMapper.addLike(proLikes);
+    }
+
+    // 좋아요 누른 상품의 id 목록 반환
+    @Override
+    public List<Long> getLikedProductsByUser(String userId) {
+        return productMapper.getLikedProductsByUser(userId);
+    }
+
+
+    // 유저의 좋아요 목록 출력
+    @Override
+    public List<Likes> getByIdLikeList(String userId) {return productMapper.getByIdLikeList(userId);}
+
 }

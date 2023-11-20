@@ -132,11 +132,12 @@
 
                             <td>
                                 <!-- <p th:text="${pro.getStatus()}"></p>-->
-                                <<select name="status" id="status" class="select is-fullwidth" autofocus required th:field="${pro.getStatus()}">
-                                    <option value="판매중" th:selected="${pro.getStatus() eq '판매중'}">판매중</option>
-                                    <option value="예약중" th:selected="${pro.getStatus() eq '예약중'}">예약중</option>
-                                    <option value="판매완료" th:selected="${pro.getStatus() eq '판매완료'}">판매완료</option>
-                                </select>
+                                <<select name="status" id="status" class="select is-fullwidth" autofocus required
+                                         th:field="${pro.getStatus()}">
+                                <option value="판매중" th:selected="${pro.getStatus() eq '판매중'}">판매중</option>
+                                <option value="예약중" th:selected="${pro.getStatus() eq '예약중'}">예약중</option>
+                                <option value="판매완료" th:selected="${pro.getStatus() eq '판매완료'}">판매완료</option>
+                            </select>
                             </td>
 
                             <td>
@@ -206,7 +207,6 @@
                             </td>
 
 
-
                             <td>
                                 <p th:text="${pay.price}"></p>
                             </td>
@@ -218,10 +218,13 @@
                             <td>
 
                                 <div class="btn_group">
-                                    <a class="btn btn-primary" th:if="${pay.ship != 4}" th:href="@{'/pay/payComplete/' + ${pay.pno}+'/'+${pay.payNo}}">구매확정</a>
-                                    <a class="btn btn-success" th:href="@{'/review/addReviewForm/' + ${pay.pno}}"  th:if="${pay.ship == 4}">후기 남기기</a>
+                                    <a class="btn btn-primary" th:if="${pay.ship != 4}"
+                                       th:href="@{'/pay/payComplete/' + ${pay.pno}+'/'+${pay.payNo}}">구매확정</a>
+                                    <a class="btn btn-success" th:href="@{'/review/addReviewForm/' + ${pay.pno}}"
+                                       th:if="${pay.ship == 4}">후기 남기기</a>
                                     <!-- 후기를 작성했을 때만 보여야한당 -->
-                                    <a class="add-to-cart-btn" th:href="@{'/review/getProReview/' + ${pay.pno}}">작성한 후기 확인</a>
+                                    <a class="add-to-cart-btn" th:href="@{'/review/getProReview/' + ${pay.pno}}">작성한 후기
+                                        확인</a>
                                 </div>
                             </td>
 
@@ -362,8 +365,87 @@
             </div>
 
 
+
+
             <!--찜-->
             <div id="ud_tab-content6" class="ud_content">
+                <!--<div class="like">
+                    <a th:href="@{'/product/getProduct/' + ${}}">
+                        <div class="like-content" >
+                            <div class="sc-exkUMo fbfMt"></div>
+                        </div>
+                        <div class="sc-BngTV hJwTeR">
+                            <img src="https://media.bunjang.co.kr/product/230463661_1_1689768005_w268.jpg" alt="상품 이미지">
+                            &lt;!&ndash;<div class="sc-iYUSvU jsomcE">
+                                <div><img src="" width="66" height="66" alt="판매 완료"></div>
+                            </div>&ndash;&gt;
+                            <div class="sc-cHSUfg bSqgLJ">
+                            </div>
+                        </div>
+                        <div class="sc-cqpYsc bcpXdM">
+                            <div class="sc-bFADNz kdEQCH">
+                                <div class="sc-hBbWxd gDvESF">리마, 네관, 컴활 2급 필기 cbt 기출 약190매</div>
+                                <div class="sc-drKuOJ gBjTrn"><div>8,000</div></div>
+                                <div class="sc-dyGzUR cWBMqa">3달 전</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>-->
+
+
+
+                <div class="page_wrap">
+                    <h2 class="page_tit"></h2>
+                    <table class="table text-center">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="vertical-align: middle">사진</th>
+                            <th class="text-center" style="vertical-align: middle">상품명</th>
+                            <th class="text-center" style="vertical-align: middle">가격</th>
+                            <th class="text-center" style="vertical-align: middle">비고</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="proList: ${proList}">
+                            <td>
+                                <div class="img_tit">
+                                    <a th:href="@{'/product/getProduct/' + ${proList.pno}}">
+                                        <img th:src="@{'/upload/' + ${proList.getImgsrc1()}}" alt=""
+                                             style="width: 150px;">
+                                    </a>
+                                </div>
+                            </td>
+
+
+                            <td>
+                                <p th:text="${proList.getPname()}"></p>
+                            </td>
+
+
+                            <td>
+                                <p th:text="${proList.getPrice()}"></p>
+                            </td>
+
+
+
+                            <td>
+                                <div class="btn_group">
+                                    <a th:href="@{'/product/updateProduct/' + ${proList.pno}}" class="btn btn-primary">구매하기</a>
+                                    <a th:href="@{'/product/delLike/' + ${proList.pno}}" class="btn btn-danger">제거</a>
+                                </div>
+                            </td>
+
+
+
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
 
 
             </div>

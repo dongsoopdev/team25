@@ -54,5 +54,41 @@
         </set>
         where pno = #{pno}
     </update>
+
+
+
+
+    <!-- 좋아요 카운트-->
+    <select id="checkLiked" resultType="integer">
+        SELECT count(*) FROM likes WHERE userId = #{userId} AND pno = #{pno}
+    </select>
+
+
+    <!--좋아요 추가-->
+    <insert id="addLike">
+        iNSERT INTO likes(userId, pno) VALUES(#{userId}, #{pno})
+    </insert>
+
+
+
+    <!-- 좋아요 취소-->
+    <delete id="removeLike">
+        DELETE FROM likes WHERE userId = #{userId} AND pno = #{pno}
+    </delete>
+
+
+    <!--좋아요 누른 상품의 id 목록 반환-->
+    <select id="getLikedProductsByUser" resultType="long">
+        SELECT pno FROM likes WHERE userId = #{userId}
+    </select>
+
+
+    <!--유저의 좋아요 목록 출력-->
+    <select id="getByIdLikeList" resultType="com.shop.domain.Likes">
+        select * from likes where userId=#{userId}
+    </select>
+
+
+
 </mapper>
 

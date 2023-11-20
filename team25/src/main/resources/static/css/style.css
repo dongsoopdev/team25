@@ -1471,7 +1471,7 @@ header{
 
 #product-imgs .product-preview {
   margin: 0px 5px;
-  border: 1px solid #E4E7ED;
+  /*border: 1px solid #E4E7ED;*/
 }
 
 #product-imgs .product-preview.slick-current {
@@ -1503,7 +1503,7 @@ header{
 }
 
 .product-preview img {
-  width: 100%;
+  width: 80%;
 }
 
 /*----------------------------*\
@@ -1768,20 +1768,19 @@ header{
 
 .reviews li {
   position: relative;
-  padding-left: 145px;
-  margin-bottom: 30px;
+  padding-left: 70px;
 }
 
 .reviews .review-heading {
-  position: absolute;
-  width: 130px;
+  width: 500px;
   left: 0;
   top: 0;
-  height: 70px;
+  height: 50px;
 }
 
 .reviews .review-body {
   min-height: 70px;
+  width: 400px;
 }
 
 .reviews .review-heading .name {

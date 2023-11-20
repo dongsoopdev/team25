@@ -1,5 +1,6 @@
 package com.shop.mapper;
 
+import com.shop.domain.Likes;
 import com.shop.domain.Product;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,4 +24,13 @@ public interface ProductMapper {
     //소윤 추가 {상품의 판매상황}
     void updateStatus(Map<String, Object> paramMap);
 
+    int checkLiked(Likes proLikes);
+
+    void removeLike(Likes proLikes);
+
+    void addLike(Likes proLikes);
+
+    List<Long> getLikedProductsByUser(String userId);
+
+    List<Likes> getByIdLikeList(String userId);
 }
