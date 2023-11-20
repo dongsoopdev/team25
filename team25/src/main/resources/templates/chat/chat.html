@@ -39,7 +39,7 @@
 </head>
 <body>
 <div th:insert="~{layout/header :: header}"></div>
-<div class="container contenter">
+<div class="container contents">
     <h1>채팅하기</h1>
     <div class="container">
         <div class="row">
@@ -56,7 +56,7 @@
                                     <div class="card-body">
                                         <div id="msgArea" style="height: 500px; overflow-y: auto;">
                                             <th:block th:each="c : ${chats}">
-                                                <div class="d-flex flex-row justify-content-end mb-4" th:if="${c.sender eq principal.authorities[0].authority}">
+                                                <div class="d-flex flex-row justify-content-end mb-4" th:if="${c.sender eq roomName}">
                                                     <div class="chat-box text-end">
                                                         <div class="chat-author m-0 p-1" th:text="${c.sender}"><p class="chat-time" th:text="${c.time}" /></div>
                                                         <div class="p-3 chat-message-me">
@@ -64,7 +64,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="d-flex flex-row justify-content-start mb-4" th:if="${c.sender != principal.authorities[0].authority}">
+                                                <div class="d-flex flex-row justify-content-start mb-4" th:if="${c.sender != roomName}">
                                                     <div class="chat-box">
                                                         <div class="chat-author m-0 p-1" th:text="${c.sender}"><p class="chat-time" th:text="${c.time}" /></div>
                                                         <div class="p-3 chat-message-other">
@@ -92,11 +92,13 @@
 
 <script th:inline="javascript">
     let roomNo = /*[[${room.roomNo}]]*/ 'default';
+    let roomName = /*[[${roomName}]]*/ 'default';
 
     let ws;
 
     // 사용자 이름 설정. session에 저장된 이름
-    let username = /*[[${session.sid}]]*/ 'default';
+    let username = /*[[${userId}]]*/ 'default';
+    console.log(username)
     if (username === "null") {
         username = "guest";
     }
@@ -139,6 +141,7 @@
             /*var str = username + "님이 입장하셨습니다.";
             send(makeChat("ENTER", roomNo, username, str));*/
             // console.log("info : connection opened.");
+            console.log(username + "님이 입장하셨습니다.");
         }
 
         ws.onmessage = function(response){ // 서버로부터 메세지를 받았을 때 실행
@@ -213,6 +216,7 @@
                 success: function (response) {
                     // 데이터베이스에 채팅이 제대로 저장된 경우에만 send
                     // 삭제를 하고 싶어서. chatNo가 필요.
+                    console.log(response);
                     send(makeChat(response.chatNo, "TALK", roomNo, username, msg));
                 },
                 error: function(error){

@@ -93,7 +93,7 @@ CREATE TABLE chatMessage(
     roomNo INT NOT NULL,                        -- 채팅방 번호
     sender VARCHAR(20) NOT NULL,                -- 송신자
     receiver VARCHAR(20) NOT NULL,              -- 수신자
-    message VARCHAR(2000) NOT NULL,chatroom             -- 채팅 메시지
+    message VARCHAR(2000) NOT NULL,             -- 채팅 메시지
     status VARCHAR(50) DEFAULT 'UNREAD',        -- 읽음 여부
     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP    -- 채팅 발송 시간
 );

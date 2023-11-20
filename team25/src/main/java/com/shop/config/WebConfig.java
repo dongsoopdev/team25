@@ -1,5 +1,7 @@
 package com.shop.config;
 
+import com.shop.service.ChatService;
+import com.shop.service.ChatServiceImpl;
 import com.shop.service.ProductService;
 import com.shop.service.ProductServiceImpl;
 
