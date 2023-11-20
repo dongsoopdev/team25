@@ -38,4 +38,7 @@
     <update id="userDelete">
         update user set active=#{active} where id=#{id}
     </update>
+    <select id="idDupCheck" resultType="int">
+        select count(*) from user where userId = #{userId}
+    </select>
 </mapper>
