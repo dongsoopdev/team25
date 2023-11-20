@@ -119,6 +119,14 @@ public class UserController {
         return "member/myinfo";
     }
 
+    //아이디 중복 검사
+    @ResponseBody // ajax 값 변환 위해 필요
+    @GetMapping("/idDupCheck")
+    public int idDupCheck(User userId){
+        int result = userService.idDupCheck(userId); // 중복 확인 값 int로 받음
+        return result;
+    }
+
 
 
     //내가 등록한 상품
