@@ -84,6 +84,16 @@ CREATE TABLE product(
 
 INSERT INTO product VALUES(DEFAULT, 1, '도유니 서적','도유니 서적에 대한 설명이오~!', 12000, 'lee',DEFAULT, '최상', 'img1.jpg' ,'img2.jpg','img3.jpg','img4.jpg','dddd', DEFAULT);
 
+CREATE TABLE review(
+    no BIGINT AUTO_INCREMENT PRIMARY KEY, -- 번호
+    id VARCHAR(20) NOT NULL,              -- 작성자  아이디
+    content VARCHAR(300) NOT NULL,         -- 후기
+    resdate timestamp DEFAULT CURRENT_TIMESTAMP(), -- 작성일
+    score INT CHECK (score >= 1 AND score <= 5), -- 점수 (1부터 5까지의 정수)
+    pno BIGINT, -- 상품 번호
+    FOREIGN KEY(id) REFERENCES user(userId) ON DELETE CASCADE -- 회원 아이디를 외래키로 선언
+);
+SELECT * FROM review;
 
 -- 슬비
 SELECT * FROM product;
@@ -121,3 +131,16 @@ CREATE TABLE pay (
 	sname VARCHAR(20), -- 회사 정보
 	resdate timestamp DEFAULT CURRENT_TIMESTAMP() -- 구매일 
 );
+
+SELECT * FROM pay; 
+
+CREATE TABLE board (
+	bno INT PRIMARY KEY AUTO_INCREMENT,
+	title varchar(200) not null,
+  	content varchar(1000) not null,
+  	resdate timestamp default current_timestamp,
+  	writer VARCHAR(255) NOT NULL,
+  	visited int default 0
+);
+
+SELECT * FROM board;
