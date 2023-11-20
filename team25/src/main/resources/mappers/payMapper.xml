@@ -17,4 +17,7 @@
     <update id="updateShip">
         update pay set ship = #{ship} where payNo = #{payNo}
     </update>
+    <update id="updatePayByPno">
+        update pay set ship = 2, scode=#{scode}, sname=#{sname} where pno = #{pno}
+    </update>
 </mapper>

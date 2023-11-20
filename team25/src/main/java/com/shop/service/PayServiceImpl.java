@@ -46,4 +46,14 @@ public class PayServiceImpl implements PayService{
     public void updateShip(int ship,Long payNo) {
         payMapper.updateShip(ship, payNo);
     }
+
+    @Override
+    public int updatePayByPno(Pay pay) {
+        int check = payMapper.updatePayByPno(pay);
+        if (check >=1) {
+            return 1;
+
+        } else {
+            return 0;
+        }    }
 }
