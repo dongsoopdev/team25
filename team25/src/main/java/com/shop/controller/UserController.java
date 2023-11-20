@@ -167,31 +167,31 @@ public class UserController {
 //        return "member/myChatList";
 //    }
 
-    @GetMapping("myChatList")
-    public String roomList(HttpServletRequest request, Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId  = authentication.getName();
-
-        Long pno = Long.valueOf(request.getParameter("pno"));
-        model.addAttribute("pno", pno);
-
-        List<ChatRoom> chatRooms = chatService.chatRoomProductList(pno);
-        model.addAttribute("rooms", chatRooms);
-
-        return "member/myChatList";
-    }
+//    @GetMapping("myChatList")
+//    public String roomList(HttpServletRequest request, Model model){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String userId  = authentication.getName();
+//
+//        Long pno = Long.valueOf(request.getParameter("pno"));
+//        model.addAttribute("pno", pno);
+//
+//        List<ChatRoom> chatRooms = chatService.chatRoomProductList(pno);
+//        model.addAttribute("rooms", chatRooms);
+//
+//        return "member/myChatList";
+//    }
 
     @GetMapping("myChat")
-    public String myChat(HttpServletRequest request, Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId  = authentication.getName();
+    public String myChat(HttpServletRequest request, Model model, Principal principal){
+        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(principal != null) {
+            String userId  = principal.getName();
+            model.addAttribute("userId", userId);
+            List<ChatRoom> rooms = chatService.chatRoomMy(userId);
+            model.addAttribute("rooms", rooms);
+        }
 
-        model.addAttribute("userId", userId);
-
-        List<ChatRoom> rooms = chatService.chatRoomMy(userId);
-        model.addAttribute("rooms", rooms);
-
-        return "member/myChat";
+        return "member/myChatList";
     }
 
     //나의 채팅

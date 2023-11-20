@@ -40,7 +40,7 @@
             <div class="col-6">
                 <h4>채팅방 목록</h4>
                 <ul class="list-group" id="roomList" style="margin: 10px 0;" th:each="rooms : ${rooms}">
-                    <li class="list-group-item"><a th:href="@{/chat/roomEnter(buyer=${room.buyer}, pno=${pno})}" th:text="${room.buyer}"></a></li>
+                    <li class="list-group-item"><a th:href="@{/chat/roomEnter(buyer=${userId}, pno=${rooms.pno})}" th:text="${userId}"></a></li>
                 </ul>
             </div>
         </div>
