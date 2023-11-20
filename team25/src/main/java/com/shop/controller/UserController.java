@@ -152,20 +152,60 @@ public class UserController {
 
 
     //나의 채팅
-    @GetMapping("myChat")
-    public String myChat(HttpServletRequest request, ModelMap modelMap, Principal principal){
-        String loginId = principal.getName();
-        User user = userService.findByUserId(loginId);
-        modelMap.addAttribute("user", user);
+//    @GetMapping("myChatList")
+//    public String myChatList(HttpServletRequest request, ModelMap modelMap, Principal principal, Model model){
+//        //사용자의 아이디 가져오기
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String userId  = authentication.getName();
+//
+//        String seller = request.getParameter("seller"); //판매자
+//
+//        List<ChatRoom> roomList = chatService.chatRoomMy(seller);
+//        System.out.println(roomList);
+//        model.addAttribute("roomList", roomList);
+//
+//        return "member/myChatList";
+//    }
 
-        List<ChatRoom> rooms = chatService.chatRoomMy(loginId);
-        modelMap.addAttribute("rooms", rooms);
+    @GetMapping("myChatList")
+    public String roomList(HttpServletRequest request, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId  = authentication.getName();
+
+        Long pno = Long.valueOf(request.getParameter("pno"));
+        model.addAttribute("pno", pno);
+
+        List<ChatRoom> chatRooms = chatService.chatRoomProductList(pno);
+        model.addAttribute("rooms", chatRooms);
+
+        return "member/myChatList";
+    }
+
+    @GetMapping("myChat")
+    public String myChat(HttpServletRequest request, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId  = authentication.getName();
+
+        model.addAttribute("userId", userId);
+
+        List<ChatRoom> rooms = chatService.chatRoomMy(userId);
+        model.addAttribute("rooms", rooms);
 
         return "member/myChat";
     }
 
-
-
+    //나의 채팅
+//    @GetMapping("myChat")
+//    public String myChat(HttpServletRequest request, ModelMap modelMap, Principal principal){
+//        String loginId = principal.getName();
+//        User user = userService.findByUserId(loginId);
+//        modelMap.addAttribute("user", user);
+//
+//        List<ChatRoom> myrooms = chatService.chatRoomMy(loginId);
+//        modelMap.addAttribute("myrooms", myrooms);
+//
+//        return "member/myChat";
+//    }
 
 
 

@@ -81,7 +81,7 @@ public class ChatRoomCtrl {
     }
 
 
-/*
+
     @GetMapping("roomList")
     public String roomList(HttpServletRequest request, Model model){
         Long pno = Long.valueOf(request.getParameter("pno"));
@@ -92,7 +92,7 @@ public class ChatRoomCtrl {
 
         return "chat/chatList";
     }
-
+/*
     @PostMapping("blockRoom")
     @ResponseBody
     public String blockRoom(HttpServletRequest request){

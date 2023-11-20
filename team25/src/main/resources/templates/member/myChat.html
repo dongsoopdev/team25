@@ -8,34 +8,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <head th:replace="~{layout/head.html :: head}">
 
-    <title>채팅</title>
-    <style>
-        .chat-box {
-            margin: 0;
-        }
-        .chat-time {
-            display: inline;
-            margin-left: 10px;
-            color: gray;
-            font-size: 10px;
-        }
-        .close-tag {
-            color: inherit;
-        }
-        .chat-message-me {
-            border-radius: 15px; background-color: green; float: right; width: fit-content; max-width: 450px;
-        }
-        .chat-message-me p {
-            color: white;
-        }
-        .chat-message-other{
-            border-radius: 15px; background-color: rgba(57, 192, 237,.2); max-width: 450px;
-        }
-        .chat-message{
-            white-space: pre-wrap;
-        }
-    </style>
-</head>
+        <title>나의채팅방</title>
+        <style>
+            .chat-box {
+                margin: 0;
+            }
+            .chat-time {
+                display: inline;
+                margin-left: 10px;
+                color: gray;
+                font-size: 10px;
+            }
+            .close-tag {
+                color: inherit;
+            }
+            .chat-message-me {
+                border-radius: 15px; background-color: green; float: right; width: fit-content; max-width: 450px;
+            }
+            .chat-message-me p {
+                color: white;
+            }
+            .chat-message-other{
+                border-radius: 15px; background-color: rgba(57, 192, 237,.2); max-width: 450px;
+            }
+            .chat-message{
+                white-space: pre-wrap;
+            }
+        </style>
+    </head>
 <body>
 <div th:insert="~{layout/header :: header}"></div>
 <div class="container contents">
