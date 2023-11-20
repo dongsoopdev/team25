@@ -25,7 +25,7 @@ public class User {
     @NotBlank(message = "비밀번호는 필수입니다.")
     private String password;
 
-    private String confirm_password;
+    private String confirmPassword;
 
     @Email(message = "이메일 형식이 아닙니다.")
     @NotBlank(message = "이메일은 필수입니다.")
@@ -38,6 +38,7 @@ public class User {
     private String addr1;
 
     private String addr2;
+
     @NotBlank(message = "전화번호는 필수입니다.")
     private String tel;
 
