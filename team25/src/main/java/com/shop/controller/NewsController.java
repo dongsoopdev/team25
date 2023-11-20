@@ -23,6 +23,6 @@ public class NewsController {
     public String newsCrawler(HttpServletRequest request, Model model) throws Exception {
         List<News> newsList = Crawler.naverNewsKeyword("천재교육", 5);
         model.addAttribute("newsList", newsList);
-        return "/comunity/news";
+        return "comunity/news";
     }
 }

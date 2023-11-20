@@ -38,7 +38,7 @@ public interface ChatRoomMapper {
     @Delete("DELETE FROM chatroom WHERE roomNo=#{roomNo}")
     public int chatRoomDelete(Long roomNo);
 
-    @Select("SELECT chatroom.id, chatroom.buyer, chatroom.pno, product.seller FROM chatRoom JOIN product ON (chatroom.pno = product.pno) JOIN user ON (user.userId = chatroom.seller OR user.userId = chatroom.buyer) WHERE user.userId = #{userId}")
+    @Select("SELECT chatroom.*, product.seller FROM chatRoom JOIN product ON (chatroom.pno = product.pno) WHERE seller = #{id} OR buyer=#{id}")
     public List<ChatRoom> chatRoomMy(String id);
     // 내가 대화를 나눈 적 있는 모든 채팅방 가져오기
 }

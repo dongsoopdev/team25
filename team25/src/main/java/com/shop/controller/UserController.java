@@ -1,5 +1,6 @@
 package com.shop.controller;
 
+import com.shop.domain.ChatMessage;
 import com.shop.domain.ChatRoom;
 import com.shop.domain.Product;
 import com.shop.domain.User;
@@ -181,31 +182,58 @@ public class UserController {
 //        return "member/myChatList";
 //    }
 
-    @GetMapping("myChat")
+    //나의 채팅방 목록
+    @GetMapping("myChatList")
     public String myChat(HttpServletRequest request, Model model, Principal principal){
-        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(principal != null) {
             String userId  = principal.getName();
             model.addAttribute("userId", userId);
+
             List<ChatRoom> rooms = chatService.chatRoomMy(userId);
             model.addAttribute("rooms", rooms);
         }
-
         return "member/myChatList";
     }
 
-    //나의 채팅
-//    @GetMapping("myChat")
-//    public String myChat(HttpServletRequest request, ModelMap modelMap, Principal principal){
-//        String loginId = principal.getName();
-//        User user = userService.findByUserId(loginId);
-//        modelMap.addAttribute("user", user);
-//
-//        List<ChatRoom> myrooms = chatService.chatRoomMy(loginId);
-//        modelMap.addAttribute("myrooms", myrooms);
-//
-//        return "member/myChat";
-//    }
+    // 채팅하기
+    @GetMapping("myChat")
+    public String myChat(HttpServletRequest request, ModelMap modelMap, Principal principal, Model model) {
+        //사용자의 아이디 가져오기
+        String userId = principal.getName();
+        model.addAttribute("userId", userId);
+
+        //또는 SecurityContextHolder.getContext().getAuthentication().getName();
+        String buyer = request.getParameter("buyer");//구매희망자
+        Long pno = Long.valueOf(request.getParameter("pno")); // 상품 고유번호
+
+        // 채팅방이 없으면 새로 추가, 있으면 가져오기
+        ChatRoom room = chatService.chatRoomInsert(userId, pno);
+        model.addAttribute("room", room);
+
+
+        // 기존의 채팅 내역 가져오기
+        Long roomNo = room.getRoomNo();
+        List<ChatMessage> chats = chatService.chatMessageList(roomNo);
+        model.addAttribute("chats", chats);
+
+        // 채팅방에 들어가면 기존에 안 읽은 메시지 읽음 처리
+        chatService.chatMessageReadUpdates(roomNo, userId);
+
+        // 채팅방 상대 이름 띄우기
+        // 채팅방은 구매자 기준으로 저장되므로, 구매자인 경우 product 에서 seller 가져오기
+        Product product = productService.getProduct(pno);
+
+        if (userId.equals(room.getBuyer())) {
+            // 로그인한 사람이 구매자인 경우 판매자의 이름
+            model.addAttribute("roomName", product.getSeller());
+        } else {
+            // 로그인한 사람이 판매자인 경우 구매자의 이름
+            model.addAttribute("roomName", room.getBuyer());
+        }
+
+        return "member/myChat";
+    }
+
 
 
 

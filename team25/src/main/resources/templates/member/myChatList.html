@@ -34,17 +34,48 @@
 </head>
 <body>
 <div th:insert="~{layout/header :: header}"></div>
-<div class="container contenter">
+<div class="contents">
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <h4>채팅방 목록</h4>
+                <h4> 채팅스</h4>
                 <ul class="list-group" id="roomList" style="margin: 10px 0;" th:each="rooms : ${rooms}">
                     <li class="list-group-item"><a th:href="@{/chat/roomEnter(buyer=${userId}, pno=${rooms.pno})}" th:text="${userId}"></a></li>
                 </ul>
+
+
+
+<!--                <ul class="list-group" id="roomList" style="margin: 10px 0;" th:each="cr : ${rooms}">-->
+<!--                    <li class="list-group-item" th:if="${cr.buyer eq userId}">-->
+<!--                        <a th:href="@{/member/myChat(buyer=${userId}, pno=${pro.pno})}" th:text="${cr.buyer}"></a>-->
+<!--                    </li>-->
+<!--                    <li class="list-group-item" th:if="${cr.seller eq userId}">-->
+<!--                        <a th:href="@{/member/myChat(seller=${userId}, pno=${pro.pno})}" th:text="${cr.seller}"></a>-->
+<!--                    </li>-->
+<!--                </ul>-->
             </div>
         </div>
     </div>
 </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

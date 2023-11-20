@@ -21,6 +21,7 @@
                 <li><a th:href="@{/member/loginInfo}">마이페이지</a></li>
                 <li><a th:href="@{/pay/myPayList}">구매내역</a></li>
                 <li><a th:href="@{/pay/mySaleList}">판매내역</a></li>
+                <li><a th:href="@{/member/myChatList}">채팅</a></li>
             </ul>
             <ul sec:authorize="hasAuthority('ADMIN')" class="header-links pull-right">
                 <li><a th:href="@{/member/logout}">로그아웃</a></li>
