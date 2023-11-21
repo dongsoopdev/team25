@@ -129,15 +129,7 @@ public class UserController {
 
 
     //회원 탈퇴
-    @PostMapping("/delete")
-    public String withdraw(User user, HttpSession session, Model model){
-        Long id = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        user.setActive(user.getActive());
-        user.setId(user.getId());
-        userService.withdraw(user);
-        //토큰은 삭제 하지 않고 기록만 남길 수 있게??
-        return "redirect:/";
-    }
+
 
 
    /* @GetMapping("/mypage")

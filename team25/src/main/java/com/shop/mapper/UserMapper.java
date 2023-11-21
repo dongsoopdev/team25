@@ -48,4 +48,15 @@ public interface UserMapper {
 
     //권한 변경
     void editUserRole(UserRole userRole);
+
+    //회원 상세보기
+    User userDetail(Long id);
+
+    // 권한 변경
+    void editUserRole(Long id);
+
+    // id로 권한 내용 가져오기
+    int getRoleIdById(Long id);
+
+    User getActive(Long id);
 }
