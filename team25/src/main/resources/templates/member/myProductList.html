@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<html lang="en">
 
 <!-- head include-->
 <head>
@@ -132,8 +131,12 @@
 
                             <td>
                                 <!-- <p th:text="${pro.getStatus()}"></p>-->
+<<<<<<< HEAD
+                                <<select name="status" id="status" class="select is-fullwidth" autofocus required th:field="${pro.getStatus()}">
+=======
                                 <<select name="status" id="status" class="select is-fullwidth" autofocus required
                                          th:field="${pro.getStatus()}">
+>>>>>>> 603ae0f37e7c400c1e35190c246b26dbb3253f20
                                 <option value="판매중" th:selected="${pro.getStatus() eq '판매중'}">판매중</option>
                                 <option value="예약중" th:selected="${pro.getStatus() eq '예약중'}">예약중</option>
                                 <option value="판매완료" th:selected="${pro.getStatus() eq '판매완료'}">판매완료</option>
@@ -158,12 +161,10 @@
                                     <a th:href="@{'/product/updateProduct/' + ${pro.pno}}"
                                        class="btn btn-primary">수정</a>
                                     <a th:href="@{'/product/deleteProduct/' + ${pro.pno}}" class="btn btn-danger">삭제</a>
+                                    <a th:href="@{'/pay/shipInsert/' + ${pro.pno}}" th:if="${pro.status == '예약중'}" class="btn btn-warning">배송관리</a>
                                 </div>
                             </td>
-
-
                         </tr>
-
                         </tbody>
                     </table>
 
@@ -218,8 +219,9 @@
                             <td>
 
                                 <div class="btn_group">
-                                    <a class="btn btn-primary" th:if="${pay.ship != 4}"
-                                       th:href="@{'/pay/payComplete/' + ${pay.pno}+'/'+${pay.payNo}}">구매확정</a>
+
+                                    <a class="btn btn-primary" th:if="${pay.ship == 3}" th:href="@{'/pay/payComplete/' + ${pay.pno}+'/'+${pay.payNo}}">구매확정</a>
+                                    <a class="btn btn-primary" th:if="${pay.ship == 2}" th:href="@{'/pay/shipInsert/' + ${pay.pno}}">배송정보</a>
                                     <a class="btn btn-success" th:href="@{'/review/addReviewForm/' + ${pay.pno}}"
                                        th:if="${pay.ship == 4}">후기 남기기</a>
                                     <!-- 후기를 작성했을 때만 보여야한당 -->

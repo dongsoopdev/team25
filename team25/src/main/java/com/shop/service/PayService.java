@@ -8,5 +8,6 @@ public interface PayService {
     public Pay getPay(Long pno);
     public List<Pay> myPayListByUserId(String userId);
     public void updateShip(int ship, Long payNo);
+    public int updatePayByPno(Pay pay);
 }
 
