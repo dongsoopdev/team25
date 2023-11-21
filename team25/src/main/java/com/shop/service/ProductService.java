@@ -44,4 +44,7 @@ public interface ProductService {
 
     //상품별 좋아요 카운트 수 졍렬
     public List<Product> orderbyPnoCount();
+    public void updateProductStatus(String status, Long pno);
+
+    public void updateResdate(Long pno);
 }

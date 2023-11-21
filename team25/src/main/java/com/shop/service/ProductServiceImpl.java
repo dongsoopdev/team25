@@ -197,4 +197,12 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.orderbyPnoCount();
     }
 
+    @Override
+    public void updateProductStatus(String status, Long pno) {
+        productMapper.updateProductStatus(status, pno);
+    }
+    public void updateResdate(Long pno) {
+        productMapper.updateResdate(pno);
+    }
+
 }

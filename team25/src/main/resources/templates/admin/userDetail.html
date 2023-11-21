@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="~{layout/head.html :: head}">
+    <title> 회원 상세보기 </title>
+</head>
+<body>
+<header class="header" id="hd">
+    <div th:insert="~{layout/header :: header}"></div>
+</header>
+<div class="content">
+    <div class="container">
+        <table class="table-borderless" style="margin-top: 430px;">
+            <tbody>
+            <tr>
+                <th>이름</th>
+                <td th:text="${user.userName}"></td>
+            </tr>
+            <tr>
+                <th>아이디</th>
+                <td th:text="${user.userId}"></td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td th:text="${user.password}"></td>
+            </tr>
+            <tr>
+                <th>계정 상태</th>
+                <td th:text="${user.active}"></td>
+            </tr>
+            <tr>
+                <th>계정 권한</th>
+                <td th:text="${user.roleName}"></td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td th:text="${user.email}"></td>
+            </tr>
+            <tr>
+                <th>전화번호</th>
+                <td th:text="${user.tel}"></td>
+            </tr>
+            <tr>
+                <th>우편번호</th>
+                <td th:text="${user.postcode}"></td>
+            </tr>
+            <tr>
+                <th>기본 주소</th>
+                <td th:text="${user.addr1}"></td>
+            </tr>
+            <tr>
+                <th>상세 주소</th>
+                <td th:text="${user.addr2}"></td>
+            </tr>
+            <tr>
+                <th>등록일</th>
+                <td th:text="${user.regdate}"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <a th:href="@{'/admin/update/'+${user.id}}" class="btn"></a>
+                    <input type="reset" class="button btn-primary" value="취소">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer class="footer" id="ft">
+    <div th:insert="~{layout/footer :: footer}"></div>
+</footer>
+</body>
+</html>

@@ -92,11 +92,16 @@
 
 
 
-
                         <!-- Cart -->
                         <div>
-                            <a th:href="@{/member/myProList}">
-                                <!-- <i class="fa fa-heart-o"></i>-->
+                            <!-- 로그인되지 않았을 때 -->
+                            <a th:if="${#authorization.expression('isAnonymous()')}" th:href="@{/member/login}">
+                                <img th:src="@{/images/header_product.png}" style="width: 25px">
+                                <span>내상점</span>
+                            </a>
+
+                            <!-- 로그인되었을 때 -->
+                            <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/member/myProList}">
                                 <img th:src="@{/images/header_product.png}" style="width: 25px">
                                 <span>내상점</span>
                             </a>
@@ -139,6 +144,22 @@
 
     <!-- NAVIGATION -->
     <nav id="navigation">
+
+<!--
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown link
+            </a>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+        </div>
+-->
+
+
         <!-- container -->
         <div class="container">
             <!-- responsive-nav -->
@@ -147,12 +168,12 @@
                 <ul class="main-nav nav navbar-nav">
                     <li class="active"><img th:src="@{/images/icon/icon_menu.png}" style=" margin: 10px;width: 20px;
 }"></a></li>
-                   <!-- <li><a href="#">Hot Deals</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Laptops</a></li>
-                    <li><a href="#">Smartphones</a></li>
-                    <li><a href="#">Cameras</a></li>
-                    <li><a href="#">Accessories</a></li>-->
+                    <!-- <li><a href="#">Hot Deals</a></li>
+                     <li><a href="#">Categories</a></li>
+                     <li><a href="#">Laptops</a></li>
+                     <li><a href="#">Smartphones</a></li>
+                     <li><a href="#">Cameras</a></li>
+                     <li><a href="#">Accessories</a></li>-->
                 </ul>
                 <!-- /NAV -->
             </div>
@@ -162,8 +183,8 @@
     </nav>
     <!-- /NAVIGATION -->
 
-
 </header>
 <!-- /HEADER -->
+
 
 

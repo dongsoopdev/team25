@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div class="content">
+    <div class="container">
+        <form th:action="@{'/admin/update/'+${user.id}}" method="post">
+            <div class="table_form_wrap">
+                <table class="table-borderless">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <label for="userId">아이디</label>
+                            </th>
+                            <td>
+                                <input type="text" id="userId" name="userId" class="form-control" th:value="${user.userId}" readonly/>
+
+                            </td>
+                        </tr>
+                    <tr>
+                        <th>
+                            <label for="userName">이름</label>
+                        </th>
+                        <td>
+                            <input type="text" class="form-control" name="userName" id="userName" th:value="${user.userName}" >
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="tel">전화번호</label></th>
+                        <td><input class="form-control" type="text" id="tel"  name="tel" th:value="${user.tel}">
+
+                    </tr>
+                    <tr>
+                        <th><label for="email">이메일</label></th>
+                        <td><input class="form-control" type="text" id="email" name="email" th:value="${user.email}">
+
+                    </tr>
+                    <tr>
+                        <th><label for="postcode">우편번호</label></th>
+                        <button type="button" id="post_btn" onclick="findAddr()" class="button is-link is-size-6">우편번호 검색</button>
+                        <td> <input class="form-control" type="text" id="postcode" name="postcode" th:value="${user.postcode}">
+
+                        <th><label for="addr1">기본주소</label></th>
+                        <td> <input class="form-control" type="text" id="addr1" name="addr1" th:value="${user.addr1}">
+                            <
+                        <th><label for="addr2">상세 주소</label></th>
+                        <td><input class="form-control" type="text" id="addr2" name="addr2" th:value="${user.addr2}"></td>
+                    </tr>
+                    <td>
+                        <input type="submit" class="btn" value="수정하기">
+                        <a th:href="@{/member/userDetail/{id}}" class="btn" th:text="취소하기"></a>
+                    </td>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

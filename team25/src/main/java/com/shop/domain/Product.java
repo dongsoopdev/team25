@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +27,7 @@ public class Product {
     private String imgsrc4;
    // private String imgPath;   // 이미지 조회 경로
     private LocalDateTime resdate;   //등록일
+
 
 
     private int cnt;

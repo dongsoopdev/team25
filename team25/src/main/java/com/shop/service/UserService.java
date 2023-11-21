@@ -60,7 +60,6 @@ public class UserService {
     }
 
     public void edit(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userMapper.userEdit(user);
     }
 
@@ -86,5 +85,26 @@ public class UserService {
         int result = userMapper.idDupCheck(userId);
         return result;
     }
+
+    // 회원 상세보기
+    public User userDetail(Long id){
+        return userMapper.userDetail(id);
+    }
+
+    // 권한 아이디 가져오기
+    public int getRoleIdById(Long id) {
+        return userMapper.getRoleIdById(id);
+    }
+
+    //  권한 가져 오기
+    public Role getRole(Integer roleId){
+        return userMapper.getRole(roleId);
+    }
+
+    // 계정 상태 가져오기
+    public User getActive(Long id){
+        return userMapper.getActive(id);
+    }
+
 
 }

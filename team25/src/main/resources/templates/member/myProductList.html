@@ -46,6 +46,12 @@
             font-size: 16px;
             resize: none;
         }
+
+
+        .btn btn-success-confirm{
+            background-color: #FFA425;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -64,11 +70,11 @@
 
         <div id="ud_tab" style="">
 
-            <input type="radio" name="ud_tabs" id="tab1" checked>
+            <input type="radio" name="ud_tabs" id="tab1" >
             <label sec:authorize="hasAuthority('ADMIN') or hasAuthority('TEACHER')" for="tab1"><strong>상품
                 등록</strong></label>
 
-            <input type="radio" name="ud_tabs" id="tab2">
+            <input type="radio" name="ud_tabs" id="tab2" checked>
             <label sec:authorize="hasAuthority('ADMIN') or hasAuthority('TEACHER')" for="tab2"><strong>상품
                 관리</strong></label>
 
@@ -96,7 +102,126 @@
 
 
             <!--상품 등록-->
-            <div id="ud_tab-content1" class="ud_content">
+            <div id="ud_tab-content1" class="ud_content" style="width: 1000px;">
+                <form th:action="@{/product/addProduct}" method="post" enctype="multipart/form-data">
+
+                    <h2>상품 등록</h2>
+
+                    <table class="table">
+                        <tbody>
+
+
+                        <tr>
+                            <th>상품 이미지</th>
+                            <td colspan="2"><input type="file" name="imgFile" id="imgsrc1" class="input" placeholder="이미지1" accept=".jpg, .png" required></td>
+                        </tr>
+                        <tr>
+                            <th>상품 이미지2</th>
+                            <td colspan="2"><input type="file" name="imgFile" id="imgsrc2" class="input" placeholder="이미지2" accept=".jpg, .png" required></td>
+                        </tr>
+                        <tr>
+                            <th>상품 이미지 3</th>
+                            <td colspan="2"><input type="file" name="imgFile" id="imgsrc3" class="input" placeholder="이미지3" accept=".jpg, .png" required></td>
+                        </tr>
+                        <tr>
+                            <th>상품 이미지 4</th>
+                            <td colspan="2"><input type="file" name="imgFile" id="imgsrc4" class="input" placeholder="이미지4" accept=".jpg, .png" required></td>
+                        </tr>
+
+                        <tr>
+                            <th>상품명</th>
+                            <td colspan="2"><input type="text" name="pname" id="pname" class="input" placeholder="상품 이름 입력" required></td>
+                        </tr>
+
+
+
+                        <tr>
+                            <th>카테고리</th>
+                            <td colspan="2">
+                                <select  name="cateno" id="cateno" class="select is-fullwidth" autofocus required>
+                                    <option value="1" selected>초등서적</option>
+                                    <option value="2">중등서적</option>
+                                    <option value="3">고등서적</option>
+                                </select>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>상품상태</th>
+                            <td>
+                                <div>
+                                    <input type="radio" id="bestupper" name="quality " value="최상" checked />
+                                    <label2 for="bestupper">
+                                        <strong style="font-size: 15px;">새 상품 (미사용)</strong>
+                                        &nbsp;&nbsp;사용하지 않은 새 상품
+                                    </label2>
+                                </div>
+
+                                <div>
+                                    <input type="radio" id="upper" name="quality " value="상" />
+                                    <label2 for="upper">
+                                        <strong style="font-size: 15px;">사용감 없음</strong>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사용은 했지만 눈에 띄는 흔적이나 얼룩이 없음
+
+                                    </label2>
+                                </div>
+
+                                <div>
+                                    <input type="radio" id="middle" name="quality " value="중" />
+                                    <label2 for="middle">
+                                        <strong style="font-size: 15px;">사용감 적음</strong>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;눈에 띄는 흔적이나 얼룩이 약간 있음
+                                    </label2>
+                                </div>
+                                <div>
+                                    <input type="radio" id="lower" name="quality " value="하" />
+                                    <label2 for="lower">
+                                        <strong style="font-size: 15px;">사용감 많음</strong>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;눈에 띄는 흔적이나 얼룩이 많이 있음
+                                    </label2>
+                                </div>
+                                <div>
+                                    <input type="radio" id="bestlower" name="quality " value="최하" />
+                                    <label2 for="bestlower">
+                                        <strong style="font-size: 15px;">고장/파손 상품</strong>
+                                        &nbsp;&nbsp;&nbsp;기능 이상이나 외관 손상 등으로 수리/수선 필요
+                                    </label2>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr >
+                            <th>가격</th>
+                            <td colspan="2" ><input type="number" name="price" id="price" class="input" placeholder="가격 입력" style="width: 50%" required></td>
+                        </tr>
+
+
+                        <tr>
+                            <th>설명</th>
+                            <td colspan="2"> <textarea name="pcomment" id="pcomment" cols="50" class="textarea" rows="8" style="width: 100%" placeholder="상품 설명 입력" required></textarea></td>
+                        </tr>
+
+
+                        <tr>
+                            <th>수량</th>
+                            <td colspan="2"><input type="number" name="quantity" id="quantity" class="input" placeholder="수량 입력" required></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <input type="reset" value="취소" class="btn btn-danger" onclick="window.history.back();">
+                                <input type="submit" value="상품등록" class="btn btn-primary">
+                                <a th:href="@{product/productList}"  type="button" class="btn btn-secondary" style="float: right;">상품목록</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+
+
+
+
 
             </div>
 
@@ -119,7 +244,7 @@
                         </thead>
                         <tbody>
 
-                        <tr th:each="pro: ${myproList}">
+                        <tr th:each="pro: ${myproList}" >
                             <td>
                                 <div class="img_tit">
                                     <a th:href="@{'/product/getProduct/' + ${pro.pno}}">
@@ -130,19 +255,13 @@
                             </td>
 
                             <td>
-                                <!-- <p th:text="${pro.getStatus()}"></p>-->
-<<<<<<< HEAD
-                                <<select name="status" id="status" class="select is-fullwidth" autofocus required th:field="${pro.getStatus()}">
-=======
-                                <<select name="status" id="status" class="select is-fullwidth" autofocus required
-                                         th:field="${pro.getStatus()}">
->>>>>>> 603ae0f37e7c400c1e35190c246b26dbb3253f20
-                                <option value="판매중" th:selected="${pro.getStatus() eq '판매중'}">판매중</option>
-                                <option value="예약중" th:selected="${pro.getStatus() eq '예약중'}">예약중</option>
-                                <option value="판매완료" th:selected="${pro.getStatus() eq '판매완료'}">판매완료</option>
-                            </select>
+                                <select name="status" th:id="'product-row-' + ${pro.pno}" class="select is-fullwidth product-status" autofocus required th:attr="onchange=|updateStatus(${pro.pno})|">
+                                <option th:value="판매중" th:selected="${pro.status eq '판매중'}">판매중</option>
+                                <option th:value="예약중" th:selected="${pro.status eq '예약중'}">예약중</option>
+                                <option th:value="판매완료" th:selected="${pro.status eq '판매완료'}">판매완료</option>
+                                </select>
+==
                             </td>
-
                             <td>
                                 <p th:text="${pro.getPname()}"></p>
                             </td>
@@ -158,8 +277,7 @@
 
                             <td>
                                 <div class="btn_group">
-                                    <a th:href="@{'/product/updateProduct/' + ${pro.pno}}"
-                                       class="btn btn-primary">수정</a>
+                                    <a th:href="@{'/product/updateProduct/' + ${pro.pno}}" class="btn btn-primary">수정</a>
                                     <a th:href="@{'/product/deleteProduct/' + ${pro.pno}}" class="btn btn-danger">삭제</a>
                                     <a th:href="@{'/pay/shipInsert/' + ${pro.pno}}" th:if="${pro.status == '예약중'}" class="btn btn-warning">배송관리</a>
                                 </div>
@@ -191,6 +309,7 @@
                         <tbody>
 
                         <tr th:each="pay: ${myPayList}">
+
                             <td>
                                 <div class="img_tit">
                                     <a th:href="@{'/product/getProduct/' + ${pay.pno}}">
@@ -218,15 +337,15 @@
 
                             <td>
 
-                                <div class="btn_group">
+                                <div class="btn_group" >
 
                                     <a class="btn btn-primary" th:if="${pay.ship == 3}" th:href="@{'/pay/payComplete/' + ${pay.pno}+'/'+${pay.payNo}}">구매확정</a>
                                     <a class="btn btn-primary" th:if="${pay.ship == 2}" th:href="@{'/pay/shipInsert/' + ${pay.pno}}">배송정보</a>
                                     <a class="btn btn-success" th:href="@{'/review/addReviewForm/' + ${pay.pno}}"
-                                       th:if="${pay.ship == 4}">후기 남기기</a>
+                                       th:if="${pay.ship == 4 && pay.getCheck() == 0}">후기 남기기</a>
                                     <!-- 후기를 작성했을 때만 보여야한당 -->
-                                    <a class="add-to-cart-btn" th:href="@{'/review/getProReview/' + ${pay.pno}}">작성한 후기
-                                        확인</a>
+                                    <a class="btn btn-success-confirm"  th:href="@{'/review/getProReview/' + ${pay.pno}}" th:if="${pay.ship == 4 && pay.getCheck() == 1}" style="background-color: #FFA425;
+            color: #fff;">작성한 후기 확인</a>
                                 </div>
                             </td>
 
@@ -433,7 +552,8 @@
 
                             <td>
                                 <div class="btn_group">
-                                    <a th:href="@{'/product/updateProduct/' + ${proList.pno}}" class="btn btn-primary">구매하기</a>
+
+                                    <a th:href="@{'/pay/payInsert/'+${proList.pno}}" class="btn btn-primary">구매하기</a>
                                     <a th:href="@{'/product/delLike/' + ${proList.pno}}" class="btn btn-danger">제거</a>
                                 </div>
                             </td>
@@ -462,8 +582,23 @@
 </footer>
 
 <!-- script 사용시-->
-<th:block layout:fragment="script">
-</th:block>
+<script th:inline="javascript">
+    function updateStatus(pno) {
+        var selectedValue = $('#product-row-' + pno).val();
+        console.log( pno);
+        $.ajax({
+            type: 'get',
+            url: '/product/updateStatus',
+            data: { pno: pno, status: selectedValue },
+            success: function(response) {
+                console.log("Status updated successfully");
+            },
+            error: function(xhr, status, error) {
+                console.error("Error updating status: " + error);
+            }
+        });
+    }
+</script>
 </body>
 
 </html>
