@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -158,10 +160,10 @@ public class UserController {
 
 
 
-    //내가 등록한 상품
+    //내상점
     //@RequestMapping("/myProList")
     @RequestMapping(value = "/myProList", method = RequestMethod.GET)
-    public String myProductList( Model model) {
+    public String myProductList(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId  = authentication.getName();
 
@@ -171,7 +173,23 @@ public class UserController {
         model.addAttribute("myproList", myproList);
         //소윤의 구매내역
         List<Pay> myPayList = payService.myPayListByUserId(userId);
+
+
+        //리뷰 체크
+        Review review = new Review();
+        for(Pay re: myPayList){
+            review.setPno(re.getPno());
+            review.setId(userId);
+            int check = reviewService.reviewCheck(review);
+
+            System.out.println("check: " + check );
+            re.setCheck(check);
+
+        }
+
         model.addAttribute("myPayList",myPayList);
+
+
 
         // 내가 쓴 후기
         List<Review> proReview= reviewService.proReview(userId);
@@ -198,8 +216,10 @@ public class UserController {
         model.addAttribute("proList", proList);
 
 
+
         return "member/myProductList";
     }
+
 
 
     //나의 채팅방 목록

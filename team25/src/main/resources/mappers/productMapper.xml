@@ -96,6 +96,11 @@
         GROUP BY l.pno order by cnt desc;
     </select>
 
+    <!-- 상품 끌어올리기 -->
+    <update id="updateResdate">
+        UPDATE product SET resdate = current_timestamp WHERE pno = #{pno};
+    </update>
+
 
 
 </mapper>
