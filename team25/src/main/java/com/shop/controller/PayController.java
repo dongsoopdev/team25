@@ -7,16 +7,20 @@ import com.shop.service.PayService;
 import com.shop.service.ProductService;
 import com.shop.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,14 +51,11 @@ public class PayController {
 
     //결제하기~~
     @PostMapping("/payInsert")
+    @Transactional
     public String payInsertPro(Pay pay) throws Exception {
         int check = payService.payInsert(pay);
         if (check == 1) {
             log.info("결제 성공");
-            Map<String, Object> paramMap = new HashMap<>();
-            paramMap.put("num", 2); // 또는 2
-            paramMap.put("pno", pay.getPno()); // pno 값 설정
-            productService.updateStatus(paramMap);
             return "redirect:/";
         }
         else {
@@ -68,22 +69,24 @@ public class PayController {
     public String myPayList(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId  = authentication.getName();
-
+        System.out.println(userId);
         List<Pay> myPayList = payService.myPayListByUserId(userId);
-
         model.addAttribute("myPayList",myPayList);
         return "pay/myPayList";
     }
 
     @GetMapping("/payComplete/{pno}/{payNo}")
-    public String payComplete(@PathVariable("pno") long pno, @PathVariable("payNo") long payNo) {
+    @Transactional
+    public String payComplete(@PathVariable("pno") long pno, @PathVariable("payNo") long payNo, HttpSession session) {
+
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("num", 1); // 또는 2
         paramMap.put("pno", pno); // pno 값 설정
         productService.updateStatus(paramMap);
         payService.updateShip(4,payNo);
+        session.setAttribute("selectedTab", "tab3");
 
-        return "redirect:/pay/myPayList";
+        return "redirect:/member/myProList";
     }
 
     //나의 판매 내역

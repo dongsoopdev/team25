@@ -76,4 +76,10 @@ public class UserService {
         return this.passwordEncoder;
     }
 
+    //아이디 중복 검사
+    public int idDupCheck(User userId){
+        int result = userMapper.idDupCheck(userId);
+        return result;
+    }
+
 }

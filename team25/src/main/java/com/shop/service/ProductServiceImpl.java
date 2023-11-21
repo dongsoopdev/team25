@@ -1,5 +1,6 @@
 package com.shop.service;
 
+import com.shop.domain.Likes;
 import com.shop.domain.Product;
 import com.shop.domain.ProductFile;
 import com.shop.mapper.ProductMapper;
@@ -46,7 +47,8 @@ public class ProductServiceImpl implements ProductService {
     public void saveProduct(Product product, MultipartFile[] imgFiles) throws IOException {
         // static은 정적폴더라서 늦게 업로드됨
         //String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
-        String projectPath = "D:/team25_upload/";
+        String projectPath = "D:/team25_upload/";  //학원
+//        String projectPath = "C:/team25_upload/";    //예진집
 
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];
@@ -101,7 +103,9 @@ public class ProductServiceImpl implements ProductService {
         update.setQuantity(product.getQuantity());
         update.setQuality(product.getQuality());
 
-        String projectPath = "D:/team25_upload/";
+        //파일 처리
+        String projectPath = "D:/team25_upload/";  //학원
+//        String projectPath = "C:/team25_upload/";    //예진집
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];
             String oriImgName = imgFile.getOriginalFilename();
@@ -160,4 +164,37 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateStatus(Map<String, Object> paramMap) { productMapper.updateStatus(paramMap);
     }
+
+    @Override
+    public int checkLiked(Likes proLikes) {
+        return productMapper.checkLiked(proLikes);
+    }
+
+
+    @Override
+    public void removeLike(Likes proLikes) {
+        productMapper.removeLike(proLikes);
+    }
+
+    @Override
+    public void addLike(Likes proLikes) {
+        productMapper.addLike(proLikes);
+    }
+
+    // 좋아요 누른 상품의 id 목록 반환
+    @Override
+    public List<Long> getLikedProductsByUser(String userId) {
+        return productMapper.getLikedProductsByUser(userId);
+    }
+
+
+    // 유저의 좋아요 목록 출력
+    @Override
+    public List<Likes> getByIdLikeList(String userId) {return productMapper.getByIdLikeList(userId);}
+
+    @Override
+    public List<Product> orderbyPnoCount() {
+        return productMapper.orderbyPnoCount();
+    }
+
 }

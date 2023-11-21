@@ -2314,6 +2314,7 @@ pre code {
 
     .col-md-6 {
         width: 50%
+
     }
 
     .col-md-5 {
@@ -2365,7 +2366,8 @@ pre code {
     }
 
     .col-md-pull-5 {
-        right: 41.66666667%
+        /*right: 41.66666667%*/
+        right: 37%
     }
 
     .col-md-pull-4 {
@@ -2430,6 +2432,7 @@ pre code {
 
     .col-md-push-2 {
         left: 16.66666667%
+        /*left: 20%*/
     }
 
     .col-md-push-1 {

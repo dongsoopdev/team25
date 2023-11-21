@@ -1,18 +1,21 @@
 CREATE DATABASE tsherpa;
 
 USE tsherpa;
+
 -- 승원
 -- 부여할 권한 테이블
 CREATE TABLE role(
 	roleId INT PRIMARY KEY AUTO_INCREMENT,
 	roleName VARCHAR(255) DEFAULT NULL -- 'USER' / 'TEACHER' / 'ADMIN etc'
 );
+
 -- role 더미
 INSERT INTO role VALUES (DEFAULT, 'ADMIN'); -- 1
 INSERT INTO role VALUES (DEFAULT, 'TEACHER'); -- 2
 INSERT INTO role VALUES (DEFAULT, 'STAFF'); -- 3
 INSERT INTO role VALUES (DEFAULT, 'MANAGER'); -- 4s
 INSERT INTO role VALUES (DEFAULT, 'USER'); -- 5
+
 -- 회원 테이블
 CREATE TABLE user(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,  -- 고유번호
@@ -29,21 +32,27 @@ CREATE TABLE user(
 	regdate DATETIME DEFAULT CURRENT_TIME,
 	CONSTRAINT key_name UNIQUE(userId)
 );
+
 DROP TABLE user
+
 -- 권한 부여된 회원 정보 저장 테이블
 CREATE TABLE userRole(
 	id bigINT NOT null,
 	roleId INT NOT NULL,
 	PRIMARY KEY(id,roleId)	
 );
+
+
 -- user 더미
-INSERT INTO user VALUES (DEFAULT, 'admin', '관리자','1234', DEFAULT,'admin@edu.co.kr','123123', '서울특별시 구로구','118-7','010-0000-0000', DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'kim', '김기태','1234', DEFAULT,'kim@edu.co.kr','213213','서울특별시 구로구','119-7', '010-1111-1111', DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'ku', '구예진','1234', DEFAULT, 'ku@edu.co.kr','321321','서울특별시 구로구','200-4','010-2222-2222',DEFAULT, DEFAULT);	
-INSERT INTO user VALUES (DEFAULT, 'lee','이슬비','1234', DEFAULT, 'lee@edu.co.kr','212212','서울특별시 구로구','210-4','010-3333-3333',DEFAULT, DEFAULT);	
+INSERT INTO user VALUES (DEFAULT, 'admin', '관리자','1234', DEFAULT,'admin@edu.co.kr','123123', '서울특별시 구로구','118-7','010-0000-0000', DEFAULT, DEFAULT);
+INSERT INTO user VALUES (DEFAULT, 'kim', '김기태','1234', DEFAULT,'kim@edu.co.kr','213213','서울특별시 구로구','119-7', '010-1111-1111', DEFAULT, DEFAULT);
+INSERT INTO user VALUES (DEFAULT, 'ku', '구예진','1234', DEFAULT, 'ku@edu.co.kr','321321','서울특별시 구로구','200-4','010-2222-2222',DEFAULT, DEFAULT);
+INSERT INTO user VALUES (DEFAULT, 'lee','이슬비','1234', DEFAULT, 'lee@edu.co.kr','212212','서울특별시 구로구','210-4','010-3333-3333',DEFAULT, DEFAULT);
 INSERT INTO user VALUES (DEFAULT, 'shin', '신승원','1234', DEFAULT, 'shin@edu.co.kr','331331','서울특별시 구로구','320-2','010-4444-4444',DEFAULT, DEFAULT);
 INSERT INTO user VALUES (DEFAULT, 'so', '이소윤','1234', DEFAULT, 'so@edu.co.kr','222222','서울특별시 구로구','335-2','010-5555-5555', DEFAULT, DEFAULT);
+
 UPDATE user SET password='$2a$10$AmGZdqMKiNhpxtCd/z.tyuYL2r5rUmBCeFzzn4xZrwDYWHePyYiEa';
+
 -- userrole 더미
 INSERT INTO userrole VALUES(1,1);
 INSERT INTO userrole VALUES(2,2);
@@ -52,21 +61,22 @@ INSERT INTO userrole VALUES(4,5);
 INSERT INTO userrole VALUES(5,5);
 INSERT INTO userrole VALUES(6,5);
 
--- 예진 
+
+-- 예진
 CREATE TABLE product(
 	pno BIGINT PRIMARY KEY AUTO_INCREMENT,  #상품고유번호
 	cateno BIGINT,                         #카테고리번호
 	pname VARCHAR(100) NOT NULL,         #상품명
 	pcomment VARCHAR(2000),              #상품설명
-	price INT DEFAULT 1000,              #상품가격	
+	price INT DEFAULT 1000,              #상품가격
 	seller VARCHAR(255), 						 #판매자
 	quantity INT DEFAULT 1,						# 상품수량
 	quality VARCHAR(20),		    				 #최상 / 상 / 중 / 중하 /최하
 	status VARCHAR(20) DEFAULT '판매중',    # 판매 중 / 예약 중 / 판매완료
 	imgsrc1 VARCHAR(300),                   #상품이미지 (썸네일)
-	imgsrc2 VARCHAR(300), 
-	imgsrc3 VARCHAR(300), 
-	imgsrc4 VARCHAR(300), 
+	imgsrc2 VARCHAR(300),
+	imgsrc3 VARCHAR(300),
+	imgsrc4 VARCHAR(300),
 	resdate timestamp DEFAULT CURRENT_TIMESTAMP(),       #상품등록일
 	FOREIGN KEY(seller) REFERENCES user(userId) ON DELETE CASCADE
 	-- FOREIGN KEY(cateno) REFERENCES category(cateno) ON DELETE CASCADE -- cateno를 category테이블의 cateno를 이용해 외래키로 사용
@@ -79,24 +89,25 @@ INSERT INTO product VALUES(DEFAULT, 1, '도유니 서적','도유니 서적에 �
 SELECT * FROM product;
 -- 채팅방
 CREATE TABLE chatRoom (
-    roomNo BIGINT PRIMARY KEY AUTO_INCREMENT,  -- 고유 번호
-    buyer VARCHAR(20) NOT NULL,            -- member.id
-    pno INT NOT NULL,                       -- product.pno
-    status VARCHAR(50) DEFAULT 'ON',        -- ON(진행), OFF(차단)
-    UNIQUE (buyer, pno)                    -- memId와 pno를 묶어서 UNIQUE 제약 설정
+                          roomNo BIGINT PRIMARY KEY AUTO_INCREMENT,  -- 고유 번호
+                          buyer VARCHAR(20) NOT NULL,            -- member.id
+                          pno INT NOT NULL,                       -- product.pno
+                          status VARCHAR(50) DEFAULT 'ON',        -- ON(진행), OFF(차단)
+                          UNIQUE (buyer, pno)                    -- memId와 pno를 묶어서 UNIQUE 제약 설정
 );
 
 -- 채팅 메시지 ( receiver 추가됨)
 CREATE TABLE chatMessage(
-    chatNo BIGINT PRIMARY KEY AUTO_INCREMENT,   -- 채팅 번호
-    type VARCHAR(20) NOT NULL,                  -- 채팅 타입: ENTER, TALK, LEAVE, NOTICE
-    roomNo INT NOT NULL,                        -- 채팅방 번호
-    sender VARCHAR(20) NOT NULL,                -- 송신자
-    receiver VARCHAR(20) NOT NULL,              -- 수신자
-    message VARCHAR(2000) NOT NULL,             -- 채팅 메시지
-    status VARCHAR(50) DEFAULT 'UNREAD',        -- 읽음 여부
-    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP    -- 채팅 발송 시간
+                            chatNo BIGINT PRIMARY KEY AUTO_INCREMENT,   -- 채팅 번호
+                            type VARCHAR(20) NOT NULL,                  -- 채팅 타입: ENTER, TALK, LEAVE, NOTICE
+                            roomNo INT NOT NULL,                        -- 채팅방 번호
+                            sender VARCHAR(20) NOT NULL,                -- 송신자
+                            receiver VARCHAR(20) NOT NULL,              -- 수신자
+                            message VARCHAR(2000) NOT NULL,             -- 채팅 메시지
+                            status VARCHAR(50) DEFAULT 'UNREAD',        -- 읽음 여부
+                            time TIMESTAMP DEFAULT CURRENT_TIMESTAMP    -- 채팅 발송 시간
 );
+
 
 -- 소윤 시작
 -- 결제 테이블 생성 pay
@@ -112,5 +123,5 @@ CREATE TABLE pay (
 	ship INT DEFAULT 1, -- 배송 현황  -  1: 배송 전 2: 배송 중 3: 배송완료 4: 거래종료
 	scode VARCHAR(100), -- 운송장 정보
 	sname VARCHAR(20), -- 회사 정보
-	resdate timestamp DEFAULT CURRENT_TIMESTAMP() -- 구매일 
+	resdate timestamp DEFAULT CURRENT_TIMESTAMP() -- 구매일
 );

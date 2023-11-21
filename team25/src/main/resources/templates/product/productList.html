@@ -208,168 +208,168 @@
                     </div>
                     &lt;!&ndash; /aside Widget &ndash;&gt;
                 </div>-->
-                <!-- /ASIDE -->
+            <!-- /ASIDE -->
 
 
 
 
 
-                <!-- STORE -->
-                <div id="store" class="col-md-9">
-                    <!-- store top filter -->
-                    <div class="store-filter clearfix">
-                        <div class="store-sort">
-                            <label>
-                                Sort By:
-                                <select class="input-select">
-                                    <option value="0">Popular</option>
-                                    <option value="1">Position</option>
-                                </select>
-                            </label>
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+                <!-- store top filter -->
+                <div class="store-filter clearfix">
+                    <div class="store-sort">
+                        <label>
+                            Sort By:
+                            <select class="input-select">
+                                <option value="0">Popular</option>
+                                <option value="1">Position</option>
+                            </select>
+                        </label>
 
-                            <label>
-                                Show:
-                                <select class="input-select">
-                                    <option value="0">20</option>
-                                    <option value="1">50</option>
-                                </select>
-                            </label>
-                        </div>
-                        <ul class="store-grid">
-                            <li class="active"><i class="fa fa-th"></i></li>
-                            <li><a href="#"><i class="fa fa-th-list"></i></a></li>
-                        </ul>
+                        <label>
+                            Show:
+                            <select class="input-select">
+                                <option value="0">20</option>
+                                <option value="1">50</option>
+                            </select>
+                        </label>
                     </div>
-                    <!-- /store top filter -->
+                    <ul class="store-grid">
+                        <li class="active"><i class="fa fa-th"></i></li>
+                        <li><a href="#"><i class="fa fa-th-list"></i></a></li>
+                    </ul>
+                </div>
+                <!-- /store top filter -->
 
-                    <!-- store products -->
-                    <div class="row">
-
-
-
-
-
-
-
-                        <!-- product -->
-                        <div class="col-md-4 col-xs-6" th:each="product: ${product}">
-                          <!--  <a th:href="@{/product/productDetail(pno=${product.pno})}" >-->
-                                <a th:href="@{'/product/getProduct/' + ${product.pno}}" >
+                <!-- store products -->
+                <div class="row">
 
 
+                    <!-- product -->
+                    <div class="col-md-4 col-xs-6" th:each="product: ${product}">
+                        <!--  <a th:href="@{/product/productDetail(pno=${product.pno})}" >-->
+                        <a th:href="@{'/product/getProduct/' + ${product.pno}}" >
 
-                                <div class="product">
-                                    <div class="product-img">
-                                        <!--<img th:src="@{/upload/${product.getImgFile()}}" alt="">-->
 
 
-                                        <img th:src="@{'/upload/' + ${product.getImgsrc1()}}" alt="">
-                                      <!-- <img th:src="@{/upload/{fileName}(fileName=${product.getImgFile()})}" alt="">\-->
+                            <div class="product">
+                                <div class="product-img">
+                                    <!--<img th:src="@{/upload/${product.getImgFile()}}" alt="">-->
 
-                                        <div class="product-label">
-                                            <span class="sale" th:text="${product.getQuality()}">퀄리티</span>
-                                            <span class="new">NEW</span>
-                                        </div>
+
+                                    <img th:src="@{'/upload/' + ${product.getImgsrc1()}}" alt="">
+                                    <!-- <img th:src="@{/upload/{fileName}(fileName=${product.getImgFile()})}" alt="">\-->
+
+                                    <div class="product-label">
+                                        <span class="sale" th:text="${product.getQuality()}">퀄리티</span>
+                                        <!--<span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"</span>-->
+                                        <!--<span th:text="${#temporals.format(product.getResdate(), 'yyyy-MM-dd')}"></span>-->
+                                        <span th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') == #temporals.format(product.getResdate(), 'yyyy-MM-dd')}" class="new">NEW</span>
+
                                     </div>
 
-                                    <div class="product-body">
-                                       <!-- <p class="product-category">Category</p>-->
-                                        <h3 class="product-name" th:text="${product.getPname()}"><a href="#">상품이름</a></h3>
-                                        <h4 class="product-price" th:text="${product.getPrice()} +' '+ 원">가격 <!--<del class="product-old-price">$990.00</del>--></h4>
 
-                                        <!--<div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>-->
-                                        <div class="product-btns">
-                                            <button class="add-to-wishlist"><img th:src="@{/images/icon/icon_heart_black.png}" style="width: 20px;"> <span class="tooltipp">찜하기</span></button>
-                                            <button class="add-to-compare"><img th:src="@{/images/icon/icon_chat.png}" style="width: 20px;"><span class="tooltipp">셀파톡</span></button>
-
-                                        </div>
-                                    </div>
-                                   <!-- <div class="add-to-cart">
-                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                    </div>-->
                                 </div>
-                            </a>
-                        </div>
-                        <!-- /product -->
 
-                        <div class="clearfix visible-lg visible-md"></div>
+                                <div class="product-body">
+                                    <!-- <p class="product-category">Category</p>-->
+                                    <h3 class="product-name" th:text="${product.getPname()}"><a href="#">상품이름</a></h3>
+                                    <h4 class="product-price" th:text="${product.getPrice()} +' '+ 원">가격 <!--<del class="product-old-price">$990.00</del>--></h4>
 
+                                    <!--<div class="product-rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>-->
+                                    <div class="product-btns">
+                                        <button class="add-to-wishlist"><img th:src="@{/images/icon/icon_heart_black.png}" style="width: 20px;"> <span class="tooltipp">찜하기</span></button>
+                                        <button class="add-to-compare"><img th:src="@{/images/icon/icon_chat.png}" style="width: 20px;"><span class="tooltipp">셀파톡</span></button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
                     </div>
-                    <!-- /store products -->
+                    <!-- /product -->
 
+                    <div class="clearfix visible-lg visible-md"></div>
 
-
-
-
-                    <!-- store bottom filter -->
-
-
-                    <div sec:authorize="hasAuthority('ADMIN') or hasAuthority('TEACHER')"  class="button-group">
-                        <a class="btn btn-primary" th:href="@{/product/addProduct}">글쓰기</a>
-                    </div>
-
-
-                    <div class="store-filter clearfix">
-                        <span class="store-qty">Showing 20-100 products</span>
-                        <ul class="store-pagination">
-                            <li class="active">1</li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                        </ul>
-                    </div>
-                    <!-- /store bottom filter -->
                 </div>
-                <!-- /STORE -->
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /SECTION -->
+                <!-- /store products -->
 
-    <!-- NEWSLETTER -->
-    <div id="newsletter" class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="newsletter">
-                        <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                        <form>
-                            <input class="input" type="email" placeholder="Enter Your Email">
-                            <button class="newsletter-btn"><i class="fab fa-500px"></i> Subscribe</button>
-                        </form>
-                        <ul class="newsletter-follow">
-                            <li>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+
+
+
+
+                <!-- store bottom filter -->
+
+
+                <div sec:authorize="hasAuthority('ADMIN') or hasAuthority('TEACHER')"  class="button-group">
+                    <a class="btn btn-primary" th:href="@{/product/addProduct}">글쓰기</a>
+                </div>
+
+
+                <div class="store-filter clearfix">
+                    <span class="store-qty">Showing 20-100 products</span>
+                    <ul class="store-pagination">
+                        <li class="active">1</li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<!--
+ NEWSLETTER
+<div id="newsletter" class="section">
+     container
+    <div class="container">
+         row
+        <div class="row">
+            <div class="col-md-12">
+                <div class="newsletter">
+                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
+                    <form>
+                        <input class="input" type="email" placeholder="Enter Your Email">
+                        <button class="newsletter-btn"><i class="fab fa-500px"></i> Subscribe</button>
+                    </form>
+                    <ul class="newsletter-follow">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <!-- /row -->
         </div>
-        <!-- /container -->
+         /row
     </div>
-    <!-- /NEWSLETTER -->
+     /container
+</div>
+ /NEWSLETTER
+-->
 
 
 

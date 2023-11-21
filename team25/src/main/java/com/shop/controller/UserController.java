@@ -2,7 +2,10 @@ package com.shop.controller;
 
 import com.shop.domain.*;
 import com.shop.service.ChatService;
+import com.shop.domain.*;
+import com.shop.service.PayService;
 import com.shop.service.ProductService;
+import com.shop.service.ReviewService;
 import com.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,14 +13,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,6 +33,12 @@ public class UserController {
     @Autowired
     private ChatService chatService;
 
+
+    @Autowired
+    private PayService payService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("/")
     public String home(Model model){ // 인증된 사용자 정보 보여줌
@@ -119,9 +126,19 @@ public class UserController {
         return "member/myinfo";
     }
 
+    //아이디 중복 검사
+    @ResponseBody // ajax 값 변환 위해 필요
+    @GetMapping("/idDupCheck")
+    public int idDupCheck(User userId){
+        int result = userService.idDupCheck(userId); // 중복 확인 값 int로 받음
+        return result;
+    }
+
+
 
     //내가 등록한 상품
-    @RequestMapping("/myProList")
+    //@RequestMapping("/myProList")
+    @RequestMapping(value = "/myProList", method = RequestMethod.GET)
     public String myProductList( Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId  = authentication.getName();
@@ -130,54 +147,39 @@ public class UserController {
         List<Product> myproList = productService.findByUserId(userId);
         System.out.println(myproList);
         model.addAttribute("myproList", myproList);
+        //소윤의 구매내역
+        List<Pay> myPayList = payService.myPayListByUserId(userId);
+        model.addAttribute("myPayList",myPayList);
+
+        // 내가 쓴 후기
+        List<Review> proReview= reviewService.proReview(userId);
+        System.out.println(proReview);
+        model.addAttribute("proReview", proReview);
+
+        //내가 받은 후기
+        List<Review> proSellerReview= reviewService.proSellerReview(userId);
+        System.out.println(proSellerReview);
+        model.addAttribute("proSellerReview", proSellerReview);
+
+
+        //좋아요
+        //pno, userId
+        List<Likes> proLikes = productService.getByIdLikeList(userId);
+        List<Product> proList = new ArrayList<>();
+        for (Likes pro: proLikes) {
+            System.out.println(pro);
+            proList.add(productService.getProduct(pro.getPno()));
+        }
+
+        System.out.println(proList);
+        model.addAttribute("proLikes", proLikes);
+        model.addAttribute("proList", proList);
+
+
         return "member/myProductList";
     }
 
 
-
-    //내가 등록한 상품
-    @GetMapping("/myProductList")
-    public String myProductList(@RequestParam("seller") String seller, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId  = authentication.getName();
-
-
-        List<Product> myproList = productService.findByUserId(seller);
-        System.out.println(myproList);
-        model.addAttribute("myproList", myproList);
-        return "member/myProductList";
-    }
-
-
-    //나의 채팅
-//    @GetMapping("myChatList")
-//    public String myChatList(HttpServletRequest request, ModelMap modelMap, Principal principal, Model model){
-//        //사용자의 아이디 가져오기
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String userId  = authentication.getName();
-//
-//        String seller = request.getParameter("seller"); //판매자
-//
-//        List<ChatRoom> roomList = chatService.chatRoomMy(seller);
-//        System.out.println(roomList);
-//        model.addAttribute("roomList", roomList);
-//
-//        return "member/myChatList";
-//    }
-
-//    @GetMapping("myChatList")
-//    public String roomList(HttpServletRequest request, Model model){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String userId  = authentication.getName();
-//
-//        Long pno = Long.valueOf(request.getParameter("pno"));
-//        model.addAttribute("pno", pno);
-//
-//        List<ChatRoom> chatRooms = chatService.chatRoomProductList(pno);
-//        model.addAttribute("rooms", chatRooms);
-//
-//        return "member/myChatList";
-//    }
 
     //나의 채팅방 목록
     @GetMapping("myChatList")
@@ -235,6 +237,8 @@ public class UserController {
 
         return "member/myChat";
     }
+
+
 
 
 

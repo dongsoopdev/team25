@@ -19,25 +19,18 @@
             <ul sec:authorize="hasAuthority('USER')" class="header-links pull-right">
                 <li><a th:href="@{/member/logout}">로그아웃</a></li>
                 <li><a th:href="@{/member/loginInfo}">마이페이지</a></li>
-                <li><a th:href="@{/pay/myPayList}">구매내역</a></li>
-                <li><a th:href="@{/pay/mySaleList}">판매내역</a></li>
-                <li><a th:href="@{/member/myChatList}">채팅</a></li>
             </ul>
-
             <ul sec:authorize="hasAuthority('TEACHER')" class="header-links pull-right">
                 <li><a th:href="@{/member/logout}">로그아웃</a></li>
                 <li><a th:href="@{/member/loginInfo}">마이페이지</a></li>
-                <li><a th:href="@{/pay/myPayList}">구매내역</a></li>
-                <li><a th:href="@{/pay/mySaleList}">판매내역</a></li>
-                <li><a th:href="@{/member/myChatList}">채팅</a></li>
             </ul>
-
-
+            <ul sec:authorize="hasAuthority('TEACHER')" class="header-links pull-right">
+                <li><a th:href="@{/member/logout}">로그아웃</a></li>
+                <li><a th:href="@{/member/loginInfo}">마이페이지</a></li>
+            </ul>
             <ul sec:authorize="hasAuthority('ADMIN')" class="header-links pull-right">
                 <li><a th:href="@{/member/logout}">로그아웃</a></li>
-                <li><a th:href="@{/member/loginInfo}">관리자페이지</a></li>
-                <li><a th:href="@{/pay/myPayList}">구매내역</a></li>
-                <li><a th:href="@{/pay/mySaleList}">판매내역</a></li>
+                <li><a th:href="@{/admin/home}">관리자페이지</a></li>
             </ul>
         </div>
     </div>
@@ -52,7 +45,7 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="#" class="logo">
+                        <a th:href="@{/}" class="logo">
                             <img th:src="@{/images/mainLogo2.png}" style="width: 200px;" alt="">
                         </a>
                     </div>
@@ -152,13 +145,14 @@
             <div id="responsive-nav">
                 <!-- NAV -->
                 <ul class="main-nav nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Hot Deals</a></li>
+                    <li class="active"><img th:src="@{/images/icon/icon_menu.png}" style=" margin: 10px;width: 20px;
+}"></a></li>
+                   <!-- <li><a href="#">Hot Deals</a></li>
                     <li><a href="#">Categories</a></li>
                     <li><a href="#">Laptops</a></li>
                     <li><a href="#">Smartphones</a></li>
                     <li><a href="#">Cameras</a></li>
-                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Accessories</a></li>-->
                 </ul>
                 <!-- /NAV -->
             </div>

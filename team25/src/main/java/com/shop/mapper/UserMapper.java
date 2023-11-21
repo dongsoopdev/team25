@@ -42,4 +42,7 @@ public interface UserMapper {
 
     // 권한 내용 가져오기
     Role getRole(Integer roleId);
+
+    //아이디 중복 검사
+    int idDupCheck(User userId);
 }

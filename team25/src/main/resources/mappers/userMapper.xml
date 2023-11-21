@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.UserMapper">
     <insert id="userInsert">
-        insert into user values (DEFAULT, #{userId}, #{userName}, #{password}, default, #{email}, #{address}, #{tel}, default, DEFAULT)
+        insert into user values (DEFAULT, #{userId}, #{userName}, #{password}, default, #{email}, #{postcode}, #{addr1}, #{addr2}, #{tel}, default, DEFAULT)
     </insert>
     <select id="getUserList" resultType="com.shop.domain.User">
         select * from user
@@ -21,7 +21,7 @@
         select * from user order by id desc limit 0,1
     </select>
     <update id="userEdit">
-        update user set userName=#{userName}, password=#{password}, email=#{email}, address=#{address}, tel=#{tel} where id=#{id}
+        update user set userName=#{userName}, password=#{password}, email=#{email}, postcode=#{postcode}, addr1=#{addr1},addr2=#{addr2} ,tel=#{tel} where id=#{id}
     </update>
     <insert id="setUserRole">
         insert into userRole values (#{id}, #{roleId})
@@ -38,4 +38,7 @@
     <update id="userDelete">
         update user set active=#{active} where id=#{id}
     </update>
+    <select id="idDupCheck" resultType="int">
+        select count(*) from user where userId = #{userId}
+    </select>
 </mapper>
