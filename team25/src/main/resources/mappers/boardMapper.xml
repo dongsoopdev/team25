@@ -5,7 +5,7 @@
 
 
     <insert id="insertBoard">
-        insert into board values(default, #{title}, #{content}, default, #{writer},default)
+        insert into board values(default, #{title}, #{content}, default, default)
     </insert>
 
     <select id="getBoard" resultType="com.shop.domain.Board">

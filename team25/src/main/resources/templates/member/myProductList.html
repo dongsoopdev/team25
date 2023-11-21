@@ -244,7 +244,7 @@
                         </thead>
                         <tbody>
 
-                        <tr th:each="pro: ${myproList}">
+                        <tr th:each="pro: ${myproList}" >
                             <td>
                                 <div class="img_tit">
                                     <a th:href="@{'/product/getProduct/' + ${pro.pno}}">
@@ -255,16 +255,13 @@
                             </td>
 
                             <td>
-                                <!-- <p th:text="${pro.getStatus()}"></p>-->
-                                <<select name="status" id="status" class="select is-fullwidth" autofocus required th:field="${pro.getStatus()}">
-
-
-                                <option value="판매중" th:selected="${pro.getStatus() eq '판매중'}">판매중</option>
-                                <option value="예약중" th:selected="${pro.getStatus() eq '예약중'}">예약중</option>
-                                <option value="판매완료" th:selected="${pro.getStatus() eq '판매완료'}">판매완료</option>
-                            </select>
+                                <select name="status" th:id="'product-row-' + ${pro.pno}" class="select is-fullwidth product-status" autofocus required th:attr="onchange=|updateStatus(${pro.pno})|">
+                                <option th:value="판매중" th:selected="${pro.status eq '판매중'}">판매중</option>
+                                <option th:value="예약중" th:selected="${pro.status eq '예약중'}">예약중</option>
+                                <option th:value="판매완료" th:selected="${pro.status eq '판매완료'}">판매완료</option>
+                                </select>
+==
                             </td>
-
                             <td>
                                 <p th:text="${pro.getPname()}"></p>
                             </td>
@@ -585,8 +582,23 @@
 </footer>
 
 <!-- script 사용시-->
-<th:block layout:fragment="script">
-</th:block>
+<script th:inline="javascript">
+    function updateStatus(pno) {
+        var selectedValue = $('#product-row-' + pno).val();
+        console.log( pno);
+        $.ajax({
+            type: 'get',
+            url: '/product/updateStatus',
+            data: { pno: pno, status: selectedValue },
+            success: function(response) {
+                console.log("Status updated successfully");
+            },
+            error: function(xhr, status, error) {
+                console.error("Error updating status: " + error);
+            }
+        });
+    }
+</script>
 </body>
 
 </html>

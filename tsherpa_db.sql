@@ -1,6 +1,6 @@
 CREATE DATABASE tsherpa;
 
-USE tsherpa;
+USE team25;
 
 -tsherpa- 승원
 -- 부여할 권한 테이블
@@ -33,7 +33,7 @@ CREATE TABLE user(
                      CONSTRAINT key_name UNIQUE(userId)
 );
 
-DROP TABLE user
+-- DROP TABLE user
 
 -- 권한 부여된 회원 정보 저장 테이블
 CREATE TABLE userRole(
@@ -152,8 +152,8 @@ SELECT * FROM pay;
 -- 공지사항 
 CREATE TABLE board (
                        bno INT PRIMARY KEY AUTO_INCREMENT,
-                       title varchar(200) not null,tsherpa
-                       content varchar(1000) not null,
+                       title varchar(200) not null,
+                       content varchar(1000)  ,
                        resdate timestamp default current_timestamp,
                        visited int default 0
 );

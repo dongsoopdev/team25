@@ -102,6 +102,8 @@
     </update>
 
 
-
+    <update id="updateProductStatus">
+        update product set status = #{status} where pno = #{pno}
+    </update>
 </mapper>
 
