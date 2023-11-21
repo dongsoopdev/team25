@@ -1,9 +1,8 @@
 package com.shop.controller;
 
-import com.shop.domain.Pay;
-import com.shop.domain.Product;
-import com.shop.domain.Review;
-import com.shop.domain.User;
+import com.shop.domain.*;
+import com.shop.service.ChatService;
+import com.shop.domain.*;
 import com.shop.service.PayService;
 import com.shop.service.ProductService;
 import com.shop.service.ReviewService;
@@ -14,10 +13,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,6 +31,10 @@ public class UserController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ChatService chatService;
+
 
     @Autowired
     private PayService payService;
@@ -67,7 +74,10 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String userInsert(User user, Model model){
+    public String userInsert(@Valid User user, BindingResult result, Model model){
+        if(result.hasErrors()){
+            return "member/joinForm";
+        }
         userService.userInsert(user, 5);
         model.addAttribute("user", user);
         return "redirect:/";
@@ -90,6 +100,31 @@ public class UserController {
         userService.edit(user);
         return "redirect:/";
     }
+
+    /*
+    @GetMapping("/editRole")
+    public String updateRoleForm(Model model){
+        Long id = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findById(id);
+        Role role = userService.getRol
+        UserRole userRole = userService.getUserRole(id);
+        model.addAttribute("user", user);
+        model.addAttribute("userRole", userRole);
+        return "member/updateUserForm";
+    }
+
+
+    @PostMapping("/editRole")
+    public String editUserRole(Model model, UserRole userRole){
+        Long id = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Integer roleId = userRole.setId(id);
+        //userRole.setRoleId(roleId);
+        return null;
+    }
+
+     */
+
+
 
     //회원 탈퇴
     @PostMapping("/delete")
@@ -138,15 +173,37 @@ public class UserController {
         List<Pay> myPayList = payService.myPayListByUserId(userId);
         model.addAttribute("myPayList",myPayList);
 
-        List<Review> reviewList = reviewService.proReview(userId);
-        System.out.println(reviewList);
-        model.addAttribute("reviewList", reviewList);
+        // 내가 쓴 후기
+        List<Review> proReview= reviewService.proReview(userId);
+        System.out.println(proReview);
+        model.addAttribute("proReview", proReview);
+
+        //내가 받은 후기
+        List<Review> proSellerReview= reviewService.proSellerReview(userId);
+        System.out.println(proSellerReview);
+        model.addAttribute("proSellerReview", proSellerReview);
+
+
+        //좋아요
+        //pno, userId
+        List<Likes> proLikes = productService.getByIdLikeList(userId);
+        List<Product> proList = new ArrayList<>();
+        for (Likes pro: proLikes) {
+            System.out.println(pro);
+            proList.add(productService.getProduct(pro.getPno()));
+        }
+
+        System.out.println(proList);
+        model.addAttribute("proLikes", proLikes);
+        model.addAttribute("proList", proList);
+
 
         return "member/myProductList";
     }
 
 
 
+<<<<<<< HEAD
     //내가 등록한 상품
     //@GetMapping("/myProductList")
     //public String myProductList(@RequestParam("seller") String seller, Model model) {
@@ -158,10 +215,64 @@ public class UserController {
     //    model.addAttribute("myproList", myproList);
     //    return "member/myProductList";
     //}
+=======
+    //나의 채팅방 목록
+    @GetMapping("myChatList")
+    public String myChat(HttpServletRequest request, Model model, Principal principal){
+        if(principal != null) {
+            String userId  = principal.getName();
+            model.addAttribute("userId", userId);
+
+            List<ChatRoomVO> rooms = chatService.chatRoomMy(userId);
+            for(ChatRoomVO chatRoom : rooms){
+                User buyer = userService.findByUserId(chatRoom.getBuyer());
+                chatRoom.setBuyerNm(buyer.getUserName());
+            }
+            model.addAttribute("rooms", rooms);
+        }
+        return "member/myChatList";
+    }
+>>>>>>> 603ae0f37e7c400c1e35190c246b26dbb3253f20
+
+    // 채팅하기
+    @GetMapping("myChat")
+    public String myChat(HttpServletRequest request, ModelMap modelMap, Principal principal, Model model) {
+        //사용자의 아이디 가져오기
+        String userId = principal.getName();
+        model.addAttribute("userId", userId);
+
+        //또는 SecurityContextHolder.getContext().getAuthentication().getName();
+        String buyer = request.getParameter("buyer");//구매희망자
+        Long pno = Long.valueOf(request.getParameter("pno")); // 상품 고유번호
+
+        // 채팅방이 없으면 새로 추가, 있으면 가져오기
+        ChatRoomVO room = chatService.chatRoomInsert(buyer, pno);
+        model.addAttribute("room", room);
 
 
+        // 기존의 채팅 내역 가져오기
+        Long roomNo = room.getRoomNo();
 
+        List<ChatMessage> chats = chatService.chatMessageList(roomNo);
+        model.addAttribute("chats", chats);
 
+        // 채팅방에 들어가면 기존에 안 읽은 메시지 읽음 처리
+        //chatService.chatMessageReadUpdates(roomNo, userId);
+
+        // 채팅방 상대 이름 띄우기
+        // 채팅방은 구매자 기준으로 저장되므로, 구매자인 경우 product 에서 seller 가져오기
+        Product product = productService.getProduct(pno);
+
+        if (userId.equals(room.getBuyer())) {
+            // 로그인한 사람이 구매자인 경우 판매자의 이름
+            model.addAttribute("roomName", product.getSeller());
+        } else {
+            // 로그인한 사람이 판매자인 경우 구매자의 이름
+            model.addAttribute("roomName", room.getBuyer());
+        }
+
+        return "member/myChat";
+    }
 
 
 

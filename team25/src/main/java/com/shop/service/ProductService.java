@@ -1,5 +1,6 @@
 package com.shop.service;
 
+import com.shop.domain.Likes;
 import com.shop.domain.Product;
 import com.shop.domain.ProductFile;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,4 +29,19 @@ public interface ProductService {
     public void saveProduct(Product product, MultipartFile[] imgFiles) throws IOException;
     public void updateStatus(Map<String, Object> paramMap);
 
+
+    //좋아요
+    public int checkLiked(Likes proLikes);
+
+    public void removeLike(Likes proLikes);
+
+    public void addLike(Likes proLikes);
+
+    public List<Long> getLikedProductsByUser(String userId);
+
+    // 유저의 좋아요 목록 출력
+    public List<Likes> getByIdLikeList(String userId);
+
+    //상품별 좋아요 카운트 수 졍렬
+    public List<Product> orderbyPnoCount();
 }

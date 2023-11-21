@@ -16,6 +16,9 @@
         SELECT p.pname, p.imgsrc1, p.seller, r.pno, r.no, r.id, r.content, r.resdate, r.score from review r,product p where r.id=#{id} AND r.pno = p.pno;
     </select>
 
+    <select id="proSellerReview" resultType="com.shop.domain.Review">
+        SELECT p.pname, p.imgsrc1, r.id, r.pno, r.no, r.id, r.content, r.resdate, r.score from review r,product p WHERE p.seller=#{seller} AND r.pno = p.pno;
+    </select>
 
 
 

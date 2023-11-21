@@ -1,80 +1,98 @@
 package com.shop.service;
 
-import com.shop.domain.ChatMsg;
+import com.shop.domain.ChatMessage;
 import com.shop.domain.ChatRoom;
-import com.shop.mapper.ChatMsgMapper;
+import com.shop.domain.ChatRoomVO;
+import com.shop.mapper.ChatMessageMapper;
 import com.shop.mapper.ChatRoomMapper;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.List;
 
 @Service
 public class ChatServiceImpl implements ChatService {
 
     @Autowired
-    ChatRoomMapper chatRoomMapper;
+    ChatRoomMapper roomMapper;
 
     @Autowired
-    ChatMsgMapper chatMsgMapper;
+    ChatMessageMapper chatMapper;
 
     @Override
-    public List<ChatRoom> chatRoomListProduct(Long pno) {
-        return chatRoomMapper.chatRoomProductList(pno);
+    public List<ChatRoomVO> chatRoomProductList(Long pno) {
+        return roomMapper.chatRoomProductList(pno);
     }
+    // 해당 상품의 모든 채팅방 가져오기
+    // 즉 판매자가 구매 희망자들의 채팅 리스트를 볼 수 있음
 
     @Override
-    public ChatRoom chatRoomGet(Long roomId) {
-        return chatRoomMapper.chatRoomGet(roomId);
+    public ChatRoomVO chatRoomGetNo(Long roomNo) {
+        return roomMapper.chatRoomGet(roomNo);
     }
+    // 해당 채팅방 가져오기
 
     @Override
-    public ChatRoom chatRoomAdd(String userId, Long pno) {
-        if(chatRoomMapper.chatRoomGetUnique(userId, pno)>0){
-            return null;
+    public ChatRoomVO chatRoomInsert(String buyer, Long pno) {
+        if(roomMapper.chatRoomGetUnique(buyer, pno)<1){
+            roomMapper.chatRoomInsert(buyer, pno);
+            // buyer 와 pno 가 같은 데이터가 없다면, 해당 상품과 구매자에 대한 채팅방이 없다는 뜻! 새로 채팅방을 만든다.
+            // 새로운 구매 희망자가 나타날 때 새로 채팅방을 만든다.
         }
 
-        chatRoomMapper.chatRoomAdd(userId, pno);
-        return chatRoomMapper.chatRoomGetId(pno, userId);
+        return roomMapper.chatRoomGetId(pno, buyer); // 채팅방 가져오기
     }
 
     @Override
-    public Long chatRoomUpdate(Long roomId) {
-        return chatRoomMapper.chatRoomUpdate(roomId);
+    public int chatRoomBlockUpdate(Long roomNo) {
+        return roomMapper.chatRoomBlockUpdate(roomNo);
     }
+    // 채팅 차단하기
 
     @Override
-    public List<ChatMsg> chatMsgList(Long roomId, String sender) {
-        chatMsgMapper.chatMsgUpdates(roomId, sender);
-        return chatMsgMapper.chatMsgList(roomId);
+    public List<ChatMessage> chatMessageList(Long roomNo) {
+        return chatMapper.chatMessageList(roomNo);
     }
+    // 해당 채팅방의 모든 채팅 가져오기
 
     @Override
-    public ChatMsg chatMsgAdd(ChatMsg chatMsg) {
-        Long roomId = (long) chatMsg.getRoomId();              //이부분 형변환(int->long) 맞는지 확인필요
-        ChatRoom room = chatRoomMapper.chatRoomGet(roomId);
+    public ChatMessage chatMessageInsert(ChatMessage chatMessage) {
+        Long roomNo = chatMessage.getRoomNo();
+        ChatRoomVO room = roomMapper.chatRoomGet(roomNo);
         if(room.getStatus().equals("BLOCK")){
             return null; // 차단된 경우에는 메시지 전송하지 않음.
         }
-        chatMsgMapper.chatMsgAdd(chatMsg);
-        return chatMsgMapper.chatMsgGetLast();
+        chatMapper.chatMessageInsert(chatMessage); // 채팅 넣기
+        return chatMapper.chatMessageGetLast(); // 내가 방금 전에 넣은 채팅 가져오기
     }
 
     @Override
-    public Long chatMsgUpdate(Long chatId, String sender) {
-        return chatMsgMapper.chatMsgUpdate(chatId, sender);
+    public int chatMessageReadUpdate(Long chatNo, String sender) {
+        return chatMapper.chatMessageReadUpdate(chatNo, sender);
     }
+    // 한 채팅에 대한 읽음 처리
 
     @Override
-    public Long chatMsgUpdates(Long roomId, String sender) {
-        return chatMsgMapper.chatMsgUpdates(roomId, sender);
+    public int chatMessageReadUpdates(Long roomNo, String sender) {
+        return chatMapper.chatMessageReadUpdates(roomNo, sender);
     }
+    // 모든 채팅에 대한 읽음 처리
 
     @Override
-    public Long chatMsgDelete(Long chatId) {
-        return chatMsgMapper.chatMsgDelete(chatId);
+    public int chatMessageRemoveUpdate(Long chatNo) {
+        return chatMapper.chatMessageRemoveUpdate(chatNo);
     }
+    // 혹시 채팅을 삭제할 수도 있을까
+
+    @Override
+    public int chatMessageUnreadAll(String receiver) {
+        return chatMapper.chatMessageUnreadAll(receiver);
+    }
+    // 나한테 온 모든 읽지 않은 메시지 수
+
+    @Override
+    public List<ChatRoomVO> chatRoomMy(String id) {
+        return roomMapper.chatRoomMy(id);
+    }
+    // 내가 채팅을 했던 모든 채팅방
 }
