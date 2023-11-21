@@ -218,7 +218,7 @@
                              </span>
 
 
-                            <button class="add-to-chat-btn"> 셀파톡</button>
+                            <a th:if="${product.seller != userId}" th:href="@{/chat/roomEnter(pno=${product.pno})}"><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 셀파톡 </button></a>
                             <button class="add-to-cart-btn"th:onclick="|location.href='@{'/pay/payInsert/'+${product.pno}}'| "> 바로 구매</button>
                          </span>
                         </div>

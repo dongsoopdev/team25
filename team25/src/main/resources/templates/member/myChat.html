@@ -8,76 +8,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <head th:replace="~{layout/head.html :: head}">
 
-    <title>채팅</title>
-    <style>
-        .chat-box-sender {
-            text-align: left !important;
-            font-size: 24px!important;
-        }
+        <title>나의채팅방</title>
+        <style>
+            #chat-box-sender {
+                text-align: left;
+                font-size: 24px;
+                background-color: #4cae4c;
+            }
+            #chat-box-receiver {
+                text-align: right;
+                font-size: 24px;
+            }
 
-        .chat-box-receiver {
-            text-align: right;
-            font-size: 24px;
-        }
+            .chat-message-other {
+                background-color: pink;
+                border-radius: 10px;
+                padding: 10px;
+                line-height: 24px;
+                font-size: 24px;
+            }
 
-        .chat-time {
-            display: inline;
-            margin-left: 10px;
-            color: gray;
-            font-size: 10px;
-        }
-        .close-tag {
-            color: inherit;
-        }
-        .chat-message-me {
-            border-radius: 15px; background-color: green; float: right; width: fit-content; max-width: 450px;
-        }
-        .chat-message-me p {
-            color: white;
-        }
-        .chat-message-other{
-            border-radius: 15px; background-color: rgba(57, 192, 237,.2); max-width: 450px;
-        }
-        .chat-message{
-            white-space: pre-wrap;
-        }
-
-
-
-    </style>
-</head>
+            .chat-time {
+                display: inline;
+                margin-left: 10px;
+                color: gray;
+                font-size: 10px;
+            }
+            .close-tag {
+                color: inherit;
+            }
+            .chat-message-me {
+                border-radius: 15px; background-color: green; float: right; width: fit-content; max-width: 450px;
+            }
+            .chat-message-me p {
+                color: white;
+            }
+            .chat-message-other{
+                border-radius: 15px; background-color: rgba(57, 192, 237,.2); max-width: 450px;
+            }
+            .chat-message{
+                white-space: pre-wrap;
+            }
+        </style>
+    </head>
 <body>
 <div th:insert="~{layout/header :: header}"></div>
 <div class="container contents">
     <h1>채팅하기</h1>
-    <div class="container">
         <div class="row">
             <div id="chatRoom" class="col-6">
                 <section>
                     <div class="container py-5">
-                        <div class="row d-flex justify-content-center">
-                            <div class="col" style="width: 800px;">
+                        <div >
+                            <div class="col">
                                 <div class="card" style="border-radius: 15px;">
-                                    <div class="card-header d-flex justify-content-center align-items-center p-3 bg-info text-white border-bottom-0" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                                    <div style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
                                         <p class="mb-0 fw-bold" id="roomName" th:text="${roomName}" />
                                         <input type="hidden" id="roomNo" th:value="${room.roomNo}">
                                     </div>
                                     <div class="card-body">
-                                        <div id="msgArea" style="height: 500px; overflow-y: auto;">
+                                        <div id="msgArea" style="width:800px; height: 600px; overflow-y: auto;">
                                             <th:block th:each="c : ${chats}">
-                                                <div class="d-flex flex-row justify-content-end mb-4" th:if="${c.sender eq roomName}">
-                                                    <div class="chat-box-sender">
-                                                        <div class="chat-author m-0 p-1" th:text="${c.sender}"><p class="chat-time" th:text="${c.time}" /></div>
-                                                        <div class="p-3 chat-message-me">
-                                                            <p class="chat-message small mb-0" th:text="${c.message}" />
+                                                <div th:if="${c.sender eq roomName}">
+                                                    <!-- 상대방이 보낸 채팅일 때 왼쪽에 뜨게-->
+                                                    <div id="chat-box-sender" style="text-align: left;">
+                                                        <div class="chat-author"th:text="${c.sender}"><p class="chat-time" th:text="${c.time}" /></div>
+                                                        <div style="width:70%; background-color: hotpink; border-radius: 20px; font-size: 18px; padding: 10px 20px; width: 70%; margin-right: auto;">
+                                                            <p th:text="${c.message}" />
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="d-flex flex-row justify-content-start mb-4" th:if="${c.sender != roomName}">
-                                                    <div class="chat-box-receiver">
-                                                        <div class="chat-author m-0 p-1" th:text="${c.sender}"><p class="chat-time" th:text="${c.time}" /></div>
-                                                        <div class="p-3 chat-message-other">
-                                                            <p class="chat-message small mb-0" th:text="${c.message}" />
+                                                <div th:if="${c.sender != roomName}">
+                                                    <!--내가 보낸 채팅일 때 오른쪽에 뜨게-->
+                                                    <div id="chat-box-receiver" style="text-align: right;">
+                                                        <div th:text="${c. }" style="font-size: 16px; margin-bottom: 10px; "><p class="chat-time" th:text="${c.time}" /></div>
+                                                        <div class="p-3 chat-message-other" style="width:70%; background-color: yellowgreen; border-radius: 20px; font-size: 18px; padding: 10px 20px; width: 70%; margin-left: auto;">
+                                                            <p class="chat-message" th:text="${c.message}" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -92,7 +98,6 @@
                         </div>
                     </div>
                 </section>
-            </div>
         </div>
     </div>
 </div>
@@ -102,6 +107,7 @@
 <script th:inline="javascript">
     let roomNo = /*[[${room.roomNo}]]*/ 'default';
     let roomName = /*[[${roomName}]]*/ 'default';
+    console.log(roomName);
 
     let ws;
 

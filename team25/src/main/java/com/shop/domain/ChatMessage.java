@@ -11,20 +11,21 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatMsg {
+public class ChatMessage {
     public enum MessageType{
         ENTER, TALK, LEAVE, NOTICE
     }
 
-    private Long chatId;
+    private Long chatNo;
     @NotNull
     private MessageType type;           // 메시지 타입
     @NotNull
-    private int roomId;              // 방 번호
+    private Long roomNo;                // 방 번호
     @NotNull
     private String sender;              // 채팅을 보낸 사람
+    private String receiver;            // 채팅을 받는 사람
     @NotNull
-    private String msg;             // 메시지
+    private String message;             // 메시지
     private String status = "UNREAD";   // 읽음 여부
     private String time;                // 채팅 발송 시간
 }

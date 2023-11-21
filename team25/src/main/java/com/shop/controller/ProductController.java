@@ -2,12 +2,15 @@ package com.shop.controller;
 
 import com.shop.domain.Likes;
 import com.shop.domain.Pay;
+import com.shop.domain.ChatRoom;
 import com.shop.domain.Product;
 import com.shop.domain.Review;
 import com.shop.service.PayService;
+import com.shop.service.ChatService;
 import com.shop.service.ProductService;
 
 import com.shop.service.ReviewService;
+import com.shop.service.UserService;
 import groovy.util.logging.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -30,6 +35,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ChatService chatService;
 
     @Autowired
     private ReviewService reviewService;
