@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -56,23 +58,68 @@ public class ProductController {
     @GetMapping("/getProduct/{pno}")
     public String getProduct(@PathVariable("pno") long pno, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId  = authentication.getName();
+        String userId = authentication.getName();
 
 
         //상품 정보
         Product product = productService.getProduct(pno);
         System.out.println(product);
 
-        //내가 받은 후기
-        List<Review> proSellerReview= reviewService.proSellerReview(userId);
+        LocalDateTime resdate = product.getResdate();
+        LocalDateTime threeDaysLater = resdate.plus(3, ChronoUnit.DAYS); //3일 지난
+        System.out.println(threeDaysLater);
+
+        //판매자 정보
+        List<Review> proSellerReview = reviewService.proSellerReview(product.getSeller());
         System.out.println(proSellerReview);
 
 
         //찜하기
         List<Long> likedProductIds;
+
         // 해당 회원이 좋아요한 목록 반환
         likedProductIds = productService.getLikedProductsByUser(userId);
         System.out.println(likedProductIds);
+
+
+        model.addAttribute("threeDaysLater", threeDaysLater);
+        model.addAttribute("likedProductIds", likedProductIds);
+        model.addAttribute("proSellerReview", proSellerReview);
+        model.addAttribute("userId", userId);
+        model.addAttribute("product", product);
+        model.addAttribute("proPno", product.getPno());
+
+        return "product/productDetail";
+    }
+
+
+    //상품 끌어올리기
+    @GetMapping("/updateResdate/{pno}")
+    public String updateResdate(@PathVariable("pno") long pno, Model model) {
+        productService.updateResdate(pno);
+
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+
+
+        //상품 정보
+        Product product = productService.getProduct(pno);
+        System.out.println(product);
+
+        //판매자 정보
+        List<Review> proSellerReview = reviewService.proSellerReview(product.getSeller());
+        System.out.println(proSellerReview);
+
+
+        //찜하기
+        List<Long> likedProductIds;
+
+        // 해당 회원이 좋아요한 목록 반환
+        likedProductIds = productService.getLikedProductsByUser(userId);
+        System.out.println(likedProductIds);
+
+
         model.addAttribute("likedProductIds", likedProductIds);
         model.addAttribute("proSellerReview", proSellerReview);
         model.addAttribute("userId", userId);
@@ -159,31 +206,26 @@ public class ProductController {
         // 사용자의 권한 확인
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication != null) {
-            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")) &&
-                    authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("TEACHER")) ) {
-                //아이디 확인
-                String userId = authentication.getName(); // 로그인한 사용자의 아이디를 얻는 방법으로 변경
-                String getId = productService.getProduct(pno).getSeller();
+        if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")) ||
+                authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("TEACHER"))) {
+            System.out.println("안녕");
+            //아이디 확인
+            String userId = authentication.getName(); // 로그인한 사용자의 아이디를 얻는 방법으로 변경
+            String getId = productService.getProduct(pno).getSeller();
 
-                // 상품을 올린 판매자 id와 현재 로그인 중인 판매자의 id가 같아야 수정 가능
-                if (getId.equals(userId)) {
-                    model.addAttribute("product", productService.getProduct(pno));
-                    return "product/updateProduct";
-                } else {
-                    return "redirect:/";
-                }
+            // 상품을 올린 판매자 id와 현재 로그인 중인 판매자의 id가 같아야 수정 가능
+            if (getId.equals(userId)) {
+                model.addAttribute("product", productService.getProduct(pno));
+                return "product/updateProduct";
             } else {
-                // 일반 회원이면 거절 -> main
                 return "redirect:/";
             }
         } else {
-            // 로그인한 사용자가 없는 경우
+            // 일반 회원이면 거절 -> main
             return "redirect:/";
         }
+
     }
-
-
 
 
     // 상품 수정 (POST) - 판매자만 가능
@@ -192,8 +234,8 @@ public class ProductController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
-            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")) &&
-                    authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("TEACHER")) ) {
+            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")) ||
+                    authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("TEACHER"))) {
                 //아이디 확인
                 String userId = authentication.getName(); // 로그인한 사용자의 아이디를 얻는 방법으로 변경
                 String getId = productService.getProduct(pno).getSeller();
@@ -203,7 +245,7 @@ public class ProductController {
                     List<Product> myproList = productService.findByUserId(getId);
                     productService.updateProduct(product, pno, imgFile);
                     model.addAttribute("myproList", myproList);
-                    return "myProductList";
+                    return "member/myProductList";
                 } else {
                     return "redirect:/";
                 }
@@ -223,8 +265,8 @@ public class ProductController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
-            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")) &&
-                    authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("TEACHER")) ){
+            if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")) ||
+                    authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("TEACHER"))) {
                 //아이디 확인
                 String userId = authentication.getName(); // 로그인한 사용자의 아이디를 얻는 방법으로 변경
                 String getId = productService.getProduct(pno).getSeller();
@@ -236,7 +278,7 @@ public class ProductController {
                     List<Product> myproList = productService.findByUserId(getId);
                     model.addAttribute("myproList", myproList);
 
-                    return "myProductList";
+                    return "member/myProductList";
                 } else {
                     return "redirect:/";
                 }
@@ -258,13 +300,13 @@ public class ProductController {
 
     // 좋아요 목록
     @GetMapping("/likeList/{pno}")
-    public String LikeList (@PathVariable("pno") Long pno, HttpServletRequest req, Model model) throws Exception {
+    public String LikeList(@PathVariable("pno") Long pno, HttpServletRequest req, Model model) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
         List<Likes> proLikes = productService.getByIdLikeList(userId);
         List<Product> proList = new ArrayList<>();
 
-        for (Likes pro: proLikes) {
+        for (Likes pro : proLikes) {
             proList.add(productService.getProduct(pro.getPno()));
         }
 
@@ -276,7 +318,7 @@ public class ProductController {
     // 강의 좋아요
 
     @PostMapping("/productLike")
-    public void productLike(@RequestParam("pno") Long pno, @RequestParam("userId") String userId ,HttpServletResponse res, HttpServletRequest req, Model model) throws Exception {
+    public void productLike(@RequestParam("pno") Long pno, @RequestParam("userId") String userId, HttpServletResponse res, HttpServletRequest req, Model model) throws Exception {
 
         //String userId = req.getParameter("userId");
         //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -288,7 +330,7 @@ public class ProductController {
 
 
         try {
-            if(productService.checkLiked(proLikes) > 0) {
+            if (productService.checkLiked(proLikes) > 0) {
                 productService.removeLike(proLikes);
                 res.getWriter().write("unliked");
                 req.setAttribute("isLiked", false);
@@ -306,7 +348,7 @@ public class ProductController {
 
     // 좋아요 삭제
     @GetMapping("/delLike/{pno}")
-    public String delLike (@PathVariable("pno") Long pno, Model model) throws Exception {
+    public String delLike(@PathVariable("pno") Long pno, Model model) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
 
@@ -316,18 +358,17 @@ public class ProductController {
         model.addAttribute("myproList", myproList);
 
 
-
         //소윤의 구매내역
         List<Pay> myPayList = payService.myPayListByUserId(userId);
-        model.addAttribute("myPayList",myPayList);
+        model.addAttribute("myPayList", myPayList);
 
         // 내가 쓴 후기
-        List<Review> proReview= reviewService.proReview(userId);
+        List<Review> proReview = reviewService.proReview(userId);
         System.out.println(proReview);
         model.addAttribute("proReview", proReview);
 
         //내가 받은 후기
-        List<Review> proSellerReview= reviewService.proSellerReview(userId);
+        List<Review> proSellerReview = reviewService.proSellerReview(userId);
         System.out.println(proSellerReview);
         model.addAttribute("proSellerReview", proSellerReview);
 
@@ -336,7 +377,7 @@ public class ProductController {
         //pno, userId
         List<Likes> proLikes = productService.getByIdLikeList(userId);
         List<Product> proList = new ArrayList<>();
-        for (Likes pro: proLikes) {
+        for (Likes pro : proLikes) {
             System.out.println(pro);
             proList.add(productService.getProduct(pro.getPno()));
         }
@@ -351,7 +392,6 @@ public class ProductController {
         productService.removeLike(proLikes2);
         return "member/myProductList";
     }
-
 
 
     @RequestMapping("/updateStatus")

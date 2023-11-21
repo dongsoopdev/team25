@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 
+import com.shop.domain.Likes;
 import com.shop.domain.Pay;
 import com.shop.domain.Product;
 import com.shop.domain.Review;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -53,16 +55,64 @@ public class ReviewController {
 
     @PostMapping("/addReview/{pno}")
     public String addReview(@PathVariable("pno") Long pno, Model model, Review review, HttpServletRequest req, HttpServletResponse res) throws IOException {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String userId = authentication.getName();
+//;
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId = authentication.getName();
-;
+        String userId  = authentication.getName();
+
         review.setId(userId);
         review.setPno(pno);
         reviewService.insertReview(review);
 
+
+        List<Product> myproList = productService.findByUserId(userId);
+        System.out.println(myproList);
+        model.addAttribute("myproList", myproList);
+
+        //소윤의 구매내역
         List<Pay> myPayList = payService.myPayListByUserId(userId);
+        //리뷰 체크
+        for(Pay re: myPayList){
+            review.setPno(re.getPno());
+            review.setId(userId);
+            int check = reviewService.reviewCheck(review);
+
+            System.out.println("check: " + check );
+            re.setCheck(check);
+        }
         model.addAttribute("myPayList",myPayList);
-        return "pay/myPayList";
+
+
+
+        // 내가 쓴 후기
+        List<Review> proReview= reviewService.proReview(userId);
+        System.out.println(proReview);
+        model.addAttribute("proReview", proReview);
+
+
+
+        //내가 받은 후기
+        List<Review> proSellerReview= reviewService.proSellerReview(userId);
+        System.out.println(proSellerReview);
+        model.addAttribute("proSellerReview", proSellerReview);
+
+
+        //좋아요
+        //pno, userId
+        List<Likes> proLikes = productService.getByIdLikeList(userId);
+        List<Product> proList = new ArrayList<>();
+        for (Likes pro: proLikes) {
+            System.out.println(pro);
+            proList.add(productService.getProduct(pro.getPno()));
+        }
+
+        System.out.println(proList);
+        model.addAttribute("proLikes", proLikes);
+        model.addAttribute("proList", proList);
+
+        return "member/myProductList";
     }
 
     //거래한 상품 리뷰 보기 (select one)

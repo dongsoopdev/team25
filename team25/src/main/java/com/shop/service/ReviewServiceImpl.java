@@ -41,4 +41,9 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> proSellerReview(String seller) {
         return reviewMapper.proSellerReview(seller);
     }
+
+    @Override
+    public int reviewCheck(Review review) {
+        return reviewMapper.reviewCheck(review);
+    }
 }

@@ -29,6 +29,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public ProductService productService(){ return new ProductServiceImpl(); }
 
+
+    //개발  &  운영
     @Value("${resource.path}")
     private String resourcePath;
 
