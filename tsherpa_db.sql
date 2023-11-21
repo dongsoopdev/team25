@@ -155,7 +155,6 @@ CREATE TABLE board (
                        title varchar(200) not null,
                        content varchar(1000) not null,
                        resdate timestamp default current_timestamp,
-                       writer VARCHAR(255) NOT NULL,
                        visited int default 0
 );
 
