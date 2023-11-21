@@ -16,7 +16,12 @@ public interface ReviewService {
 
     public Review getProReview(Review review);
 
+    // 내가 작성한 후기
     public List<Review> proReview(String userId);
+
+    // 내가 받은 후기
+    public List<Review> proSellerReview(String seller);
+
 
 }
 

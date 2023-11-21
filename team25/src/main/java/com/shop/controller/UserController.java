@@ -1,9 +1,6 @@
 package com.shop.controller;
 
-import com.shop.domain.Pay;
-import com.shop.domain.Product;
-import com.shop.domain.Review;
-import com.shop.domain.User;
+import com.shop.domain.*;
 import com.shop.service.PayService;
 import com.shop.service.ProductService;
 import com.shop.service.ReviewService;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -146,26 +144,35 @@ public class UserController {
         List<Pay> myPayList = payService.myPayListByUserId(userId);
         model.addAttribute("myPayList",myPayList);
 
-        List<Review> reviewList = reviewService.proReview(userId);
-        System.out.println(reviewList);
-        model.addAttribute("reviewList", reviewList);
+        // 내가 쓴 후기
+        List<Review> proReview= reviewService.proReview(userId);
+        System.out.println(proReview);
+        model.addAttribute("proReview", proReview);
+
+        //내가 받은 후기
+        List<Review> proSellerReview= reviewService.proSellerReview(userId);
+        System.out.println(proSellerReview);
+        model.addAttribute("proSellerReview", proSellerReview);
+
+
+        //좋아요
+        //pno, userId
+        List<Likes> proLikes = productService.getByIdLikeList(userId);
+        List<Product> proList = new ArrayList<>();
+        for (Likes pro: proLikes) {
+            System.out.println(pro);
+            proList.add(productService.getProduct(pro.getPno()));
+        }
+
+        System.out.println(proList);
+        model.addAttribute("proLikes", proLikes);
+        model.addAttribute("proList", proList);
+
 
         return "member/myProductList";
     }
 
 
-
-    //내가 등록한 상품
-    @GetMapping("/myProductList")
-    public String myProductList(@RequestParam("seller") String seller, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId  = authentication.getName();
-
-        List<Product> myproList = productService.findByUserId(seller);
-        System.out.println(myproList);
-        model.addAttribute("myproList", myproList);
-        return "member/myProductList";
-    }
 
 
 

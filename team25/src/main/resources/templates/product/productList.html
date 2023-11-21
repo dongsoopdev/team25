@@ -246,11 +246,6 @@
                 <div class="row">
 
 
-
-
-
-
-
                     <!-- product -->
                     <div class="col-md-4 col-xs-6" th:each="product: ${product}">
                         <!--  <a th:href="@{/product/productDetail(pno=${product.pno})}" >-->
@@ -268,8 +263,13 @@
 
                                     <div class="product-label">
                                         <span class="sale" th:text="${product.getQuality()}">퀄리티</span>
-                                        <span class="new">NEW</span>
+                                        <!--<span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"</span>-->
+                                        <!--<span th:text="${#temporals.format(product.getResdate(), 'yyyy-MM-dd')}"></span>-->
+                                        <span th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') == #temporals.format(product.getResdate(), 'yyyy-MM-dd')}" class="new">NEW</span>
+
                                     </div>
+
+
                                 </div>
 
                                 <div class="product-body">
@@ -290,9 +290,7 @@
 
                                     </div>
                                 </div>
-                                <!-- <div class="add-to-cart">
-                                     <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                 </div>-->
+
                             </div>
                         </a>
                     </div>
@@ -335,11 +333,12 @@
 </div>
 <!-- /SECTION -->
 
-<!-- NEWSLETTER -->
+<!--
+ NEWSLETTER
 <div id="newsletter" class="section">
-    <!-- container -->
+     container
     <div class="container">
-        <!-- row -->
+         row
         <div class="row">
             <div class="col-md-12">
                 <div class="newsletter">
@@ -365,11 +364,12 @@
                 </div>
             </div>
         </div>
-        <!-- /row -->
+         /row
     </div>
-    <!-- /container -->
+     /container
 </div>
-<!-- /NEWSLETTER -->
+ /NEWSLETTER
+-->
 
 
 
