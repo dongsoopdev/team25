@@ -85,6 +85,30 @@ CREATE TABLE product(
 INSERT INTO product VALUES(DEFAULT, 1, '도유니 서적','도유니 서적에 대한 설명이오~!', 12000, 'lee',DEFAULT, '최상', 'img1.jpg' ,'img2.jpg','img3.jpg','img4.jpg','dddd', DEFAULT);
 
 
+-- 리뷰
+DROP TABLE review;
+CREATE TABLE review(
+    no BIGINT AUTO_INCREMENT PRIMARY KEY, -- 번호
+    id VARCHAR(20) NOT NULL,              -- 작성자  아이디
+    content VARCHAR(300) NOT NULL,         -- 후기
+    resdate timestamp DEFAULT CURRENT_TIMESTAMP(), -- 작성일
+    score INT CHECK (score >= 1 AND score <= 5), -- 점수 (1부터 5까지의 정수)
+    pno BIGINT, -- 상품 번호
+    FOREIGN KEY(id) REFERENCES user(userId) ON DELETE CASCADE -- 회원 아이디를 외래키로 선언
+);
+SELECT * FROM review;
+
+
+-- 좋아요
+create table likes (
+    userId VARCHAR(20) NOT NULL,      -- 사용자 ID
+    pno INT NOT NULL,           -- 강의 no 
+    liketime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 좋아요를 누른 시간
+    PRIMARY KEY (userId, pno)   -- 사용자 ID와 게시글 no 조합으로 각 레코드를 유일하게 식별
+); 
+
+
+
 -- 슬비
 SELECT * FROM product;
 CREATE TABLE chatRoom (
