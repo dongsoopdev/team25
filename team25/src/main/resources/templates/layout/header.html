@@ -93,7 +93,6 @@
 
 
                         <!-- Cart -->
-
                         <div>
                             <!-- 로그인되지 않았을 때 -->
                             <a th:if="${#authorization.expression('isAnonymous()')}" th:href="@{/member/login}">
@@ -114,7 +113,7 @@
 
                         <!-- Wishlist -->
                         <div>
-                            <a href="#">
+                            <a th:href="@{/member/myChatList}">
                                 <!--<i class="fa fa-heart-o"></i>-->
                                 <img th:src="@{/images/header_talk.png}" style="width: 25px">
                                 <span>셀파톡</span>

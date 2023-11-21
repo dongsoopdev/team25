@@ -222,7 +222,6 @@ public class UserController {
 
 
 
-
     //나의 채팅방 목록
     @GetMapping("myChatList")
     public String myChat(HttpServletRequest request, Model model, Principal principal){
@@ -239,6 +238,7 @@ public class UserController {
         }
         return "member/myChatList";
     }
+
 
     // 채팅하기
     @GetMapping("myChat")
