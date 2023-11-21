@@ -11,4 +11,5 @@ public interface PayMapper {
     Pay getPay(Long pno);
     List<Pay> myPayListByUserId(String userId);
     void updateShip(int ship, Long payNo);
+    int updatePayByPno(Pay pay);
 }

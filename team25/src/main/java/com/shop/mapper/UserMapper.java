@@ -45,4 +45,7 @@ public interface UserMapper {
 
     //아이디 중복 검사
     int idDupCheck(User userId);
+
+    //권한 변경
+    void editUserRole(UserRole userRole);
 }

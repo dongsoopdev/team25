@@ -38,6 +38,11 @@ public class UserService {
         }
     }
 
+    /*권한 바꾸기 */
+    public void editUserRole(UserRole userRole){
+        userMapper.editUserRole(userRole);
+    }
+
     public User findById(Long id){
         return userMapper.findById(id);
     }

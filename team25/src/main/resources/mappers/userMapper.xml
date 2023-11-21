@@ -41,4 +41,8 @@
     <select id="idDupCheck" resultType="int">
         select count(*) from user where userId = #{userId}
     </select>
+    <!-- 권한 변경 -->
+    <update id="editUserRole">
+        update userRole set roleId=#{roleId} where id=#{id}
+    </update>
 </mapper>
