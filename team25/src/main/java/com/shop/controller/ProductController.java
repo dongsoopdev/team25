@@ -394,4 +394,12 @@ public class ProductController {
     }
 
 
+    @RequestMapping("/updateStatus")
+    @ResponseBody
+    public String updateStatus(@RequestParam String status, @RequestParam Long pno) {
+        // productService를 사용하여 DB 업데이트 수행
+        System.out.println("pno "+pno+" status"+status);
+        productService.updateProductStatus(status, pno);
+        return "redirect:/member/myProductList";  // 또는 다른 성공 메시지
+    }
 }

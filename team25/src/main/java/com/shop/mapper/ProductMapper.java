@@ -36,6 +36,7 @@ public interface ProductMapper {
 
     //상품별 좋아요 카운트 수 졍렬
     List<Product> orderbyPnoCount();
+    void updateProductStatus(String status, Long pno);
 
     void updateResdate(Long pno);
 }
