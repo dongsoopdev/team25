@@ -2,7 +2,7 @@ CREATE DATABASE tsherpa;
 
 USE tsherpa;
 
--- 승원
+-tsherpa- 승원
 -- 부여할 권한 테이블
 CREATE TABLE role(
                      roleId INT PRIMARY KEY AUTO_INCREMENT,
@@ -152,7 +152,7 @@ SELECT * FROM pay;
 -- 공지사항 
 CREATE TABLE board (
                        bno INT PRIMARY KEY AUTO_INCREMENT,
-                       title varchar(200) not null,
+                       title varchar(200) not null,tsherpa
                        content varchar(1000) not null,
                        resdate timestamp default current_timestamp,
                        writer VARCHAR(255) NOT NULL,
