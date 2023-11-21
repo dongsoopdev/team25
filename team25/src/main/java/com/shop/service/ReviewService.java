@@ -23,5 +23,6 @@ public interface ReviewService {
     public List<Review> proSellerReview(String seller);
 
 
+    public int reviewCheck(Review review);
 }
 
