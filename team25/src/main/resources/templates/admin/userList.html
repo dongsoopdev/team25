@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="~{layout/head.html :: head}">
+    <title> 회원 상세보기 </title>
+</head>
+<body>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>회원 성함</th>
+            <th>회원 아이디</th>
+            <th>활동 상태</th>
+            <th>권한</th>
+            <th>등록일</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="userList : ${userList}">
+            <td th:text="${userList.id}"></td>
+            <td th:text="${userList.userName}"></td>
+            <td th:text="${userList.userId}"></td>
+            <td th:text="${userList.active}"></td>
+            <td th:text="${userList.roleName}"></td>
+            <td th:text="${userList.regdate}"></td>
+            <td>
+                <a th:href="@{'/admin/userDetail/' + ${userList.id}}" class="btn">상세보기</a>
+                <a th:href="@{'/admin/editActive/' + ${userList.id}}" class="btn">회원 강퇴</a>
+                <button type="button" class="btn" data-bs-toggle="modal" th:attr="data-target=${'#roleEditModal'}">권한 변경</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -43,7 +43,13 @@ public class User {
     private String tel;
 
     private String regdate;
+
     private int point;
+
     private String active;    // JOIN(활동 중) / DORMANT(휴면 중) / WITHDRAW(탈퇴)
+
+    private Integer roleId;
+
+    private String roleName;
 
 }
