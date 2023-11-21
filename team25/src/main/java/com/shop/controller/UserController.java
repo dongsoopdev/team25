@@ -208,11 +208,9 @@ public class UserController {
         Long pno = Long.valueOf(request.getParameter("pno")); // 상품 고유번호
 
         // 채팅방이 없으면 새로 추가, 있으면 가져오기
-        ChatRoomVO room = chatService.chatRoomInsert(userId, pno);
+        ChatRoomVO room = chatService.chatRoomInsert(buyer, pno);
         model.addAttribute("room", room);
 
-//http://localhost:8085/member/myChat?buyer=lee&pno=4
-                   //@{/member/myChat(seller=${userId}, pno=${cr.pno})}
 
         // 기존의 채팅 내역 가져오기
         Long roomNo = room.getRoomNo();

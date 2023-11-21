@@ -56,10 +56,12 @@
 
                 <ul id="roomList" style="height: 50px;font-size: 24px;background-color: #de3b48;color: #FFFFFF;margin: 20px; border-radius: 20px;" th:each="cr : ${rooms}">
                     <li id="mychat" class="list-group-item" style="background-color: #2e6da4;border-radius: 20px;" th:if="${cr.buyer eq userId}">
-                        <a th:href="@{/member/myChat(buyer=${userId}, pno=${cr.pno})}" th:text="${cr.seller}+'님과의 채팅방'"></a>
+                        <a th:href="@{/member/myChat(buyer=${cr.buyer}, pno=${cr.pno})}" th:text="${cr.seller}+'님과의 채팅방'"></a>
+                        <!-- 내가 구매자일때의 채팅방 -->
                     </li>
                     <li id="mychat" class="list-group-item" th:if="${cr.buyer != userId}">
-                        <a th:href="@{/member/myChat(seller=${userId}, pno=${cr.pno})}" th:text="${cr.buyer}+'님과의 채팅방'"></a>
+                        <a th:href="@{/member/myChat(buyer=${cr.buyer}, pno=${cr.pno})}" th:text="${cr.buyer}+'님과의 채팅방'"></a>
+                        <!-- 내가 판매자일때의 채팅방 -->
                     </li>
                 </ul>
             </div>

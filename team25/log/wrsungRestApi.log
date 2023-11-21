@@ -13885,3 +13885,159 @@ java.sql.SQLSyntaxErrorException: (conn=1028) You have an error in your SQL synt
 2023-11-21 11:43:25.365 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopped.
 2023-11-21 11:43:25.367 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown initiated...
 2023-11-21 11:43:25.381 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown completed.
+2023-11-21 11:43:27.049 INFO  [background-preinit] [o.h.validator.internal.util.Version] - HV000001: Hibernate Validator 6.2.5.Final
+2023-11-21 11:43:27.053 INFO  [restartedMain] [com.shop.ShopApplication] - Starting ShopApplication using Java 17.0.7 on FULL8-016 with PID 17240 (D:\seulbee\team25\team25\build\classes\java\main started by db400tea in D:\seulbee\team25\team25)
+2023-11-21 11:43:27.053 INFO  [restartedMain] [com.shop.ShopApplication] - No active profile set, falling back to 1 default profile: "default"
+2023-11-21 11:43:27.188 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-21 11:43:27.188 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-21 11:43:27.822 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8085 (http)
+2023-11-21 11:43:27.830 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8085"]
+2023-11-21 11:43:27.830 INFO  [restartedMain] [org.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2023-11-21 11:43:27.830 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/9.0.82]
+2023-11-21 11:43:27.869 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2023-11-21 11:43:27.890 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 702 ms
+2023-11-21 11:43:28.157 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@c717989, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5c5f84f3, org.springframework.security.web.context.SecurityContextPersistenceFilter@54e62600, org.springframework.security.web.header.HeaderWriterFilter@75359ee2, org.springframework.security.web.authentication.logout.LogoutFilter@13e7768, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1d69b2f6, org.springframework.security.web.session.ConcurrentSessionFilter@2474276e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@fa7425, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4347b7ee, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1ea4f861, org.springframework.security.web.session.SessionManagementFilter@45b8023e, org.springframework.security.web.access.ExceptionTranslationFilter@7dadb80c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1291e13d]
+2023-11-21 11:43:28.280 INFO  [restartedMain] [o.s.b.a.w.s.WelcomePageHandlerMapping] - Adding welcome page template: index
+2023-11-21 11:43:28.387 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2023-11-21 11:43:28.396 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8085"]
+2023-11-21 11:43:28.407 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8085 (http) with context path ''
+2023-11-21 11:43:28.408 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - Starting...
+2023-11-21 11:43:28.408 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@47e03f84]]
+2023-11-21 11:43:28.408 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - Started.
+2023-11-21 11:43:28.414 INFO  [restartedMain] [com.shop.ShopApplication] - Started ShopApplication in 1.525 seconds (JVM running for 1.935)
+2023-11-21 11:43:29.882 INFO  [http-nio-8085-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-21 11:43:29.882 INFO  [http-nio-8085-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2023-11-21 11:43:29.883 INFO  [http-nio-8085-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 1 ms
+2023-11-21 11:43:29.909 INFO  [http-nio-8085-exec-1] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Starting...
+2023-11-21 11:43:29.951 INFO  [http-nio-8085-exec-1] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Start completed.
+2023-11-21 11:44:28.222 INFO  [MessageBroker-1] [o.s.w.s.c.WebSocketMessageBrokerStats] - WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 3], outboundChannel[pool size = 1, active threads = 0, queued tasks = 0, completed tasks = 1], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2023-11-21 12:14:28.238 INFO  [MessageBroker-1] [o.s.w.s.c.WebSocketMessageBrokerStats] - WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 3], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 1], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
+2023-11-21 12:30:27.788 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopping...
+2023-11-21 12:30:27.788 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@47e03f84]]
+2023-11-21 12:30:27.788 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopped.
+2023-11-21 12:30:27.798 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown initiated...
+2023-11-21 12:30:27.808 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown completed.
+2023-11-21 12:30:29.634 INFO  [restartedMain] [com.shop.ShopApplication] - Starting ShopApplication using Java 17.0.7 on FULL8-016 with PID 7388 (D:\seulbee\team25\team25\build\classes\java\main started by db400tea in D:\seulbee\team25\team25)
+2023-11-21 12:30:29.634 INFO  [background-preinit] [o.h.validator.internal.util.Version] - HV000001: Hibernate Validator 6.2.5.Final
+2023-11-21 12:30:29.636 INFO  [restartedMain] [com.shop.ShopApplication] - No active profile set, falling back to 1 default profile: "default"
+2023-11-21 12:30:29.774 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-21 12:30:29.774 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-21 12:30:30.451 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8085 (http)
+2023-11-21 12:30:30.521 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8085"]
+2023-11-21 12:30:30.522 INFO  [restartedMain] [org.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2023-11-21 12:30:30.522 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/9.0.82]
+2023-11-21 12:30:30.564 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2023-11-21 12:30:30.565 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 791 ms
+2023-11-21 12:30:30.860 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2c274c92, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@541fb9fa, org.springframework.security.web.context.SecurityContextPersistenceFilter@76f9225d, org.springframework.security.web.header.HeaderWriterFilter@3402f4a0, org.springframework.security.web.authentication.logout.LogoutFilter@65a95a00, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6ac2505c, org.springframework.security.web.session.ConcurrentSessionFilter@1cd05ace, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4897690a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@55d0bd94, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@36e891f2, org.springframework.security.web.session.SessionManagementFilter@18185412, org.springframework.security.web.access.ExceptionTranslationFilter@3f07d1b1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1c4dec1]
+2023-11-21 12:30:30.993 INFO  [restartedMain] [o.s.b.a.w.s.WelcomePageHandlerMapping] - Adding welcome page template: index
+2023-11-21 12:30:31.125 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2023-11-21 12:30:31.141 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8085"]
+2023-11-21 12:30:31.152 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8085 (http) with context path ''
+2023-11-21 12:30:31.153 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - Starting...
+2023-11-21 12:30:31.153 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@18588400]]
+2023-11-21 12:30:31.154 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - Started.
+2023-11-21 12:30:31.161 INFO  [restartedMain] [com.shop.ShopApplication] - Started ShopApplication in 1.701 seconds (JVM running for 2.115)
+2023-11-21 12:30:37.500 INFO  [http-nio-8085-exec-7] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-21 12:30:37.500 INFO  [http-nio-8085-exec-7] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2023-11-21 12:30:37.500 INFO  [http-nio-8085-exec-7] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 0 ms
+2023-11-21 12:30:37.534 INFO  [http-nio-8085-exec-7] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Starting...
+2023-11-21 12:30:37.581 INFO  [http-nio-8085-exec-7] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Start completed.
+2023-11-21 12:31:30.927 INFO  [MessageBroker-1] [o.s.w.s.c.WebSocketMessageBrokerStats] - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 1 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 3], outboundChannel[pool size = 1, active threads = 0, queued tasks = 0, completed tasks = 1], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2023-11-21 12:32:57.800 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopping...
+2023-11-21 12:32:57.800 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@18588400]]
+2023-11-21 12:32:57.800 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopped.
+2023-11-21 12:32:57.810 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown initiated...
+2023-11-21 12:32:57.813 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown completed.
+2023-11-21 12:32:59.483 INFO  [background-preinit] [o.h.validator.internal.util.Version] - HV000001: Hibernate Validator 6.2.5.Final
+2023-11-21 12:32:59.485 INFO  [restartedMain] [com.shop.ShopApplication] - Starting ShopApplication using Java 17.0.7 on FULL8-016 with PID 14692 (D:\seulbee\team25\team25\build\classes\java\main started by db400tea in D:\seulbee\team25\team25)
+2023-11-21 12:32:59.486 INFO  [restartedMain] [com.shop.ShopApplication] - No active profile set, falling back to 1 default profile: "default"
+2023-11-21 12:32:59.616 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-21 12:32:59.617 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-21 12:33:00.216 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8085 (http)
+2023-11-21 12:33:00.221 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8085"]
+2023-11-21 12:33:00.221 INFO  [restartedMain] [org.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2023-11-21 12:33:00.222 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/9.0.82]
+2023-11-21 12:33:00.265 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2023-11-21 12:33:00.265 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 648 ms
+2023-11-21 12:33:00.536 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1d69b2f6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3d8fe6c7, org.springframework.security.web.context.SecurityContextPersistenceFilter@60045a86, org.springframework.security.web.header.HeaderWriterFilter@7d7ba57b, org.springframework.security.web.authentication.logout.LogoutFilter@7a73a591, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@770ae99d, org.springframework.security.web.session.ConcurrentSessionFilter@742b5eec, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@68556579, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@54e62600, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@777573e5, org.springframework.security.web.session.SessionManagementFilter@1b0e6dc2, org.springframework.security.web.access.ExceptionTranslationFilter@373a2ff4, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@592be2da]
+2023-11-21 12:33:00.662 INFO  [restartedMain] [o.s.b.a.w.s.WelcomePageHandlerMapping] - Adding welcome page template: index
+2023-11-21 12:33:00.770 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2023-11-21 12:33:00.779 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8085"]
+2023-11-21 12:33:00.790 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8085 (http) with context path ''
+2023-11-21 12:33:00.791 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - Starting...
+2023-11-21 12:33:00.791 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@47e03f84]]
+2023-11-21 12:33:00.791 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - Started.
+2023-11-21 12:33:00.797 INFO  [restartedMain] [com.shop.ShopApplication] - Started ShopApplication in 1.489 seconds (JVM running for 1.909)
+2023-11-21 12:33:05.215 INFO  [http-nio-8085-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-21 12:33:05.215 INFO  [http-nio-8085-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2023-11-21 12:33:05.215 INFO  [http-nio-8085-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 0 ms
+2023-11-21 12:33:05.242 INFO  [http-nio-8085-exec-1] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Starting...
+2023-11-21 12:33:05.284 INFO  [http-nio-8085-exec-1] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Start completed.
+2023-11-21 12:34:00.603 INFO  [MessageBroker-1] [o.s.w.s.c.WebSocketMessageBrokerStats] - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 1 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 3], outboundChannel[pool size = 1, active threads = 0, queued tasks = 0, completed tasks = 1], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2023-11-21 12:36:21.592 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopping...
+2023-11-21 12:36:21.593 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@47e03f84]]
+2023-11-21 12:36:21.593 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopped.
+2023-11-21 12:36:21.603 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown initiated...
+2023-11-21 12:36:21.616 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown completed.
+2023-11-21 12:36:23.861 INFO  [background-preinit] [o.h.validator.internal.util.Version] - HV000001: Hibernate Validator 6.2.5.Final
+2023-11-21 12:36:23.862 INFO  [restartedMain] [com.shop.ShopApplication] - Starting ShopApplication using Java 17.0.7 on FULL8-016 with PID 17444 (D:\seulbee\team25\team25\build\classes\java\main started by db400tea in D:\seulbee\team25\team25)
+2023-11-21 12:36:23.863 INFO  [restartedMain] [com.shop.ShopApplication] - No active profile set, falling back to 1 default profile: "default"
+2023-11-21 12:36:24.000 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-21 12:36:24.001 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-21 12:36:24.615 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8085 (http)
+2023-11-21 12:36:24.620 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8085"]
+2023-11-21 12:36:24.621 INFO  [restartedMain] [org.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2023-11-21 12:36:24.621 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/9.0.82]
+2023-11-21 12:36:24.665 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2023-11-21 12:36:24.665 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 664 ms
+2023-11-21 12:36:24.945 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@250ea565, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4262486, org.springframework.security.web.context.SecurityContextPersistenceFilter@78277511, org.springframework.security.web.header.HeaderWriterFilter@2a990552, org.springframework.security.web.authentication.logout.LogoutFilter@4cbfa65, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5eeffcce, org.springframework.security.web.session.ConcurrentSessionFilter@1db61725, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@67afc906, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@14c5a60e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@59d49b9, org.springframework.security.web.session.SessionManagementFilter@44871d7a, org.springframework.security.web.access.ExceptionTranslationFilter@6224ecb1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@651e2d2c]
+2023-11-21 12:36:25.072 INFO  [restartedMain] [o.s.b.a.w.s.WelcomePageHandlerMapping] - Adding welcome page template: index
+2023-11-21 12:36:25.186 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2023-11-21 12:36:25.196 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8085"]
+2023-11-21 12:36:25.207 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8085 (http) with context path ''
+2023-11-21 12:36:25.208 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - Starting...
+2023-11-21 12:36:25.209 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@10e3095f]]
+2023-11-21 12:36:25.209 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - Started.
+2023-11-21 12:36:25.215 INFO  [restartedMain] [com.shop.ShopApplication] - Started ShopApplication in 1.521 seconds (JVM running for 1.904)
+2023-11-21 12:36:29.276 INFO  [http-nio-8085-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-21 12:36:29.276 INFO  [http-nio-8085-exec-1] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2023-11-21 12:36:29.277 INFO  [http-nio-8085-exec-1] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 1 ms
+2023-11-21 12:36:29.303 INFO  [http-nio-8085-exec-1] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Starting...
+2023-11-21 12:36:29.347 INFO  [http-nio-8085-exec-1] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Start completed.
+2023-11-21 12:37:25.009 INFO  [MessageBroker-1] [o.s.w.s.c.WebSocketMessageBrokerStats] - WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 6 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 15, active threads = 0, queued tasks = 0, completed tasks = 15], outboundChannel[pool size = 5, active threads = 0, queued tasks = 0, completed tasks = 5], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2023-11-21 12:42:29.593 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopping...
+2023-11-21 12:42:29.593 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@10e3095f]]
+2023-11-21 12:42:29.594 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopped.
+2023-11-21 12:42:29.604 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown initiated...
+2023-11-21 12:42:29.616 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown completed.
+2023-11-21 12:42:31.424 INFO  [background-preinit] [o.h.validator.internal.util.Version] - HV000001: Hibernate Validator 6.2.5.Final
+2023-11-21 12:42:31.424 INFO  [restartedMain] [com.shop.ShopApplication] - Starting ShopApplication using Java 17.0.7 on FULL8-016 with PID 13440 (D:\seulbee\team25\team25\build\classes\java\main started by db400tea in D:\seulbee\team25\team25)
+2023-11-21 12:42:31.425 INFO  [restartedMain] [com.shop.ShopApplication] - No active profile set, falling back to 1 default profile: "default"
+2023-11-21 12:42:31.563 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-21 12:42:31.563 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-21 12:42:32.222 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8085 (http)
+2023-11-21 12:42:32.231 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8085"]
+2023-11-21 12:42:32.233 INFO  [restartedMain] [org.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2023-11-21 12:42:32.233 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/9.0.82]
+2023-11-21 12:42:32.281 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2023-11-21 12:42:32.281 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 717 ms
+2023-11-21 12:42:32.560 INFO  [restartedMain] [o.s.s.web.DefaultSecurityFilterChain] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@fc6160, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@45a5e78a, org.springframework.security.web.context.SecurityContextPersistenceFilter@bf7cd2c, org.springframework.security.web.header.HeaderWriterFilter@42e55c38, org.springframework.security.web.authentication.logout.LogoutFilter@1db61725, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1a0bf2ff, org.springframework.security.web.session.ConcurrentSessionFilter@4c126e80, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6861b38c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3ec664a0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@55a4e8db, org.springframework.security.web.session.SessionManagementFilter@615472b0, org.springframework.security.web.access.ExceptionTranslationFilter@2dc1a55d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@45a016b5]
+2023-11-21 12:42:32.687 INFO  [restartedMain] [o.s.b.a.w.s.WelcomePageHandlerMapping] - Adding welcome page template: index
+2023-11-21 12:42:33.063 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2023-11-21 12:42:33.073 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8085"]
+2023-11-21 12:42:33.083 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8085 (http) with context path ''
+2023-11-21 12:42:33.085 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - Starting...
+2023-11-21 12:42:33.085 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@50d65640]]
+2023-11-21 12:42:33.085 INFO  [restartedMain] [o.s.m.s.b.SimpleBrokerMessageHandler] - Started.
+2023-11-21 12:42:33.090 INFO  [restartedMain] [com.shop.ShopApplication] - Started ShopApplication in 1.833 seconds (JVM running for 2.223)
+2023-11-21 12:42:33.570 INFO  [http-nio-8085-exec-3] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-21 12:42:33.570 INFO  [http-nio-8085-exec-3] [o.s.web.servlet.DispatcherServlet] - Initializing Servlet 'dispatcherServlet'
+2023-11-21 12:42:33.571 INFO  [http-nio-8085-exec-3] [o.s.web.servlet.DispatcherServlet] - Completed initialization in 1 ms
+2023-11-21 12:42:33.597 INFO  [http-nio-8085-exec-3] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Starting...
+2023-11-21 12:42:33.640 INFO  [http-nio-8085-exec-3] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Start completed.
+2023-11-21 12:43:32.627 INFO  [MessageBroker-1] [o.s.w.s.c.WebSocketMessageBrokerStats] - WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 3], outboundChannel[pool size = 1, active threads = 0, queued tasks = 0, completed tasks = 1], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2023-11-21 12:44:44.776 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopping...
+2023-11-21 12:44:44.776 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@50d65640]]
+2023-11-21 12:44:44.776 INFO  [SpringApplicationShutdownHook] [o.s.m.s.b.SimpleBrokerMessageHandler] - Stopped.
+2023-11-21 12:44:44.788 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown initiated...
+2023-11-21 12:44:44.794 INFO  [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] - HikariPool-1 - Shutdown completed.
