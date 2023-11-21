@@ -215,7 +215,8 @@
                             <td>
 
                                 <div class="btn_group">
-                                    <a class="btn btn-primary" th:if="${pay.ship != 4}" th:href="@{'/pay/payComplete/' + ${pay.pno}+'/'+${pay.payNo}}">구매확정</a>
+                                    <a class="btn btn-primary" th:if="${pay.ship == 3}" th:href="@{'/pay/payComplete/' + ${pay.pno}+'/'+${pay.payNo}}">구매확정</a>
+                                    <a class="btn btn-primary" th:if="${pay.ship == 2}" th:href="@{'/pay/shipInsert/' + ${pay.pno}}">배송정보</a>
                                     <a class="btn btn-success" th:href="@{'/product/addReviewForm/' + ${pay.pno}}"  th:if="${pay.ship == 4}">후기 남기기</a>
                                     <!-- 후기를 작성했을 때만 보여야한당 -->
                                     <a class="add-to-cart-btn" th:href="@{'/product/addReviewForm/' + ${pay.pno}}">작성한 후기 확인</a>

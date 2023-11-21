@@ -11,8 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -23,12 +26,23 @@ public class BoardController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/boardList")
+    public String boardList(Model model){
+        List<Board> boardList = boardService.getBoardList();
+        System.out.println(boardList);
+        model.addAttribute("boardList",boardList);
+        return "board/boardList";
+    }
+    @GetMapping("/getBoard/{bno}")
+    public String getBoard(@PathVariable("bno") int bno, Model model){
+        Board board = boardService.getBoard(bno);
+        model.addAttribute("board", board);
+        return "board/getBoard";
+    }
+
     @GetMapping("/insertBoard")
     public String insertBoard(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId = authentication.getName();
-        User user = userService.findByUserId(userId);
-        model.addAttribute("user",user);
         return "board/insertBoard";
     }
 
@@ -37,11 +51,44 @@ public class BoardController {
         int check = boardService.insertBoard(board);
         if (check == 1) {
             log.info("글 작성 성공");
-            return "redirect:/";
+            return "redirect:/board/boardList";
         }
         else {
             log.info("글 작성 실패");
-            return "redirect:/";
+            return "redirect:/board/boardList";
+        }
+    }
+
+    @GetMapping("/updateBoard/{bno}")
+    public String updateBoard(@PathVariable("bno") int bno, Model model) {
+        Board board = boardService.getBoard(bno);
+        model.addAttribute("board",board);
+        return "board/updateBoard";
+    }
+
+    @PostMapping("/updateBoard")
+    public String updateBoardPro(Board board) {
+        int check = boardService.updateBoard(board);
+        if (check == 1) {
+            log.info("글 수정 성공");
+            return "redirect:/board/boardList";
+        }
+        else {
+            log.info("글 수정 실패");
+            return "redirect:/board/boardList";
+        }
+    }
+
+    @GetMapping("/deleteBoard/{bno}")
+    public String deleteBoard(int bno) {
+        int check = boardService.deleteBoard(bno);
+        if (check == 1) {
+            log.info("글 삭제 성공");
+            return "redirect:/board/boardList";
+        }
+        else {
+            log.info("글 삭제 실패");
+            return "redirect:/board/boardList";
         }
     }
 }

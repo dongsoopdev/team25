@@ -71,7 +71,7 @@
                 <div class="col-md-5 order-details">
                     <form th:action="@{/pay/shipInsert}" method="post">
                     <div class="section-title text-center">
-                            <h3 class="title">송장 등록</h3>
+                            <h3 class="title">송장 정보</h3>
                         </div>
                         <div class="order-summary">
                             <div class="order-products">
@@ -89,7 +89,7 @@
                             </div>
                         </div>
 
-                        <input type="submit" value="등록하기" class="primary-btn order-submit" />
+                        <input th:if="${pay.userId != user.userId}" type="submit" value="등록하기" class="primary-btn order-submit" />
                     <!--                </div>-->
                     <!-- /Order Details -->
                     </form>
@@ -100,8 +100,8 @@
 
     </div>
 </div>
+</div>
 
 <div th:insert="~{layout/footer :: footer}"></div>
-</div>
 </body>
 </html>

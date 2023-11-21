@@ -104,8 +104,14 @@ public class PayController {
     //판매자의 송장 등록
     @GetMapping("/shipInsert/{pno}")
     public String shipInsert(@PathVariable("pno") Long pno, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId  = authentication.getName();
+        User user = userService.findByUserId(userId);
+
         Pay pay = payService.getPay(pno);
+        pay.setAddress(pay.getAddr1()+" "+pay.getAddr2());
         model.addAttribute("pay", pay);
+        model.addAttribute("user", user);
         return "pay/shipInsert";
     }
 

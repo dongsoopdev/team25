@@ -15,18 +15,22 @@
             <ul sec:authorize="isAnonymous()" class="header-links pull-right">
                 <li><a th:href="@{/member/login}">로그인 </a></li>
                 <li><a th:href="@{/member/join}">회원가입</a></li>
+                <li><a th:href="@{/board/boardList}">공지사항</a></li>
             </ul>
             <ul sec:authorize="hasAuthority('USER')" class="header-links pull-right">
                 <li><a th:href="@{/member/logout}">로그아웃</a></li>
                 <li><a th:href="@{/member/loginInfo}">마이페이지</a></li>
+                <li><a th:href="@{/board/boardList}">공지사항</a></li>
             </ul>
             <ul sec:authorize="hasAuthority('TEACHER')" class="header-links pull-right">
                 <li><a th:href="@{/member/logout}">로그아웃</a></li>
                 <li><a th:href="@{/member/loginInfo}">마이페이지</a></li>
+                <li><a th:href="@{/board/boardList}">공지사항</a></li>
             </ul>
             <ul sec:authorize="hasAuthority('ADMIN')" class="header-links pull-right">
                 <li><a th:href="@{/member/logout}">로그아웃</a></li>
                 <li><a th:href="@{/admin/home}">관리자페이지</a></li>
+                <li><a th:href="@{/board/boardList}">공지사항</a></li>
             </ul>
         </div>
     </div>
