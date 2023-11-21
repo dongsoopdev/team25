@@ -3,10 +3,7 @@ package com.shop.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.shop.domain.ChatMessage;
-import com.shop.domain.ChatRoom;
-import com.shop.domain.Product;
-import com.shop.domain.User;
+import com.shop.domain.*;
 import com.shop.service.ChatService;
 import com.shop.service.ProductService;
 import com.shop.service.UserService;
@@ -53,7 +50,7 @@ public class ChatRoomCtrl {
         Long pno = Long.valueOf(request.getParameter("pno")); // 상품 고유번호
 
         // 채팅방이 없으면 새로 추가, 있으면 가져오기
-        ChatRoom room = chatService.chatRoomInsert(userId, pno);
+        ChatRoomVO room = chatService.chatRoomInsert(userId, pno);
         model.addAttribute("room", room);
 
 
@@ -63,7 +60,7 @@ public class ChatRoomCtrl {
         model.addAttribute("chats", chats);
 
         // 채팅방에 들어가면 기존에 안 읽은 메시지 읽음 처리
-        chatService.chatMessageReadUpdates(roomNo, userId);
+        //chatService.chatMessageReadUpdates(roomNo, userId);
 
         // 채팅방 상대 이름 띄우기
         // 채팅방은 구매자 기준으로 저장되므로, 구매자인 경우 product 에서 seller 가져오기
@@ -87,7 +84,7 @@ public class ChatRoomCtrl {
         Long pno = Long.valueOf(request.getParameter("pno"));
         model.addAttribute("pno", pno);
 
-        List<ChatRoom> chatRooms = chatService.chatRoomProductList(pno);
+        List<ChatRoomVO> chatRooms = chatService.chatRoomProductList(pno);
         model.addAttribute("rooms", chatRooms);
 
         return "chat/chatList";

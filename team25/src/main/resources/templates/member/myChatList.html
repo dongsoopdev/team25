@@ -30,6 +30,17 @@
         .chat-message{
             white-space: pre-wrap;
         }
+
+        #roomList {
+            height: 50px;
+            font-size: 24px;
+            background-color: #de3b48;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            border-radius: 20px;
+        }
+
+
     </style>
 </head>
 <body>
@@ -37,22 +48,20 @@
 <div class="contents">
     <div class="container">
         <div class="row">
-            <div class="col-6">
-                <h4> 채팅스</h4>
-                <ul class="list-group" id="roomList" style="margin: 10px 0;" th:each="rooms : ${rooms}">
-                    <li class="list-group-item"><a th:href="@{/chat/roomEnter(buyer=${userId}, pno=${rooms.pno})}" th:text="${userId}"></a></li>
-                </ul>
-
-
-
-<!--                <ul class="list-group" id="roomList" style="margin: 10px 0;" th:each="cr : ${rooms}">-->
-<!--                    <li class="list-group-item" th:if="${cr.buyer eq userId}">-->
-<!--                        <a th:href="@{/member/myChat(buyer=${userId}, pno=${pro.pno})}" th:text="${cr.buyer}"></a>-->
-<!--                    </li>-->
-<!--                    <li class="list-group-item" th:if="${cr.seller eq userId}">-->
-<!--                        <a th:href="@{/member/myChat(seller=${userId}, pno=${pro.pno})}" th:text="${cr.seller}"></a>-->
-<!--                    </li>-->
+            <div >
+                <h1 th:text="${userId}+'님의 채팅방 목록'"/>
+<!--                <ul class="list-group" id="roomList" style="margin: 10px 0;" th:each="rooms : ${rooms}">-->
+<!--                    <li class="list-group-item"><a th:href="@{/chat/roomEnter(buyer=${userId}, pno=${rooms.pno})}" th:text="${userId}"></a></li>-->
 <!--                </ul>-->
+
+                <ul id="roomList" style="height: 50px;font-size: 24px;background-color: #de3b48;color: #FFFFFF;margin: 20px; border-radius: 20px;" th:each="cr : ${rooms}">
+                    <li id="mychat" class="list-group-item" style="background-color: #2e6da4;border-radius: 20px;" th:if="${cr.buyer eq userId}">
+                        <a th:href="@{/member/myChat(buyer=${userId}, pno=${cr.pno})}" th:text="${cr.seller}+'님과의 채팅방'"></a>
+                    </li>
+                    <li id="mychat" class="list-group-item" th:if="${cr.buyer != userId}">
+                        <a th:href="@{/member/myChat(seller=${userId}, pno=${cr.pno})}" th:text="${cr.buyer}+'님과의 채팅방'"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@ package com.shop.service;
 
 import com.shop.domain.ChatMessage;
 import com.shop.domain.ChatRoom;
+import com.shop.domain.ChatRoomVO;
 import com.shop.mapper.ChatMessageMapper;
 import com.shop.mapper.ChatRoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,20 @@ public class ChatServiceImpl implements ChatService {
     ChatMessageMapper chatMapper;
 
     @Override
-    public List<ChatRoom> chatRoomProductList(Long pno) {
+    public List<ChatRoomVO> chatRoomProductList(Long pno) {
         return roomMapper.chatRoomProductList(pno);
     }
     // 해당 상품의 모든 채팅방 가져오기
     // 즉 판매자가 구매 희망자들의 채팅 리스트를 볼 수 있음
 
     @Override
-    public ChatRoom chatRoomGetNo(Long roomNo) {
+    public ChatRoomVO chatRoomGetNo(Long roomNo) {
         return roomMapper.chatRoomGet(roomNo);
     }
     // 해당 채팅방 가져오기
 
     @Override
-    public ChatRoom chatRoomInsert(String buyer, Long pno) {
+    public ChatRoomVO chatRoomInsert(String buyer, Long pno) {
         if(roomMapper.chatRoomGetUnique(buyer, pno)<1){
             roomMapper.chatRoomInsert(buyer, pno);
             // buyer 와 pno 가 같은 데이터가 없다면, 해당 상품과 구매자에 대한 채팅방이 없다는 뜻! 새로 채팅방을 만든다.
@@ -57,7 +58,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public ChatMessage chatMessageInsert(ChatMessage chatMessage) {
         Long roomNo = chatMessage.getRoomNo();
-        ChatRoom room = roomMapper.chatRoomGet(roomNo);
+        ChatRoomVO room = roomMapper.chatRoomGet(roomNo);
         if(room.getStatus().equals("BLOCK")){
             return null; // 차단된 경우에는 메시지 전송하지 않음.
         }
@@ -90,7 +91,7 @@ public class ChatServiceImpl implements ChatService {
     // 나한테 온 모든 읽지 않은 메시지 수
 
     @Override
-    public List<ChatRoom> chatRoomMy(String id) {
+    public List<ChatRoomVO> chatRoomMy(String id) {
         return roomMapper.chatRoomMy(id);
     }
     // 내가 채팅을 했던 모든 채팅방

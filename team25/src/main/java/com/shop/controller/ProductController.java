@@ -38,20 +38,15 @@ public class ProductController {
     }
 
     @GetMapping("/getProduct/{pno}")
-    public String getProduct(@PathVariable("pno") long pno, Model model, Principal principal) {
+    public String getProduct(@PathVariable("pno") long pno, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId  = authentication.getName();
+
+
         Product product = productService.getProduct(pno);
         System.out.println(product);
+        model.addAttribute("userId", userId);
         model.addAttribute("product", product);
-
-
-
-        //채팅방 연결
-        String loginId = principal.getName();
-        if(loginId.equals(product.getSeller())){
-            List<ChatRoom> roomList = chatService.chatRoomProductList(pno);
-            model.addAttribute("roomList", roomList);
-        }
-
         return "product/productDetail";
     }
 

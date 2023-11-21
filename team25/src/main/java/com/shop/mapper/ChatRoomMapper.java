@@ -2,6 +2,7 @@ package com.shop.mapper;
 
 
 import com.shop.domain.ChatRoom;
+import com.shop.domain.ChatRoomVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -9,18 +10,18 @@ import java.util.List;
 @Mapper
 public interface ChatRoomMapper {
     @Select("SELECT * FROM chatRoom")
-    public List<ChatRoom> chatRoomList();
+    public List<ChatRoomVO> chatRoomList();
 
     @Select("SELECT * FROM chatRoom WHERE pno=#{pno} AND status!='BLOCK'")
-    public List<ChatRoom> chatRoomProductList(Long pno);
+    public List<ChatRoomVO> chatRoomProductList(Long pno);
     // 해당 상품의 차단하지 않은 모든 채팅방
 
     @Select("SELECT * FROM chatRoom where roomNo=#{roomNo}")
-    public ChatRoom chatRoomGet(Long roomNo);
+    public ChatRoomVO chatRoomGet(Long roomNo);
     // 채팅 메시지에서 바로 채팅방을 가져오기 위한 매퍼
 
     @Select("SELECT * FROM chatRoom WHERE pno=#{pno} AND buyer=#{buyer}")
-    public ChatRoom chatRoomGetId(Long pno, String buyer);
+    public ChatRoomVO chatRoomGetId(Long pno, String buyer);
     // ChatRoom 가져오기 (Insert에서 가져오기)
 
     @Select("SELECT COUNT(*) FROM chatRoom WHERE buyer=#{buyer} AND pno=#{pno}")
@@ -39,6 +40,6 @@ public interface ChatRoomMapper {
     public int chatRoomDelete(Long roomNo);
 
     @Select("SELECT chatroom.*, product.seller FROM chatRoom JOIN product ON (chatroom.pno = product.pno) WHERE seller = #{id} OR buyer=#{id}")
-    public List<ChatRoom> chatRoomMy(String id);
+    public List<ChatRoomVO> chatRoomMy(String id);
     // 내가 대화를 나눈 적 있는 모든 채팅방 가져오기
 }
