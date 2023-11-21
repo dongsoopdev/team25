@@ -13,10 +13,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +74,10 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String userInsert(User user, Model model){
+    public String userInsert(@Valid User user, BindingResult result, Model model){
+        if(result.hasErrors()){
+            return "member/joinForm";
+        }
         userService.userInsert(user, 5);
         model.addAttribute("user", user);
         return "redirect:/";
@@ -95,6 +100,31 @@ public class UserController {
         userService.edit(user);
         return "redirect:/";
     }
+
+    /*
+    @GetMapping("/editRole")
+    public String updateRoleForm(Model model){
+        Long id = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findById(id);
+        Role role = userService.getRol
+        UserRole userRole = userService.getUserRole(id);
+        model.addAttribute("user", user);
+        model.addAttribute("userRole", userRole);
+        return "member/updateUserForm";
+    }
+
+
+    @PostMapping("/editRole")
+    public String editUserRole(Model model, UserRole userRole){
+        Long id = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Integer roleId = userRole.setId(id);
+        //userRole.setRoleId(roleId);
+        return null;
+    }
+
+     */
+
+
 
     //회원 탈퇴
     @PostMapping("/delete")
