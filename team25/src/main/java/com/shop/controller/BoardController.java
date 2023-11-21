@@ -30,7 +30,6 @@ public class BoardController {
     @GetMapping("/boardList")
     public String boardList(Model model){
         List<Board> boardList = boardService.getBoardList();
-        System.out.println(boardList);
         model.addAttribute("boardList",boardList);
         return "board/boardList";
     }
@@ -68,6 +67,7 @@ public class BoardController {
 
     @PostMapping("/updateBoard")
     public String updateBoardPro(Board board) {
+        System.out.println(board);
         int check = boardService.updateBoard(board);
         if (check == 1) {
             log.info("글 수정 성공");
@@ -80,7 +80,7 @@ public class BoardController {
     }
 
     @GetMapping("/deleteBoard/{bno}")
-    public String deleteBoard(int bno) {
+    public String deleteBoard(@PathVariable("bno") int bno) {
         int check = boardService.deleteBoard(bno);
         if (check == 1) {
             log.info("글 삭제 성공");

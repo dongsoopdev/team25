@@ -54,9 +54,25 @@
             border-radius: 5px;
             -webkit-transition: 0.2s all;
             transition: 0.2s all;
-            width: 300px;
+            width: 250px;
         }
 
+
+        .add-to-up-btn{
+            position: relative;
+            border: 2px solid transparent;
+            height: 40px;
+            background-color: #FFF;
+            color: #ef233c;
+            border-color: #ef233c;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 18px;
+            border-radius: 5px;
+            -webkit-transition: 0.2s all;
+            transition: 0.2s all;
+            width: 70px;
+        }
 
 
         /* 별점 */
@@ -192,6 +208,13 @@
                             <li class="sale" th:text="${product.getQuantity()}">상품 수량</li>
                         </ul>-->
 
+                        <ul class="product-links">
+                            <li><strong> 등록일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong></li>
+                            <li class="sale" th:text="${#temporals.format(product.getResdate(), 'yyyy-MM-dd')}">등록일</li>
+                        </ul>
+
+
+
 
                         <ul class="product-links">
                             <li><strong> 상품 상태&nbsp; </strong></li>
@@ -218,8 +241,8 @@
                              </span>
 
 
-                            <a th:if="${product.seller != userId}" th:href="@{/chat/roomEnter(pno=${product.pno})}"><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 셀파톡 </button></a>
-                            <button class="add-to-cart-btn"th:onclick="|location.href='@{'/pay/payInsert/'+${product.pno}}'| "> 바로 구매</button>
+                            <a th:if="${product.seller != userId}" th:href="@{/chat/roomEnter(pno=${product.pno})}"><button class="add-to-chat-btn">셀파톡 </button></a>
+                            <button class="add-to-cart-btn" th:onclick="|location.href='@{'/pay/payInsert/'+${product.pno}}'| "> 바로 구매</button>
                          </span>
                         </div>
 
@@ -272,13 +295,28 @@
                             <button class="add-to-myshop-btn" onclick="pageMove()">
                                 내 상점 관리
                             </button>
+
+                            <!--<button th:onclick="|location.href='@{'/product/updateResdate/'+${product.getPno()}}'| "class="add-to-up-btn"> UP </button>-->
+                            <button onclick="pageMove2()" class="add-to-up-btn"> UP </button>
+
                         </div>
                         <script th:inline="javascript">
                             function pageMove() {
                                 let seller = document.getElementById("productInfo").value;
                                 location.href = "/member/myProList" ;
                             }
+
+                            function pageMove2() {
+                                let resdate = [[${product.getResdate()}]];
+
+                                let pno = [[${product.getPno()}]];
+                                location.href = "/product/updateResdate/" + pno ;
+                            }
+
                         </script>
+
+
+
 
                         <!-- <ul class="product-btns">
                              <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
@@ -309,7 +347,7 @@
 
 
                     <div id="tab1" class="tab-pane fade in">
-                        <p th:text="${product.getPcomment()}" style="margin: 70px;">상품설명</p>
+                        <p th:text="${product.getPcomment()}" style="margin: 70px; font-size: 20px;">상품설명</p>
                     </div>
 
                 </div>
@@ -322,7 +360,7 @@
                         <ul class="tab-nav">
                             <!--  <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
                               <li><a data-toggle="tab" href="#tab2">Details</a></li>-->
-                            <li><a data-toggle="tab" href="#tab3">후기</a></li>
+                            <li><a data-toggle="tab" href="#tab3" style="font-size: 20px;">후기</a></li>
                         </ul>
                         <!-- /product tab nav -->
 

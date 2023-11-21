@@ -21,6 +21,7 @@ public class Review {
     private String pname;
     private String imgsrc1;
     private String seller;
+    private int check;
 
 
 }

@@ -30,4 +30,6 @@ public class Pay {
     private String pname;
     private String status;    // 판매 중 / 예약 중 / 판매완료
     private String imgsrc1;
+
+    private int check;
 }

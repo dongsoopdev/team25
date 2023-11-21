@@ -31,6 +31,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Board getBoard(int bno) {
+        boardMapper.updateVisited(bno);
         return boardMapper.getBoard(bno);
     }
 
