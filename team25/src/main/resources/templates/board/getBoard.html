@@ -29,18 +29,16 @@
                             <th scope="col">번호</th>
                             <th scope="col">제목</th>
                             <th scope="col">등록일</th>
+                            <th scope="col">등록일</th>
                             <th scope="col">조회수</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="board: ${boardList}">
+                        <tr>
                             <th scope="row" th:text="${board.bno}"></th>
-                                <td>
-                                    <a th:href="@{'/board/getBoard/' + ${board.bno}}" >
-                                    <p th:text="${board.title}"></p>
-                                    </a>
-                                </td>
+                            <td th:text="${board.title}"></td>
                             <td th:text="${board.resdate}"></td>
+                            <td th:text="${board.content}"></td>
                             <td th:text="${board.visited}"></td>
                         </tr>
                         </tbody>

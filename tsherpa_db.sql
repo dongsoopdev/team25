@@ -84,6 +84,8 @@ CREATE TABLE product(
 
 INSERT INTO product VALUES(DEFAULT, 1, '도유니 서적','도유니 서적에 대한 설명이오~!', 12000, 'lee',DEFAULT, '최상', 'img1.jpg' ,'img2.jpg','img3.jpg','img4.jpg','dddd', DEFAULT);
 
+-- 리뷰
+-- DROP TABLE review;
 CREATE TABLE review(
     no BIGINT AUTO_INCREMENT PRIMARY KEY, -- 번호
     id VARCHAR(20) NOT NULL,              -- 작성자  아이디
@@ -95,25 +97,36 @@ CREATE TABLE review(
 );
 SELECT * FROM review;
 
+
+-- 좋아요
+create table likes (
+    userId VARCHAR(20) NOT NULL,      -- 사용자 ID
+    pno INT NOT NULL,           -- 강의 no 
+    liketime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 좋아요를 누른 시간
+    PRIMARY KEY (userId, pno)   -- 사용자 ID와 게시글 no 조합으로 각 레코드를 유일하게 식별
+); 
+
 -- 슬비
 SELECT * FROM product;
+-- 채팅방
 CREATE TABLE chatRoom (
-	roomId BIGINT PRIMARY KEY AUTO_INCREMENT,
-	userId VARCHAR(20) NOT NULL,		-- 구매자
-	pno INT NOT NULL,						-- 상품번호
-	status VARCHAR(50) DEFAULT 'ON', -- ON(진행), OFF(차단)
-	UNIQUE (userId, pno)					-- userId와 pno 묶기
+                          roomNo BIGINT PRIMARY KEY AUTO_INCREMENT,  -- 고유 번호
+                          buyer VARCHAR(20) NOT NULL,            -- member.id
+                          pno INT NOT NULL,                       -- product.pno
+                          status VARCHAR(50) DEFAULT 'ON',        -- ON(진행), OFF(차단)
+                          UNIQUE (buyer, pno)                    -- memId와 pno를 묶어서 UNIQUE 제약 설정
 );
-CREATE TABLE chatMsg (
-	chatId BIGINT PRIMARY KEY AUTO_INCREMENT,
-	type VARCHAR(20) NOT NULL, 							-- 채팅 타입: ENTER, TALK, LEAVE, NOTICE
-	roomId BIGINT NOT NULL, 									-- 채팅방 번호
-	sender VARCHAR(20) NOT NULL,							-- 송신자
-	msg VARCHAR(2000) NOT NULL,						-- 채팅메세지
-	status VARCHAR(50) DEFAULT 'UNREAD', 				-- 읽음 여부
-	chatDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP		-- 발송시간
+-- 채팅 메시지 ( receiver 추가됨)
+CREATE TABLE chatMessage(
+                            chatNo BIGINT PRIMARY KEY AUTO_INCREMENT,   -- 채팅 번호
+                            type VARCHAR(20) NOT NULL,                  -- 채팅 타입: ENTER, TALK, LEAVE, NOTICE
+                            roomNo INT NOT NULL,                        -- 채팅방 번호
+                            sender VARCHAR(20) NOT NULL,                -- 송신자
+                            receiver VARCHAR(20) NOT NULL,              -- 수신자
+                            message VARCHAR(2000) NOT NULL,             -- 채팅 메시지
+                            status VARCHAR(50) DEFAULT 'UNREAD',        -- 읽음 여부
+                            time TIMESTAMP DEFAULT CURRENT_TIMESTAMP    -- 채팅 발송 시간
 );
-
 
 -- 소윤 시작
 -- 결제 테이블 생성 pay
@@ -134,6 +147,7 @@ CREATE TABLE pay (
 
 SELECT * FROM pay; 
 
+-- 공지사항 
 CREATE TABLE board (
 	bno INT PRIMARY KEY AUTO_INCREMENT,
 	title varchar(200) not null,
@@ -144,3 +158,4 @@ CREATE TABLE board (
 );
 
 SELECT * FROM board;
+

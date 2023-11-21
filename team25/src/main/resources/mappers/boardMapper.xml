@@ -24,5 +24,9 @@
         delete from board where bno=#{bno}
     </delete>
 
+    <!-- 조회수 카운트 -->
+    <update id="updateVisited">
+        update board set visited = visited +1 where bno = #{bno}
+    </update>
 </mapper>
 
