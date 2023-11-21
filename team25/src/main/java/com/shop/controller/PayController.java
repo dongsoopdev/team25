@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -51,7 +52,6 @@ public class PayController {
 
     //결제하기~~
     @PostMapping("/payInsert")
-    @Transactional
     public String payInsertPro(Pay pay) throws Exception {
         int check = payService.payInsert(pay);
         if (check == 1) {
@@ -63,7 +63,7 @@ public class PayController {
             return "redirect:/";
         }
     }
-    
+
     //나의 구매 내역
     @GetMapping("/myPayList")
     public String myPayList(Model model) {
@@ -101,7 +101,32 @@ public class PayController {
         return "pay/mySaleList";
     }
 
-    //나의 판매 내역
+    //판매자의 송장 등록
+    @GetMapping("/shipInsert/{pno}")
+    public String shipInsert(@PathVariable("pno") Long pno, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId  = authentication.getName();
+        User user = userService.findByUserId(userId);
 
+        Pay pay = payService.getPay(pno);
+        pay.setAddress(pay.getAddr1()+" "+pay.getAddr2());
+        model.addAttribute("pay", pay);
+        model.addAttribute("user", user);
+        return "pay/shipInsert";
+    }
+
+    //판매자의 송장 등록~~~~
+    @PostMapping("/shipInsert")
+    public String shipInsertPro(Pay pay) throws Exception {
+        int check = payService.updatePayByPno(pay);
+        if (check == 1) {
+            log.info("송장 등록 성공");
+            return "redirect:/member/myProList";
+        }
+        else {
+            log.info("송장 등록 실패");
+            return "redirect:/member/myProList";
+        }
+    }
 }
 

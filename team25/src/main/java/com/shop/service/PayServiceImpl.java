@@ -5,6 +5,7 @@ import com.shop.mapper.PayMapper;
 import com.shop.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ public class PayServiceImpl implements PayService{
     private ProductService productService;
 
     @Override
+    @Transactional
     public int payInsert(Pay pay) {
         int check = payMapper.payInsert(pay);
         if (check >=1) {
@@ -45,5 +47,16 @@ public class PayServiceImpl implements PayService{
     @Override
     public void updateShip(int ship,Long payNo) {
         payMapper.updateShip(ship, payNo);
+    }
+
+    @Override
+    public int updatePayByPno(Pay pay) {
+        int check = payMapper.updatePayByPno(pay);
+        if (check >=1) {
+            return 1;
+
+        } else {
+            return 0;
+        }
     }
 }
