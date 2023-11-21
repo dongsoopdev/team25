@@ -131,12 +131,7 @@
 
                             <td>
                                 <!-- <p th:text="${pro.getStatus()}"></p>-->
-<<<<<<< HEAD
                                 <<select name="status" id="status" class="select is-fullwidth" autofocus required th:field="${pro.getStatus()}">
-=======
-                                <<select name="status" id="status" class="select is-fullwidth" autofocus required
-                                         th:field="${pro.getStatus()}">
->>>>>>> 603ae0f37e7c400c1e35190c246b26dbb3253f20
                                 <option value="판매중" th:selected="${pro.getStatus() eq '판매중'}">판매중</option>
                                 <option value="예약중" th:selected="${pro.getStatus() eq '예약중'}">예약중</option>
                                 <option value="판매완료" th:selected="${pro.getStatus() eq '판매완료'}">판매완료</option>

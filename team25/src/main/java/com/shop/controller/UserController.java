@@ -202,20 +202,6 @@ public class UserController {
     }
 
 
-
-<<<<<<< HEAD
-    //내가 등록한 상품
-    //@GetMapping("/myProductList")
-    //public String myProductList(@RequestParam("seller") String seller, Model model) {
-    //    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    //    String userId  = authentication.getName();
-
-    //    List<Product> myproList = productService.findByUserId(seller);
-    //     System.out.println(myproList);
-    //    model.addAttribute("myproList", myproList);
-    //    return "member/myProductList";
-    //}
-=======
     //나의 채팅방 목록
     @GetMapping("myChatList")
     public String myChat(HttpServletRequest request, Model model, Principal principal){
@@ -232,7 +218,6 @@ public class UserController {
         }
         return "member/myChatList";
     }
->>>>>>> 603ae0f37e7c400c1e35190c246b26dbb3253f20
 
     // 채팅하기
     @GetMapping("myChat")
