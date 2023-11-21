@@ -95,6 +95,7 @@
             border-radius: 5px;
             font-size: 16px;
             resize: none;
+        }
     </style>
 
 </head>
@@ -205,14 +206,14 @@
 
                             <span th:if="${isLiked}">
                                 <button href="javascript:void(0);" onclick="toggleLike()"
-                                   th:data-product-id="${product.pno}" class="add-to-like-btn"
+                                        th:data-product-id="${product.pno}" class="add-to-like-btn"
                                         style="color: #ff5050; background-color:#15161D">♥ 찜</button>
                             </span>
 
 
                             <span th:unless="${isLiked}">
                                 <button href="javascript:void(0);" onclick="toggleLike()"
-                                    th:data-product-id="${product.pno}" class="add-to-like-btn"
+                                        th:data-product-id="${product.pno}" class="add-to-like-btn"
                                         style="color: #b4b4b4; background-color:#CCCCCC">♥ 찜</button>
                              </span>
 
@@ -225,8 +226,11 @@
 
                         <script th:inline="javascript">
                             function toggleLike() {
+
                                 let productNo = [[${product.getPno()}]];
                                 let id = [[${userId}]];
+
+                                //alert(productNo  + id);
                                 $.ajax({
                                     url: "/product/productLike",
                                     method: "POST",

@@ -192,4 +192,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Likes> getByIdLikeList(String userId) {return productMapper.getByIdLikeList(userId);}
 
+    @Override
+    public List<Product> orderbyPnoCount() {
+        return productMapper.orderbyPnoCount();
+    }
+
 }

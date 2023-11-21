@@ -266,12 +266,13 @@ public class ProductController {
     }
 
     // 강의 좋아요
-    @PostMapping("/productLike/{pno}")
-    public void productLike(@PathVariable("pno") Long pno, HttpServletResponse res, HttpServletRequest req, Model model) throws Exception {
+
+    @PostMapping("/productLike")
+    public void productLike(@RequestParam("pno") Long pno, @RequestParam("userId") String userId ,HttpServletResponse res, HttpServletRequest req, Model model) throws Exception {
 
         //String userId = req.getParameter("userId");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId = authentication.getName();
+        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //String userId = authentication.getName();
 
         Likes proLikes = new Likes();
         proLikes.setUserId(userId);

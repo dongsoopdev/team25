@@ -89,6 +89,14 @@
     </select>
 
 
+    <!-- 상품별 좋아요 카운트 수 졍렬-->
+    <select id="orderbyPnoCount" resultType="com.shop.domain.Product">
+        SELECT l.pno, COUNT(l.pno) AS cnt, l.userId, l.liketime,  p.cateno, p.pname, p.pcomment, p.price, p.imgsrc1, p.imgsrc2, p.imgsrc3, p.imgsrc4, p.quality, p.status
+        FROM likes l, product p WHERE l.pno = p.pno
+        GROUP BY l.pno order by cnt desc;
+    </select>
+
+
 
 </mapper>
 

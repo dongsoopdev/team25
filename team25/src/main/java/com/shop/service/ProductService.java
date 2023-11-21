@@ -41,4 +41,7 @@ public interface ProductService {
 
     // 유저의 좋아요 목록 출력
     public List<Likes> getByIdLikeList(String userId);
+
+    //상품별 좋아요 카운트 수 졍렬
+    public List<Product> orderbyPnoCount();
 }

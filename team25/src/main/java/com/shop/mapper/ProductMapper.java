@@ -33,4 +33,7 @@ public interface ProductMapper {
     List<Long> getLikedProductsByUser(String userId);
 
     List<Likes> getByIdLikeList(String userId);
+
+    //상품별 좋아요 카운트 수 졍렬
+    List<Product> orderbyPnoCount();
 }
