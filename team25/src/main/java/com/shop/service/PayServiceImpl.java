@@ -53,6 +53,7 @@ public class PayServiceImpl implements PayService{
     public int updatePayByPno(Pay pay) {
         int check = payMapper.updatePayByPno(pay);
         if (check >=1) {
+            productService.updateProductStatus("거래중",pay.getPno());
             return 1;
 
         } else {
