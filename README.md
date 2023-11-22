@@ -64,14 +64,26 @@ T셀파몰 사이트에서 판매하거나 구매할 수 있습니다.  <br/>
 
 
 ## 1️⃣ 요구사항 분석
-
-
+![image](https://github.com/kuyejin/project5/assets/65212187/665f5100-4111-4702-bc66-bf21463c5ebc)
+![image](https://github.com/kuyejin/project5/assets/65212187/721900d8-9c95-405d-b78e-505ccd76581d)
+![image](https://github.com/kuyejin/project5/assets/65212187/0aa96e3e-651e-4878-b037-11bcc1b271de)
+<br/>
 
 ## 2️⃣ 유즈케이스
-
-
+![pro05UCD drawio](https://github.com/kuyejin/project5/assets/65212187/d489bc83-8ab8-433d-9eb8-002e5659582f)
+<br/>
 
 ## 3️⃣ ERD
+![슬라이드1](https://github.com/kuyejin/project5/assets/65212187/19356d92-583f-4600-84bc-d929122cd441)
+![슬라이드2](https://github.com/kuyejin/project5/assets/65212187/66eff9f8-e58d-4855-84fe-439dcc06ce10)
+![슬라이드3](https://github.com/kuyejin/project5/assets/65212187/0fd7036f-caf9-483f-854a-fc8c120df05d)
+![슬라이드4](https://github.com/kuyejin/project5/assets/65212187/8db2cd98-ef78-400d-8f67-768f3148dd17)
+![슬라이드5](https://github.com/kuyejin/project5/assets/65212187/691e4526-5624-4eb3-9386-5f8cbf594bef)
+![슬라이드6](https://github.com/kuyejin/project5/assets/65212187/d6692221-8ac8-487b-9236-a3fe89711fde)
+![슬라이드7](https://github.com/kuyejin/project5/assets/65212187/f8fbbbcc-caba-4b9a-a261-56e9c27290eb)
+![슬라이드8](https://github.com/kuyejin/project5/assets/65212187/d080800e-a531-493a-9e49-76e8465de3e1)
+![슬라이드9](https://github.com/kuyejin/project5/assets/65212187/9757fee0-da47-486b-8358-8a00a1d6eb23)
+<br/>
 
 ## 📐  클래스 다이어그램
 
