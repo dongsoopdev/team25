@@ -43,7 +43,7 @@ public class SecurityConfig{
         // 자원의 경로는 mvcMatchers 로
         http
                 .authorizeRequests()
-                .antMatchers("/", "/**", "/ex").permitAll()
+                .antMatchers("/", "/**", "/ex", "/upload/**").permitAll()
                 .antMatchers("/member/login", "/member/join", "/member/joinPro", "/member/idCheck", "/member/emailCheck", "/chat/**", "/socket/**", "/news/news").permitAll()
                 //.mvcMatchers("/","/templates/**","/ex/**","/resource/**","/css/**", "/js/**", "/images/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
