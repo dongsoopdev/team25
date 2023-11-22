@@ -130,7 +130,7 @@ public class ProductServiceImpl implements ProductService {
 //        String projectPath = "C:/team25_upload/";    //예진집
 
        //운영
-        /String uploadSev = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\team25\\upload";
+        String uploadSev = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\team25\\upload";
 
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];
