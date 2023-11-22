@@ -4,6 +4,8 @@ import com.shop.domain.Likes;
 import com.shop.domain.Product;
 import com.shop.domain.ProductFile;
 import com.shop.mapper.ProductMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +18,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -54,6 +55,10 @@ public class ProductServiceImpl implements ProductService {
         //String projectPath = "D:/team25_upload/";  //학원
         // String projectPath = "C:/team25_upload/";    //예진집
         //String uploadSev = System.getProperty("user.dir") + "/src/main/webapp/upload/";
+
+        // 실제 서버 파일 저장 경로
+        //String uploadSev = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
+        //System.out.println("ㅡㅡㅡㅡㅡ" + uploadSev);
 
         //운영
         String uploadSev = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\team25\\upload";
