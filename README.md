@@ -73,7 +73,7 @@ T셀파몰 사이트에서 판매하거나 구매할 수 있습니다.  <br/>
 ![pro05UCD drawio](https://github.com/kuyejin/project5/assets/65212187/d489bc83-8ab8-433d-9eb8-002e5659582f)
 <br/>
 
-## 3️⃣ ERD
+## 3️⃣ DB테이블
 ![슬라이드1](https://github.com/kuyejin/project5/assets/65212187/19356d92-583f-4600-84bc-d929122cd441)
 ![슬라이드2](https://github.com/kuyejin/project5/assets/65212187/66eff9f8-e58d-4855-84fe-439dcc06ce10)
 ![슬라이드3](https://github.com/kuyejin/project5/assets/65212187/0fd7036f-caf9-483f-854a-fc8c120df05d)
