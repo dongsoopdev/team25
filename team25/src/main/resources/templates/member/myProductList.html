@@ -258,6 +258,7 @@
                                 <select name="status" th:id="'product-row-' + ${pro.pno}" class="select is-fullwidth product-status" autofocus required th:attr="onchange=|updateStatus(${pro.pno})|">
                                 <option th:value="판매중" th:selected="${pro.status eq '판매중'}">판매중</option>
                                 <option th:value="예약중" th:selected="${pro.status eq '예약중'}">예약중</option>
+                                <option th:value="거래중" th:selected="${pro.status eq '거래중'}">거래중</option>
                                 <option th:value="판매완료" th:selected="${pro.status eq '판매완료'}">판매완료</option>
                                 </select>
                             </td>
@@ -279,6 +280,7 @@
                                     <a th:href="@{'/product/updateProduct/' + ${pro.pno}}" class="btn btn-primary">수정</a>
                                     <a th:href="@{'/product/deleteProduct/' + ${pro.pno}}" class="btn btn-danger">삭제</a>
                                     <a th:href="@{'/pay/shipInsert/' + ${pro.pno}}" th:if="${pro.status == '예약중'}" class="btn btn-warning">배송관리</a>
+                                    <a th:href="@{'/pay/completeShip/' + ${pro.pno}}" th:if="${pro.status == '거래중'}" class="btn btn-success">배송완료</a>
                                 </div>
                             </td>
                         </tr>
