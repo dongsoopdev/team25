@@ -40,6 +40,21 @@
                         <td><input class="form-control" type="text" id="email" name="email" th:value="${user.email}">
 
                     </tr>
+                        <tr>
+                            <th>회원권한</th>
+                            <td>
+                                <select name="roleId" id="roleId">
+                                    <option value="${userRole.roleId}">
+                                        <th:block th:switch="${userRole.roleId}">
+                                            <em th:case="2">TEACHER</em>
+                                            <em th:case="5">USER</em>
+                                        </th:block>
+                                    </option>
+                                    <option value="2">TEACHER</option>
+                                    <option value="5">USER</option>
+                                </select>
+                            </td>
+                        </tr>
                     <tr>
                         <th><label for="postcode">우편번호</label></th>
                         <button type="button" id="post_btn" onclick="findAddr()" class="button is-link is-size-6">우편번호 검색</button>
@@ -61,5 +76,25 @@
         </form>
     </div>
 </div>
+<th:block th:fragment="script">
+    <script type="text/javascript">
+        function findAddr(){
+            new daum.Postcode({
+                oncomplete:function(data){
+                    var roadAddr = data.roadAddress;
+                    var jibunAddr = data.jibunAddress;
+                    document.getElementById("postcode").value = data.zonecode;
+                    if(roadAddr !== ''){
+                        document.getElementById("addr1").value = roadAddr;
+                    } else if(jibunAddr !== ''){
+                        document.getElementById("addr1").value = jibunAddr;
+                    }
+                    document.getElementById("addr2").focus();
+                }
+            }).open();
+        }
+    </script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</th:block>
 </body>
 </html>

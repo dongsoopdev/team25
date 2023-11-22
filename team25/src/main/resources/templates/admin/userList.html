@@ -30,7 +30,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             <td>
                 <a th:href="@{'/admin/userDetail/' + ${userList.id}}" class="btn">상세보기</a>
                 <a th:href="@{'/admin/editActive/' + ${userList.id}}" class="btn">회원 강퇴</a>
-                <button type="button" class="btn" data-bs-toggle="modal" th:attr="data-target=${'#roleEditModal'}">권한 변경</button>
+                <a th:href="@{'/admin/editRole/' + ${userList.id}}" class="btn">권한 변경</a>
             </td>
         </tr>
         </tbody>
