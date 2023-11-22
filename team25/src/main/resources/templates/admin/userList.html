@@ -2,11 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:replace="~{layout/head.html :: head}">
-    <title> 회원 상세보기 </title>
+<head th:replace="~{layout/admin/head.html :: head}">
+    <title>관리자페이지</title>
 </head>
-<body>
-<div class="container">
+<body class="sb-nav-fixed">
+<header class="header" id="hd">
+    <div th:insert="~{layout/admin/header :: header}"></div>
+</header>
+<div class="side" id="side">
+    <div th:insert="~{layout/admin/sidebar :: #layoutSidenav}"></div>
+</div>
+<div id="layoutSidenav_content">
+    <main>
+<div class="container-fluid px-4" style="margin-left: 226px; margin-top: 59px; width: 1668px;">
     <table class="table">
         <thead>
         <tr>
@@ -36,6 +44,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         </tbody>
     </table>
 </div>
-
+    </main>
+</div>
 </body>
 </html>
