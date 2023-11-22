@@ -59,4 +59,7 @@ public interface UserMapper {
     int getRoleIdById(Long id);
 
     User getActive(Long id);
+
+
+   User userDetailById(Long id);
 }

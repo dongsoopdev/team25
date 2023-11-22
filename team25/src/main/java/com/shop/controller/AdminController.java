@@ -1,5 +1,6 @@
 package com.shop.controller;
 
+import com.shop.domain.Role;
 import com.shop.domain.User;
 import com.shop.domain.UserRole;
 import com.shop.service.UserService;
@@ -70,17 +71,21 @@ public class AdminController {
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable("id") Long id,Model model){
         User user = userService.findById(id);
+        UserRole userrole = userService.getUserRole(id);
         model.addAttribute("user", user);
+        model.addAttribute("userRole", userrole);
         return "admin/updateForm";
     }
 
     //회원 정보 수정
     @PostMapping("/update/{id}")
-    public String edit(@PathVariable("id") Long id,User user, Model model){
+    public String edit(@PathVariable("id") Long id,User user,UserRole userRole, Model model){
         user.setId(id);
+        userRole.setId(id);
         userService.edit(user);
+        userService.editUserRole(userRole);
         model.addAttribute("user",user);
-        System.out.println(user);
+        model.addAttribute("userRole", userRole);
         return "redirect:/admin/userList";
     }
 

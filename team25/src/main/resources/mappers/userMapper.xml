@@ -33,6 +33,9 @@
     <select id="userDetail" resultType="com.shop.domain.User" >
         select user.id, userId, userName,password, active, email, postcode, addr1, addr2, tel, point, regdate, role.roleName  from user inner join userrole on user.id = userrole.id inner join role on userrole.roleId = role.roleId where user.id = #{id};
     </select>
+    <select id="userDetailById" resultType="com.shop.domain.User" >
+        select role.id, userId, userName,password, active, email, postcode, addr1, addr2, tel, point, regdate, role.roleName, role.roleId  from user inner join userrole on user.id = userrole.id inner join role on userrole.roleId = role.roleId where user.id = #{id};
+    </select>
     <select id="getRoleIdById" resultType="int">
         select roleId from userRole where id =#{id}
     </select>
