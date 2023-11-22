@@ -175,7 +175,7 @@ public class ProductController {
 
     // 상품 등록 처리
     @PostMapping("/addProduct")
-    public String addproduct(Product product, MultipartFile[] imgFile) throws Exception {
+    public String addproduct(Product product, MultipartFile[] imgFile, HttpServletRequest req) throws Exception {
         //로그인 후 사용자 정보 가져와서 모델에 추가
         //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //String loginId  = authentication.getName();
@@ -185,7 +185,7 @@ public class ProductController {
         String userId = authentication.getName();
         product.setSeller(userId);
 
-        productService.saveProduct(product, imgFile);
+        productService.saveProduct(product, imgFile,req);
 
   /*      if(principalDetails.getRole().getRoleName().equals("TEACHER")) {
             // 판매자

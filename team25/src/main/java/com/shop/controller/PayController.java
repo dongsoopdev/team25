@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SimpleTimeZone;
 
 @Slf4j
 @Controller
@@ -127,6 +128,13 @@ public class PayController {
             log.info("송장 등록 실패");
             return "redirect:/member/myProList";
         }
+    }
+
+    @GetMapping("/completeShip/{pno}")
+    public String completeShip(@PathVariable("pno") Long pno){
+        Pay pay = payService.getPay(pno);
+        payService.updateShip(3,pay.getPayNo());
+        return "redirect:/member/myProList";
     }
 }
 
