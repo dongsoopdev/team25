@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -48,15 +49,17 @@ public class ProductServiceImpl implements ProductService {
     public void saveProduct(Product product, MultipartFile[] imgFiles, HttpServletRequest req) throws IOException {
         // static은 정적폴더라서 늦게 업로드됨
         //String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
+
         //개발
         //String projectPath = "D:/team25_upload/";  //학원
-//       String projectPath = "C:/team25_upload/";    //예진집
+        // String projectPath = "C:/team25_upload/";    //예진집
+        //String uploadSev = System.getProperty("user.dir") + "/src/main/webapp/upload/";
 
-        // 실제 서버 파일 저장 경로
-        String uploadSev = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
-
-        System.out.println(uploadSev);
         //운영
+        String uploadSev = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\team25\\upload";
+
+
+                                        //application.yml location 적용시 폴더
 
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];
@@ -117,8 +120,13 @@ public class ProductServiceImpl implements ProductService {
         update.setQuality(product.getQuality());
 
         //파일 처리
-        String projectPath = "D:/team25_upload/";  //학원
+        //개발
+       // String projectPath = "D:/team25_upload/";  //학원
 //        String projectPath = "C:/team25_upload/";    //예진집
+
+       //운영
+        /String uploadSev = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\team25\\upload";
+
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];
             String oriImgName = imgFile.getOriginalFilename();
@@ -129,7 +137,7 @@ public class ProductServiceImpl implements ProductService {
             String savedFileName = uuid + "_" + oriImgName;
             imgName = savedFileName;
 
-            File saveFile = new File(projectPath, imgName);
+            File saveFile = new File(uploadSev, imgName);
             imgFile.transferTo(saveFile);
 
             // 각 이미지에 대한 처리 (imgsrc1, imgsrc2, imgsrc3, imgsrc4)
