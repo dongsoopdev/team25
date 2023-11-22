@@ -106,5 +106,7 @@ public class UserService {
         return userMapper.getActive(id);
     }
 
-
+    public User userDetailById(Long id){
+        return userMapper.userDetailById(id);
+    }
 }
