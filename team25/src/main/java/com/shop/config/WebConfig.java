@@ -31,16 +31,16 @@ public class WebConfig implements WebMvcConfigurer {
 
 
     //개발  &  운영
-//    @Value("${resource.path}")
-//    private String resourcePath;
-//
-//    @Value("${upload.path}")
-//    private String uploadPath;
-//
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler(uploadPath).addResourceLocations(resourcePath);
-//    }
+    @Value("${resource.path}")
+    private String resourcePath;
+
+    @Value("${upload.path}")
+    private String uploadPath;
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(uploadPath).addResourceLocations(resourcePath);
+    }
 
     /*@Bean
     CorsConfigurationSource corsConfigurationSource() {
