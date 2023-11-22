@@ -5,6 +5,7 @@ import com.shop.domain.Product;
 import com.shop.domain.ProductFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ public interface ProductService {
     public void setproductFile(ProductFile productFile);
 
 
-    public void saveProduct(Product product, MultipartFile[] imgFiles) throws IOException;
+    public void saveProduct(Product product, MultipartFile[] imgFiles, HttpServletRequest req) throws IOException;
     public void updateStatus(Map<String, Object> paramMap);
 
 
