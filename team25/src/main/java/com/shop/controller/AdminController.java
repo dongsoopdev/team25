@@ -26,7 +26,9 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping("/home")
-    public String home(){
+    public String home(Model model){
+        List<User> userList = userService.getUserList();
+        model.addAttribute("userList", userList);
         return "admin/index";
     }
 
@@ -59,12 +61,14 @@ public class AdminController {
     }
 
     //User 테이블의 전체 정보 보여줌
-    @GetMapping("/userList")
+    /*@GetMapping("/userList")
     public String getUserList(Model model){
         List<User> userList = userService.getUserList();
         model.addAttribute("userList", userList);
         return "admin/userList";
     }
+
+     */
 
 
     //회원 정보 수정폼

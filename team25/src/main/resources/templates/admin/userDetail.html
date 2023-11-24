@@ -2,16 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head th:replace="~{layout/head.html :: head}">
+<head th:replace="~{layout/admin/head.html :: head}">
     <title> 회원 상세보기 </title>
+    <style>
+     tbody .bd{
+            border: #1e2125 solid 2px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
-<body>
+<body class="sb-nav-fixed">
 <header class="header" id="hd">
-    <div th:insert="~{layout/header :: header}"></div>
+    <div th:insert="~{layout/admin/header :: header}"></div>
 </header>
-<div class="content">
-    <div class="container">
-        <table class="table-borderless" style="margin-top: 430px;">
+<div class="side" id="side">
+    <div th:insert="~{layout/admin/sidebar :: #layoutSidenav}"></div>
+</div>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="width: 700px; height: 700px; margin-top: 80px;">
+            <h2 class="title">회원 상세보기</h2>
+        <table class="table table-borderless form-control">
             <tbody>
             <tr>
                 <th>이름</th>
@@ -59,16 +70,14 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <a th:href="@{'/admin/update/'+${user.id}}" class="btn"></a>
-                    <input type="reset" class="button btn-primary" value="취소">
+                    <a th:href="@{'/admin/update/'+${user.id}}" class="btn btn-outline-dark">수정하기</a>
+                    <a th:href="@{'/admin/home/'}" class="btn btn-outline-secondary">메인으로</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+</main>
 </div>
-<footer class="footer" id="ft">
-    <div th:insert="~{layout/footer :: footer}"></div>
-</footer>
 </body>
 </html>
