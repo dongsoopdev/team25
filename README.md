@@ -27,12 +27,12 @@ T셀파몰 사이트에서 판매하거나 구매할 수 있습니다.  <br/>
 
 
   # 👤 팀원 소개
-![image](https://github.com/kuyejin/project5/assets/65212187/e36fb3bc-0669-43e9-ada6-df982d4fbe20)
+![image](https://github.com/kuyejin/project5/assets/65212187/f975c7d2-d75a-46b0-bd52-81e7846b6f63)
 ​
 <br/>
 ​
 # 🗓 개발일정
-![image](https://github.com/kuyejin/project5/assets/65212187/82364842-c872-40bc-899b-020029938691)
+![image](https://github.com/kuyejin/project5/assets/65212187/77b42c9f-506c-4ecc-8049-1d44a1079854)
 <br/>
 ​
 # 🗓 WBS
