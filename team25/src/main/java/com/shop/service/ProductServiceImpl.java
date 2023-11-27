@@ -54,14 +54,12 @@ public class ProductServiceImpl implements ProductService {
         //개발
         //String projectPath = "D:/team25_upload/";  //학원
         // String projectPath = "C:/team25_upload/";    //예진집
-        //String uploadSev = System.getProperty("user.dir") + "/src/main/webapp/upload/";
+        String uploadSev = System.getProperty("user.dir") + "/src/main/webapp/upload/";
 
-        // 실제 서버 파일 저장 경로
-        //String uploadSev = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
-        //System.out.println("ㅡㅡㅡㅡㅡ" + uploadSev);
+
 
         //운영
-        String uploadSev = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\team25\\upload";
+        //String uploadSev = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\team25\\upload";
 
 
                                         //application.yml location 적용시 폴더
@@ -128,9 +126,10 @@ public class ProductServiceImpl implements ProductService {
         //개발
        // String projectPath = "D:/team25_upload/";  //학원
 //        String projectPath = "C:/team25_upload/";    //예진집
+        String uploadSev = System.getProperty("user.dir") + "/src/main/webapp/upload/";
 
        //운영
-        String uploadSev = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\team25\\upload";
+        //String uploadSev = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\team25\\upload";
 
         for (int i = 0; i < imgFiles.length; i++) {
             MultipartFile imgFile = imgFiles[i];

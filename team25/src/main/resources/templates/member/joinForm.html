@@ -317,7 +317,8 @@
             $.ajax({
                 type: "get",
                 async: false,
-                url: "/team25/member/idDupCheck",
+                url: "/member/idDupCheck", //개발
+                //url: "/team25/member/idDupCheck", 운영
                 data : {userId : userId},
                 success: function (data){
                     if(data == 1){

@@ -88,7 +88,8 @@
             function inputData() {
                 var book = $("#form").serialize();
                 $.ajax({
-                    url: "/team25/ex/test5",
+                    url: "/ex/test5", //개발
+                    //url: "/team25/ex/test5", //운영
                     data: book,
                     type: "POST",
                     cache: false

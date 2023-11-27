@@ -171,6 +171,7 @@ public class UserController {
         List<Product> myproList = productService.findByUserId(userId);
         System.out.println(myproList);
         model.addAttribute("myproList", myproList);
+
         //소윤의 구매내역
         List<Pay> myPayList = payService.myPayListByUserId(userId);
 

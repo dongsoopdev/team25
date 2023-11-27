@@ -530,7 +530,7 @@
                         </thead>
                         <tbody>
 
-                        <tr th:each="proList: ${proList}">
+                        <tr th:each="proList: ${myproList}">
                             <td>
                                 <div class="img_tit">
                                     <a th:href="@{'/product/getProduct/' + ${proList.pno}}">
@@ -590,7 +590,8 @@
         console.log( pno);
         $.ajax({
             type: 'get',
-            url: '/team25/product/updateStatus',
+            url: '/product/updateStatus', //개발
+            //url: '/team25/product/updateStatus', //운영
             data: { pno: pno, status: selectedValue },
             success: function(response) {
                 console.log("Status updated successfully");
